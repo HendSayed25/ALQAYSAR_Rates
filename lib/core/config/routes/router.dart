@@ -1,7 +1,12 @@
-import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../features/domain/usecases/login_usecase.dart';
+import '../../../features/presentation/cubit/login_cubit.dart';
+import '../../../features/presentation/pages/login_screen/login_screen.dart';
 import '../../../features/presentation/pages/splash_screen/splash_screen.dart';
+import '../../../service_locator.dart';
+import 'route_constants.dart';
 
 class RouteGenerator {
   RouteGenerator._();
@@ -11,6 +16,14 @@ class RouteGenerator {
       case Routes.splashScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const SplashScreen(),
+        );
+
+      case Routes.loginScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (_) => LoginCubit(sl<LoginUseCase>()),
+            child: const LoginScreen(),
+          ),
         );
 
       default:

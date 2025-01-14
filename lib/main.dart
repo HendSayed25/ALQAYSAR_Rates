@@ -1,12 +1,12 @@
-import 'package:alqaysar_rates/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/config/routes/route_constants.dart';
 import 'core/config/routes/router.dart' as router;
+import 'service_locator.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
@@ -14,7 +14,10 @@ void main() {
           systemNavigationBarColor: Colors.black
       )
   );
-  setupServiceLocator();
+
+
+  await setupServiceLocator();
+
   runApp(const MyApp());
 }
 
