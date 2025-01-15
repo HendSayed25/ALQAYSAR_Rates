@@ -4,10 +4,10 @@ import '../../domain/entities/user.dart';
 import '../models/user_model.dart';
 import '../../../core/config/supabase/supabase_client.dart';
 
-class RemoteDataSource {
 abstract class AuthRemoteDataSource {
   Future<Either<String, UserEntity>> login(String email, String password);
   Future<Either<String, Unit>> logout();
+  // Future<Either<String, String>> fetchUserRole(String userId);
 }
 
 class RemoteDataSource implements AuthRemoteDataSource {
@@ -52,4 +52,13 @@ class RemoteDataSource implements AuthRemoteDataSource {
     }
   }
 
+  // @override
+  // Future<Either<String, String>> fetchUserRole(String userId) async {
+  //   final response = await SupabaseClientProvider
+  //       .client
+  //       .from('users')
+  //       .select('role')
+  //       .eq('uid', userId);
+  //   return response.data['role'];
+  // }
 }

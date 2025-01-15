@@ -19,4 +19,8 @@ class UserRepositoryImpl implements UserRepositoryInterface {
     return remoteDataSource.logout();
   }
 
+  // @override
+  // Future<Either<String, String>> fetchUserRole(String userId) {
+  //   throw UnimplementedError();
+  // }
 }
