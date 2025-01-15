@@ -12,7 +12,8 @@ class AppColors {
   static const Color primaryTextColor = Color(0xFF000000);  /// Main text color : text button
   static const Color secondaryTextColor = Color(0xFFFFFFFF);  /// Secondary text color
 
-  static const Color borderColor = Color(0xFFF6E6CB);  /// Border color
+  static const Color enableBorderColor = Color(0xFFF6E6CB);  /// Border color
+  static const Color disableBorderColor = Color(0xFF000000);  /// Border color
 
   static const Color greyColor = Color(0xFF6C757D);  /// Grey color
   static const Color lightGreyColor = Color(0xFF868E96);  /// Light grey color

@@ -24,7 +24,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (_) => LoginCubit(sl<LoginUseCase>()),
-            child: const LoginScreen(),
+            child: LoginScreen(),
           ),
         );
       case Routes.HomeScreenUserRoute:

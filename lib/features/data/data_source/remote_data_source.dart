@@ -6,16 +6,19 @@ import '../../../core/config/supabase/supabase_client.dart';
 
 abstract class AuthRemoteDataSource {
   Future<Either<String, UserEntity>> login(String email, String password);
+
   Future<Either<String, Unit>> logout();
-  // Future<Either<String, String>> fetchUserRole(String userId);
+
+  Future<Either<String, String>> fetchUserRole(String userId);
 }
 
 class RemoteDataSource implements AuthRemoteDataSource {
-
   @override
-  Future<Either<String, UserEntity>> login(String email, String password) async {
+  Future<Either<String, UserEntity>> login(
+      String email, String password) async {
     try {
-      final response = await SupabaseClientProvider.client.auth.signInWithPassword(
+      final response =
+          await SupabaseClientProvider.client.auth.signInWithPassword(
         email: email,
         password: password,
       );
@@ -25,7 +28,8 @@ class RemoteDataSource implements AuthRemoteDataSource {
         final userId = response.user!.id;
         final userMetadata = response.user!.userMetadata;
 
-        final role = userMetadata?['role'] ?? 'User'; // Default to 'User' if role is missing
+        final role = userMetadata?['role'] ??
+            'user'; // Default to 'User' if role is missing
 
         // Map to UserModel
         final userModel = UserModel(
@@ -35,7 +39,7 @@ class RemoteDataSource implements AuthRemoteDataSource {
         );
         return Right(userModel.toEntity());
       } else {
-        return Left("Invalid credentials");
+        return const Left("Invalid credentials");
       }
     } catch (e) {
       return Left(e.toString());
@@ -52,13 +56,17 @@ class RemoteDataSource implements AuthRemoteDataSource {
     }
   }
 
-  // @override
-  // Future<Either<String, String>> fetchUserRole(String userId) async {
-  //   final response = await SupabaseClientProvider
-  //       .client
-  //       .from('users')
-  //       .select('role')
-  //       .eq('uid', userId);
-  //   return response.data['role'];
-  // }
+  @override
+  Future<Either<String, String>> fetchUserRole(String userId) async {
+    try {
+      final response = await SupabaseClientProvider.client
+          .from('users')
+          .select('role')
+          .eq('uid', userId)
+          .single();
+      return Right(response['role'] as String);
+    } catch (e) {
+      return const Left("Error fetching user role");
+    }
+  }
 }
