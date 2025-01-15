@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../main.dart';
-import '../../fonts/font_manager.dart';
+import '../../resource/font_manager.dart';
 
 enum Languages { AR, EN }
 

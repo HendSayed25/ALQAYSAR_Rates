@@ -1,3 +1,6 @@
+import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
+import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,6 +57,11 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(milliseconds: 1250), () {
       _textController.forward();
     });
+
+    // After the animation finishes, navigate to the LoginScreen
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      context.pushNamed(Routes.loginScreenRoute);
+    });
   }
 
   @override
@@ -66,31 +74,42 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Stack(
-          children: [
-            ImageAnimation(imageAnimation: _imageAnimation),
-            Positioned(
-              right: 55.w,
-              top: 0.5.sh - 40.h,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextAnimation(
-                    text1Opacity: _text1Opacity,
-                    text: 'القيصر',
-                    textSize: 48,
-                  ),
-                  TextAnimation(
-                    text1Opacity: _text2Opacity,
-                    text: 'ALQAYSAR',
-                    textSize: 24,
-                  ),
-                ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.backgroundColor[0], // Start color
+              AppColors.backgroundColor[1], // End color
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Stack(
+            children: [
+              ImageAnimation(imageAnimation: _imageAnimation),
+              Positioned(
+                right: 55.w,
+                top: 0.5.sh - 40.h,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextAnimation(
+                      text1Opacity: _text1Opacity,
+                      text: 'القيصر',
+                      textSize: 48,
+                    ),
+                    TextAnimation(
+                      text1Opacity: _text2Opacity,
+                      text: 'ALQAYSAR',
+                      textSize: 24,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
