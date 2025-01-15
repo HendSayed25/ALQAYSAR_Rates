@@ -1,41 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-import 'core/config/routes/route_constants.dart';
-import 'core/config/routes/router.dart' as router;
+import 'app/app.dart';
+import 'core/helper/language/language_helper.dart';
 import 'service_locator.dart';
 
+late final WidgetsBinding engine;
+
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  engine = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.black
-      )
+    const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.black,
+    ),
   );
 
-
+  await EasyLocalization.ensureInitialized();
   await setupServiceLocator();
 
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: AppLanguages.locals,
+      path: AppLanguages.translationsPath,
+      fallbackLocale: AppLanguages.fallBackLocal,
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(430, 932),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'ALQYSAR',
-        onGenerateRoute: router.RouteGenerator.getRoute,
-        initialRoute: Routes.splashScreenRoute,
-      ),
-    );
-  }
-}

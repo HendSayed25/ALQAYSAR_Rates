@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/domain/usecases/login_usecase.dart';
-import '../../../features/presentation/cubit/login_cubit.dart';
-import '../../../features/presentation/pages/login_screen/login_screen.dart';
-import '../../../features/presentation/pages/splash_screen/splash_screen.dart';
+import '../../../features/ui/cubit/login_cubit.dart';
+import '../../../features/ui/pages/login_screen/login_screen.dart';
+import '../../../features/ui/pages/splash_screen/splash_screen.dart';
 import '../../../service_locator.dart';
 import 'route_constants.dart';
 

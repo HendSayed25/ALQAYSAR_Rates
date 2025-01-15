@@ -13,4 +13,10 @@ class UserRepositoryImpl implements UserRepositoryInterface {
   Future<Either<String, UserEntity>> login(String email, String password) {
     return remoteDataSource.login(email, password);
   }
+
+  @override
+  Future<Either<String, Unit>> logout() {
+    return remoteDataSource.logout();
+  }
+
 }

@@ -2,10 +2,17 @@ import 'package:dartz/dartz.dart';
 
 import '../../domain/entities/user.dart';
 import '../models/user_model.dart';
-import '../supabase_client.dart';
+import '../../../core/config/supabase/supabase_client.dart';
 
 class RemoteDataSource {
+abstract class AuthRemoteDataSource {
+  Future<Either<String, UserEntity>> login(String email, String password);
+  Future<Either<String, Unit>> logout();
+}
 
+class RemoteDataSource implements AuthRemoteDataSource {
+
+  @override
   Future<Either<String, UserEntity>> login(String email, String password) async {
     try {
       final response = await SupabaseClientProvider.client.auth.signInWithPassword(
@@ -34,4 +41,15 @@ class RemoteDataSource {
       return Left(e.toString());
     }
   }
+
+  @override
+  Future<Either<String, Unit>> logout() async {
+    try {
+      await SupabaseClientProvider.client.auth.signOut();
+      return const Right(unit);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
 }

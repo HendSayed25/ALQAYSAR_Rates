@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons:
   supabase_flutter:
+  easy_localization:
   get_it:
   flutter_screenutil:
   shared_preferences:
@@ -71,6 +72,8 @@ flutter:
     - assets/images/
     - assets/svg/
     - assets/lotties/
+    - assets/fonts/
+    - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
