@@ -1,8 +1,10 @@
+import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/resource/colors_manager.dart';
+import '../../common/user_card_design.dart';
 
 class HomeUserScreen extends StatefulWidget {
   const HomeUserScreen({super.key});
@@ -15,12 +17,9 @@ class _HomeUserScreenState extends State<HomeUserScreen>{
   Widget build(BuildContext context) {
    return Scaffold(
        body: Container(
-         decoration: BoxDecoration(
+         decoration: const BoxDecoration(
            gradient: LinearGradient(
-             colors: [
-               AppColors.backgroundColor[0], // Start color
-               AppColors.backgroundColor[1], // End color
-             ],
+             colors: AppColors.backgroundColor,
              begin: Alignment.topLeft,
              end: Alignment.bottomRight,
            ),
@@ -31,44 +30,71 @@ class _HomeUserScreenState extends State<HomeUserScreen>{
                Row(
                  children: [
                    Container(
-                     margin: const EdgeInsets.only(left:40,top: 50,bottom: 10,right: 20),
-                     child: Image.asset('assets/images/language_icon.png',
+                     margin: const EdgeInsets.only(left:40,top: 70,bottom: 10,right: 20),
+                     child: Image.asset(ImageAssets.languageIcon,
                      width: 30.w,
                      height: 30.h,),
                    ),
                    Container(
-                       margin: const EdgeInsets.only(left:50,top: 50,bottom: 10,right: 20),
+                       margin: const EdgeInsets.only(left:50,top: 70,bottom: 10,right: 30),
                        child: const Text("ALQAYSAR"
                        ,style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),),
                    ),
+                   Container(
+                     margin: const EdgeInsets.only(left:40,top: 70,bottom: 10,right: 10),
+                     child: Image.asset(ImageAssets.searchIcon,
+                       width: 25.w,
+                       height: 25.h,),
+                   ),
+
                  ],
                ),
-             Padding(
-             padding: const EdgeInsets.all(16.0),
-             child: Container(
-               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
-               margin: const EdgeInsets.only(left: 5,right: 5),
-               decoration: BoxDecoration(
-                  color: AppColors.secondaryContainerColor,
-                   borderRadius: BorderRadius.circular(25),
-               ),
-                 child: const Row(
-                   children: [
-                     Icon(Icons.search, color: Colors.grey),
-                     SizedBox(width: 8),
-                     Expanded(
-                         child: TextField(
-                           decoration: InputDecoration(
-                             hintText: "Search",
-                             hintStyle: TextStyle(color: Colors.grey),
-                             border: InputBorder.none,
-                           ),
-                         ),
-                       ),
-                 ]),
-               ),
-             ),
-         ],),
+
+               Expanded(
+                  child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 14,
+                  mainAxisSpacing: 14,
+                  ),
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    return const UserCard(
+                       userName: "userName",showRating: false, rating:0,);
+                  },
+                  ),
+                  ),
+                ),
+             
+
+             // Padding(
+             // padding: const EdgeInsets.all(16.0),
+             // child: Container(
+             //   padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 1.h),
+             //   margin: const EdgeInsets.only(left: 5,right: 5),
+             //   decoration: BoxDecoration(
+             //      color: AppColors.secondaryContainerColor,
+             //       borderRadius: BorderRadius.circular(25),
+             //   ),
+             //     child:  Row(
+             //       children: [
+             //         const Icon(Icons.search, color: Colors.grey),
+             //         SizedBox(width: 8.w),
+             //         const Expanded(
+             //             child: TextField(
+             //               decoration: InputDecoration(
+             //                 hintText: "Search",
+             //                 hintStyle: TextStyle(color: Colors.grey),
+             //                 border: InputBorder.none,
+             //               ),
+             //             ),
+             //           ),
+             //     ]),
+             //   ),
+             // ),
+    ],),
        ),
    );
   }

@@ -66,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                       text: "Login",
                       onPressed: () {
                         if (formKey.currentState?.validate() ?? false) {
-                          context.pushNamed(Routes.HomeScreenUserRoute);
+                          context.pushNamed(Routes.homeScreenUserRoute);
                         }
                       },
                     ),

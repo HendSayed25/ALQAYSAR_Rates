@@ -3,6 +3,9 @@ class Routes {
 
   static const String splashScreenRoute = "/";
   static const String loginScreenRoute = "/login";
-  static const String HomeScreenUserRoute = "/HomeUser";
-  static const String HomeScreenAdminRoute = "/HomeAdmin";
+  static const String homeScreenUserRoute = "/homeUser";
+  static const String homeScreenAdminRoute = "/homeAdmin";
+  static const String showAllForAdminRoute = "/showAllAdmin";
+  static const String searchScreenRoute = "/showAllAdmin";
+
 }

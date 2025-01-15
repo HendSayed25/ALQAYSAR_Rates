@@ -1,5 +1,7 @@
+import 'package:alqaysar_rates/features/ui/pages/SearchScreen.dart';
 import 'package:alqaysar_rates/features/ui/pages/home_admin_screen/home_admin_screen.dart';
 import 'package:alqaysar_rates/features/ui/pages/home_user_screen/home_screen.dart';
+import 'package:alqaysar_rates/features/ui/pages/show_all_for_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,13 +29,21 @@ class RouteGenerator {
             child: LoginScreen(),
           ),
         );
-      case Routes.HomeScreenUserRoute:
+      case Routes.homeScreenUserRoute:
         return MaterialPageRoute(
           builder: (context) =>const HomeUserScreen(),
         );
-      case Routes.HomeScreenAdminRoute:
+      case Routes.homeScreenAdminRoute:
         return MaterialPageRoute(
-          builder: (context) =>HomeAdminScreen(),
+          builder: (context) =>const HomeAdminScreen(),
+        );
+      case Routes.showAllForAdminRoute:
+        return MaterialPageRoute(
+          builder: (context) =>const ShowAllForAdminScreen(),
+        );
+      case Routes.searchScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) =>const SearchScreen(),
         );
 
 

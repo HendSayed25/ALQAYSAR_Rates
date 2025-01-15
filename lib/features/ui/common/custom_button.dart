@@ -13,8 +13,8 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       Container(
-        width: 333.w,
-        height: 60.h,
+        width: 300.w,
+        height: 50.h,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
               colors: AppColors.primaryContainerColor),
