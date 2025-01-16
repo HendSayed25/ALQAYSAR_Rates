@@ -12,7 +12,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  bool _isSearching = false;
   final List<Map<String, dynamic>> _allUsers = [
     {'userName': 'Hend', 'rating': 4.5, 'showRating': true},
     {'userName': 'Ahmed', 'rating': 4.5, 'showRating': true},
@@ -48,8 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: _isSearching
-            ? TextField(
+        title: TextField(
           controller: _searchController,
           autofocus: true,
           decoration: const InputDecoration(
@@ -57,24 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
             border: InputBorder.none,
           ),
           onChanged: _filterSearchResults,
-        )
-            : const Text('ALQAYSAR'),
-        actions: [
-          IconButton(
-            icon: Icon(_isSearching ? Icons.clear : Icons.search,color: Colors.white,),
-            onPressed: () {
-              setState(() {
-                if (_isSearching) {
-                  _isSearching = false;
-                  _searchController.clear();
-                  _filteredUsers = _allUsers;
-                } else {
-                  _isSearching = true;
-                }
-              });
-            },
-          ),
-        ],
+        ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
