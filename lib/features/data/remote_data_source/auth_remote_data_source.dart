@@ -17,7 +17,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<Either<Failure, UserEntity>> login(String email, String password) async {
-    logger.w("$email + $password");
+    logger.i("$email + $password");
     try {
       final response =
       await SupabaseClientProvider.client.auth.signInWithPassword(

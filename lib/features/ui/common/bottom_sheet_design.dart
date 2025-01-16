@@ -1,19 +1,36 @@
 import 'package:alqaysar_rates/core/helper/extensions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/resource/assets_manager.dart';
 import '../../../core/resource/colors_manager.dart';
+import '../../../core/resource/strings.dart';
 import 'custom_button.dart';
 
-class BottomSheetDesign extends StatelessWidget{
+class BottomSheetDesign extends StatefulWidget {
   final String textBtn;
+  final bool? isLoading;
+  final Function(String) onPressed;
 
   const BottomSheetDesign({
     super.key,
-    required this.textBtn
-});
+    required this.textBtn,
+    required this.onPressed,
+    this.isLoading,
+  });
+
+  @override
+  State<BottomSheetDesign> createState() => _BottomSheetDesignState();
+}
+
+class _BottomSheetDesignState extends State<BottomSheetDesign> {
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +41,14 @@ class BottomSheetDesign extends StatelessWidget{
       minChildSize: 0.32,
       builder: (BuildContext context, ScrollController scrollController) {
         return Container(
-          width: MediaQuery.of(context).size.width,//to take all width of screen
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
               colors: AppColors.primaryContainerColor,
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
           ),
           child: SingleChildScrollView(
             controller: scrollController,
@@ -39,8 +56,9 @@ class BottomSheetDesign extends StatelessWidget{
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               child: Column(
                 children: [
+                  // Profile Image
                   Container(
-                    margin: const EdgeInsets.all(10.0),
+                    margin: EdgeInsets.all(10.w),
                     child: Image.asset(
                       ImageAssets.person,
                       width: 200.w,
@@ -48,46 +66,36 @@ class BottomSheetDesign extends StatelessWidget{
                     ),
                   ),
                   SizedBox(height: 55.h),
-                  Container(
-                    width: 380.w,
-                    height: 55.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryContainerColor,
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: TextField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText: "Name",
-                        labelStyle: const TextStyle(color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.r),
-                          borderSide: const BorderSide(color: AppColors.enableBorderColor),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 40.h).copyWith(left: 15.w),
-                      ),
-                    ),
+
+                  InputField(
+                    controller: _nameController,
+                    labelText: AppStrings.name,
+                    hintText: AppStrings.enterName,
+                    keyboardType: TextInputType.text,
                   ),
                   SizedBox(height: 80.h),
-                  // Button with Gradient
-                  Container(
-                    width: 300.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: AppColors.primaryContainerColor,
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(25.r),
+
+                  CustomButton(
+                    gradient: const LinearGradient(
+                      colors: AppColors.primaryContainerColor,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    child: CustomButton(
-                      colorOfBorder: AppColors.successColor,
-                      text: textBtn,
-                      onPressed: () {
+                    colorOfBorder: AppColors.successColor,
+                    text: widget.textBtn,
+                    isLoading: widget.isLoading??false,
+                    onPressed: () {
+                      if (_nameController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(AppStrings.nameRequired),
+                          ),
+                        );
+                      } else {
+                        widget.onPressed(_nameController.text);
                         context.pop();
-                      },
-                    ),
+                      }
+                    },
                   ),
                 ],
               ),
@@ -97,5 +105,46 @@ class BottomSheetDesign extends StatelessWidget{
       },
     );
   }
+}
 
+class InputField extends StatelessWidget {
+  final TextEditingController controller;
+  final String labelText;
+  final String hintText;
+  final TextInputType keyboardType;
+
+  const InputField({
+    super.key,
+    required this.controller,
+    required this.labelText,
+    required this.hintText,
+    this.keyboardType = TextInputType.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 380.w,
+      height: 55.h,
+      decoration: BoxDecoration(
+        color: AppColors.secondaryContainerColor,
+        borderRadius: BorderRadius.circular(16.r),
+      ),
+      child: TextField(
+        controller: controller,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.black),
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Colors.grey),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.r),
+            borderSide: const BorderSide(color: AppColors.enableBorderColor),
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 40.h).copyWith(left: 15.w),
+        ),
+      ),
+    );
+  }
 }

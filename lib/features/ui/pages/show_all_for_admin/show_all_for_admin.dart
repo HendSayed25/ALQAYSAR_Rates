@@ -1,17 +1,32 @@
-import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/resource/colors_manager.dart';
-import '../../common/user_card_design.dart';
+import '../../../../core/resource/colors_manager.dart';
+import '../../../../core/resource/strings.dart';
+import '../../cubit/customer_cubit.dart';
+import '../../states/customer_state.dart';
+import 'widgets/app_bar_section.dart';
+import '../../common/customer_grid.dart';
 
 class ShowAllForAdminScreen extends StatefulWidget {
   const ShowAllForAdminScreen({super.key});
 
   @override
-  State<ShowAllForAdminScreen> createState()=>_ShowAllForAdminScreenState();
+  State<ShowAllForAdminScreen> createState() => _HomeAdminScreenState();
 }
-class _ShowAllForAdminScreenState extends State<ShowAllForAdminScreen>{
+
+class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CustomerCubit>().fetchCustomers();
+  }
+
+  Future<void> _onRefresh() async {
+    context.read<CustomerCubit>().fetchCustomers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,76 +41,45 @@ class _ShowAllForAdminScreenState extends State<ShowAllForAdminScreen>{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left:40,top: 70,bottom: 10,right: 20),
-                  child: Image.asset(ImageAssets.languageIcon,
-                    width: 30.w,
-                    height: 30.h,),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left:50,top: 70,bottom: 10,right: 30),
-                  child: const Text("ALQAYSAR"
-                    ,style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left:40,top: 70,bottom: 10,right: 10),
-                  child: Image.asset(ImageAssets.searchIcon,
-                    width: 25.w,
-                    height: 25.h,),
-                ),
-
-              ],
-            ),
-
+            const AppBarSection(),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 14,
-                    mainAxisSpacing: 14,
-                  ),
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return const UserCard(
-                      userName: "userName",showRating: true, rating:15,);
-                  },
-                ),
+              child: BlocBuilder<CustomerCubit, CustomerState>(
+                builder: (context, state) {
+                  if (state is CustomerLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.secondaryColor,
+                      ),
+                    );
+                  } else if (state is CustomerLoaded) {
+                    return RefreshIndicator(
+                      onRefresh: _onRefresh,
+                      color: AppColors.secondaryColor,
+                      backgroundColor: AppColors.primaryColor[0],
+                      displacement: 40.h,
+                      child: CustomerGrid(customers: state.customers),
+                    );
+                  } else if (state is CustomerError) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          color: Colors.red,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text(AppStrings.noCustomersFound),
+                    );
+                  }
+                },
               ),
             ),
-
-
-            // Padding(
-            // padding: const EdgeInsets.all(16.0),
-            // child: Container(
-            //   padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 1.h),
-            //   margin: const EdgeInsets.only(left: 5,right: 5),
-            //   decoration: BoxDecoration(
-            //      color: AppColors.secondaryContainerColor,
-            //       borderRadius: BorderRadius.circular(25),
-            //   ),
-            //     child:  Row(
-            //       children: [
-            //         const Icon(Icons.search, color: Colors.grey),
-            //         SizedBox(width: 8.w),
-            //         const Expanded(
-            //             child: TextField(
-            //               decoration: InputDecoration(
-            //                 hintText: "Search",
-            //                 hintStyle: TextStyle(color: Colors.grey),
-            //                 border: InputBorder.none,
-            //               ),
-            //             ),
-            //           ),
-            //     ]),
-            //   ),
-            // ),
-          ],),
+          ],
+        ),
       ),
     );
   }
-
 }

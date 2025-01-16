@@ -1,4 +1,5 @@
 import 'package:alqaysar_rates/features/ui/pages/SearchScreen.dart';
+import 'package:alqaysar_rates/features/ui/cubit/customer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +24,7 @@ class RouteGenerator {
 
       case Routes.loginScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
+          builder: (context) => BlocProvider<AuthCubit>(
             create: (_) => AuthCubit(login: sl()),
             child: LoginScreen(),
           ),
@@ -36,18 +37,24 @@ class RouteGenerator {
 
       case Routes.homeScreenAdminRoute:
         return MaterialPageRoute(
-          builder: (context) => const HomeAdminScreen(),
+          builder: (context) => BlocProvider<CustomerCubit>(
+            create: (_) => sl<CustomerCubit>(),
+            child: const HomeAdminScreen(),
+          ),
         );
 
       case Routes.showAllForAdminRoute:
         return MaterialPageRoute(
-          builder: (context) => const ShowAllForAdminScreen(),
+          builder: (context) => BlocProvider<CustomerCubit>(
+            create: (_) => sl<CustomerCubit>(),
+            child: const ShowAllForAdminScreen(),
+          ),
         );
+
       case Routes.searchScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const SearchScreen(),
         );
-
 
       default:
         return unDefinedRoute();

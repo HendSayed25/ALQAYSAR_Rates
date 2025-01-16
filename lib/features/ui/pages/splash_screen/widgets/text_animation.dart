@@ -6,14 +6,14 @@ class TextAnimation extends StatelessWidget {
     super.key,
     required Animation<double> text1Opacity,
     required String text,
-    required int textSize,
+    required double textSize,
   })  : _text1Opacity = text1Opacity,
         _text = text,
         _textSize = textSize;
 
   final Animation<double> _text1Opacity;
   final String _text;
-  final int _textSize;
+  final double _textSize;
 
   @override
   Widget build(BuildContext context) {
