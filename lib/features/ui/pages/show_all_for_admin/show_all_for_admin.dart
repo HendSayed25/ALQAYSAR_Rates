@@ -6,6 +6,7 @@ import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
 import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
+import '../home_user_screen/widgets/home_secreen_app_bar.dart';
 import 'widgets/app_bar_section.dart';
 import '../../common/customer_grid.dart';
 
@@ -30,6 +31,10 @@ class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:PreferredSize(
+        preferredSize: Size.fromHeight(95.h), //height of appBar
+        child: const HomeScreenAppBarWidget(),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -41,7 +46,6 @@ class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppBarSection(),
             Expanded(
               child: BlocBuilder<CustomerCubit, CustomerState>(
                 builder: (context, state) {

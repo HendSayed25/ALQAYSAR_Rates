@@ -1,13 +1,39 @@
+import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:alqaysar_rates/features/ui/pages/SearchScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/config/routes/route_constants.dart';
 import '../../../../../core/resource/colors_manager.dart';
 import '../../../../../core/resource/strings.dart';
 
-class SearchBarWidget extends StatelessWidget {
+class SearchBarWidget extends StatefulWidget {
   final Function(String) onSearch;
 
-  const SearchBarWidget({super.key, required this.onSearch});
+  SearchBarWidget({super.key, required this.onSearch});
+
+  @override
+  State<SearchBarWidget> createState() => _SearchBarWidgetState();
+}
+
+class _SearchBarWidgetState extends State<SearchBarWidget> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        context.pushNamed(Routes.searchScreenRoute);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +56,14 @@ class SearchBarWidget extends StatelessWidget {
             SizedBox(width: 8.w),
             Expanded(
               child: TextField(
+                focusNode: _focusNode,
                 decoration: const InputDecoration(
                   hintText: AppStrings.search, // Use constant for text
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
-                onChanged: onSearch,
+                onChanged: widget.onSearch,
+
               ),
             ),
           ],
