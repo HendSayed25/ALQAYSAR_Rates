@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helper/data_intent.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../../core/resource/colors_manager.dart';
 
@@ -20,7 +21,8 @@ class _MyFormState extends State<MyForm> {
 
   @override
   void dispose() {
-    // Don't forget to dispose the FocusNodes when done
+    emailController.dispose();
+    passController.dispose();
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
     super.dispose();
@@ -76,6 +78,7 @@ class _MyFormState extends State<MyForm> {
               FocusScope.of(context).requestFocus(passwordFocusNode);
             },
             validator: (value) => Validation.validateEmail(value),
+            onChanged: (email){DataIntent.pushEmail(email);},
           ),
         ),
         SizedBox(height: 33.h),
@@ -131,7 +134,8 @@ class _MyFormState extends State<MyForm> {
               errorMaxLines: 2,
               contentPadding: EdgeInsets.symmetric(vertical: 20.h),
             ),
-            validator: (value) => Validation.validatePassword(value),
+            // validator: (value) => Validation.validatePassword(value),
+            onChanged: (password){DataIntent.pushPassword(password);},
           ),
         ),
       ],

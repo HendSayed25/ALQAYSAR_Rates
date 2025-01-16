@@ -1,19 +1,22 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/usecases/login_usecase.dart';
+import '../../../core/error.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/usecases/auth/login_usecase.dart';
 import '../states/login_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
-  final LoginUseCase loginUseCase;
+class AuthCubit extends Cubit<AuthState> {
+  final LoginUsecase login;
 
-  LoginCubit(this.loginUseCase) : super(LoginInitial());
+  AuthCubit({required this.login}) : super(AuthInitial());
 
-  Future<void> login(String email, String password) async {
-    emit(LoginLoading());
-    final result = await loginUseCase.execute(email, password);
+  Future<void> loginUser({required String email, required String password}) async {
+    emit(AuthLoading());
+    final Either<Failure, UserEntity> result = await login(email, password);
     result.fold(
-          (failure) => emit(LoginError(failure)),
-          (user) => emit(LoginSuccess(user)),
+          (failure) => emit(AuthError(failure.message)),
+          (userEntity) => emit(AuthAuthenticated(userEntity)),
     );
   }
 }

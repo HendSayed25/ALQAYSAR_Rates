@@ -10,11 +10,11 @@ class UserCard extends StatelessWidget {
   final bool showRating;
 
   const UserCard({
-    Key? key,
+    super.key,
     required this.userName,
     required this.showRating,
     required this.rating,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

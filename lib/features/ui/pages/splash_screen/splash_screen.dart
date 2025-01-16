@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // After the animation finishes, navigate to the LoginScreen
     Future.delayed(const Duration(milliseconds: 2500), () {
-      context.pushNamed(Routes.loginScreenRoute);
+      context.pushReplacementNamed(Routes.loginScreenRoute);
     });
   }
 

@@ -1,15 +1,15 @@
 class DataIntent {
   DataIntent._();
 
-  //login to forget password
+  //login
   static String? _email;
 
   static void pushEmail(String email) => _email = email;
 
-  static String? popEmail() {
-    String? value = _email;
-    _email = null;
-    return value;
-  }
+  static String? popEmail() => _email;
+  static String? _password;
 
+  static void pushPassword(String password) => _password = password;
+
+  static String? popPassword() => _password;
 }

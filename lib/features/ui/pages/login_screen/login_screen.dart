@@ -1,76 +1,93 @@
-import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
-import 'package:alqaysar_rates/core/helper/extensions.dart';
-import 'package:alqaysar_rates/features/ui/common/custom_button.dart';
-import 'package:alqaysar_rates/features/ui/pages/login_screen/widgets/form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../core/config/routes/route_constants.dart';
+import '../../../../core/helper/data_intent.dart';
+import '../../../../core/helper/extensions.dart';
 import '../../../../core/resource/colors_manager.dart';
+import '../../../../core/resource/strings.dart';
+import '../../../../service_locator.dart';
+import '../../../data/local/app_prefs.dart';
+import '../../common/custom_button.dart';
+import '../../cubit/login_cubit.dart';
+import '../../states/login_state.dart';
+import 'widgets/forget_password_button.dart';
+import 'widgets/login_header.dart';
+import 'widgets/form.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.backgroundColor,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return GestureDetector(
+      onTap: (){FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: AppColors.backgroundColor,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.w),
-          child: Form(
-            key: formKey,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Login",
-                      style: TextStyle(
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            child: Form(
+              key: formKey,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const LoginHeader(),
+                      const MyForm(),
+                      SizedBox(height: 8.h),
+                      const ForgetPasswordButton(),
+                      SizedBox(height: 100.h),
+                      BlocConsumer<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                          if (state is AuthAuthenticated) {
+                            sl<AppPrefs>().setString("id", state.userEntity.id);
+                            sl<AppPrefs>().setString("role", state.userEntity.role);
+
+                            Logger().i("${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role}");
+
+                            if (state.userEntity.role == "user") {
+                              context.pushReplacementNamed(
+                                  Routes.homeScreenUserRoute);
+                            } else {
+                              context.pushReplacementNamed(
+                                  Routes.homeScreenAdminRoute);
+                            }
+                          } else if (state is AuthError) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(AppStrings.emailPasswordError),
+                              ),
+                            );
+                          }
+                        },
+                        builder: (BuildContext context, AuthState state) {
+                          return CustomButton(
+                            text: AppStrings.loginButtonText,
+                            onPressed: () {
+                              if (formKey.currentState?.validate() ?? false) {
+                                context.read<AuthCubit>().loginUser(
+                                    email: DataIntent.popEmail()!,
+                                    password: DataIntent.popPassword()!);
+                              }
+                            },
+                            isLoading: state is AuthLoading,
+                          );
+                        },
                       ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      "Enter your email & password",
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 126.h),
-                    const MyForm(),
-                    SizedBox(height: 8.h),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Forget Password?",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 100.h),
-                    CustomButton(
-                      text: "Login",
-                      onPressed: () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          context.pushNamed(Routes.homeScreenUserRoute);
-                        }
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

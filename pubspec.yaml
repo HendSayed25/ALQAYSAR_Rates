@@ -44,6 +44,8 @@ dependencies:
   flutter_svg:
   lottie:
   dartz:
+  logger:
+  equatable:
 
 dev_dependencies:
   flutter_test:
