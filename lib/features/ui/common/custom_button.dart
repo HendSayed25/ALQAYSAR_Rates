@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/resource/colors_manager.dart';
-
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
@@ -16,7 +14,9 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.textStyle,
-    required this.colorOfBorder,
+    this.colorOfBorder,
+    this.backgroundColor,
+    this.gradient,
   });
 
   final String? text;
@@ -29,8 +29,9 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final TextStyle? textStyle;
-  final Color colorOfBorder;
-
+  final Color? colorOfBorder;
+  final Gradient? gradient;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +40,16 @@ class CustomButton extends StatelessWidget {
       height: height ?? 50.h,
       margin: margin,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
+        gradient: gradient,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius ?? 25.r),
-
       ),
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          side: BorderSide(color:colorOfBorder),
+          side: BorderSide(color: colorOfBorder ?? Colors.transparent),
           padding: padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 25.r),

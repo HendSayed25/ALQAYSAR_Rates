@@ -1,162 +1,151 @@
 import 'package:alqaysar_rates/core/helper/extensions.dart';
-import 'package:alqaysar_rates/features/ui/common/bottom_sheet_design.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
+import '../../../../core/resource/strings.dart';
+import '../../../../service_locator.dart';
+import '../../../data/local/app_prefs.dart';
+import '../../../domain/entities/customer.dart';
+import '../../common/bottom_sheet_design.dart';
 import '../../common/custom_button.dart';
+import '../../cubit/customer_cubit.dart';
+import '../../states/customer_state.dart';
+import 'widgets/search_bar.dart';
 
-class HomeAdminScreen extends StatefulWidget {
+class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
 
   @override
-  State<HomeAdminScreen> createState() => _HomeAdminScreenState();
-}
-
-class _HomeAdminScreenState extends State<HomeAdminScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.backgroundColor,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: AppColors.backgroundColor,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Hi Admin",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppStrings.hiAdmin,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 95.h,
-                  ),
-                  Container(
-                    child: Center(
-                        child: Image.asset(
-                      ImageAssets.logo,
-                      width: 200.w,
-                      height: 200.h,
-                    )),
-                  ),
-                  SizedBox(
-                    height: 112.h,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 1),
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: AppColors.primaryContainerColor,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(15),
+                    SizedBox(height: 95.h),
+                    Center(
+                      child: Image.asset(
+                        ImageAssets.logo,
+                        width: 200.w,
+                        height: 200.h,
                       ),
-                      child: const Row(children: [
-                        Icon(Icons.search, color: Colors.grey),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: "Search",
-                              hintStyle: TextStyle(color: Colors.grey),
-                              border: InputBorder.none,
+                    ),
+                    SizedBox(height: 112.h),
+                    SearchBarWidget(onSearch: (query) {}),
+                    SizedBox(height: 107.h),
+                    CustomButton(
+                      gradient: const LinearGradient(
+                        colors: AppColors.primaryContainerColor,
+                      ),
+                      colorOfBorder: Colors.transparent,
+                      text: AppStrings.showAll,
+                      onPressed: () {
+                        context.pushNamed(Routes.showAllForAdminRoute);
+                      },
+                    ),
+                    SizedBox(height: 30.h),
+                    BlocConsumer<CustomerCubit, CustomerState>(
+                      listener: (context, state) {
+                        Logger().e(state);
+                        if (state is CustomerAddedSuccessfully) {
+                          // Show success message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text(AppStrings.customerAddedSuccessfully),
                             ),
+                          );
+                        } else if (state is CustomerError) {
+                          // Show error message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.message),
+                            ),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return CustomButton(
+                          gradient: const LinearGradient(
+                            colors: AppColors.primaryContainerColor,
                           ),
-                        ),
-                      ]),
-                    ),
-                  ),
-
-                  SizedBox(height: 107.h),
-                  Container(
-                      width: 300.w,
-                      height: 50.h,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: AppColors.primaryContainerColor),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: CustomButton(
-                        colorOfBorder: Colors.transparent,
-                          text: 'Show All',
+                          colorOfBorder: Colors.transparent,
+                          text: AppStrings.add,
                           onPressed: () {
-                            context.pushNamed(Routes.showAllForAdminRoute);
-                          })),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  CustomButton(
-                    colorOfBorder: AppColors.successColor,
-                    text: 'Add',
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30.0),
-                          ),
-                        ),
-                        builder: (context) {
-                          return const BottomSheetDesign(textBtn: 'Add',);
-                        },
-                      );},
-                  )
-                  // Container(
-                  //   width: 300.w,
-                  //     height: 50.h,
-                  //     alignment: Alignment.center,
-                  //   margin: const EdgeInsets.only(left: 20,right: 20),
-                  //
-                  //   decoration: BoxDecoration(
-                  //       gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
-                  //       borderRadius: BorderRadius.circular(25),
-                  //     ),
-                  //     child: ElevatedButton(
-                  //       onPressed: () {
-                  //       },
-                  //       style: ElevatedButton.styleFrom(
-                  //         backgroundColor: Colors.transparent,
-                  //         shadowColor: Colors.transparent,
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(25),
-                  //         ),
-                  //       ),
-                  //       child: const Text(
-                  //         "Add",
-                  //         style: TextStyle(
-                  //           fontSize: 18,
-                  //           color: Colors.black,
-                  //           fontWeight: FontWeight.bold
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                ],
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(30.0.r),
+                                ),
+                              ),
+                              builder: (_) {
+                                return BottomSheetDesign(
+                                  textBtn: AppStrings.add,
+                                  onPressed: (String name) {
+                                    if (name.isNotEmpty) {
+                                      context
+                                          .read<CustomerCubit>()
+                                          .addNewCustomer(
+                                            Customer(
+                                              name: name,
+                                              userId: sl<AppPrefs>()
+                                                  .getString("id")!,
+                                            ),
+                                          );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text(AppStrings.nameRequired),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          isLoading: state is CustomerLoading,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -165,23 +154,3 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
     );
   }
 }
-
-
-
-
-// SearchBar(
-// backgroundColor: const WidgetStatePropertyAll(AppColors.secondaryContainerColor),
-// elevation: const WidgetStatePropertyAll(4.0),
-// shape: WidgetStatePropertyAll(
-// RoundedRectangleBorder(
-// borderRadius: BorderRadius.circular(25.0)
-// )
-// ),
-// padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 16.0.w)),
-// onChanged: (query){
-// //update UI
-// },
-// onTap: (){
-// //when user tap
-// },
-// ),

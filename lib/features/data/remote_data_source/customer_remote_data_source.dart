@@ -8,8 +8,11 @@ import '../../../core/config/supabase/supabase_client.dart';
 
 abstract class CustomerRemoteDataSource {
   Future<Either<Failure, List<Customer>>> getCustomers();
+
   Future<Either<Failure, Unit>> addCustomer(Customer customer);
+
   Future<Either<Failure, Unit>> updateCustomer(Customer customer);
+
   Future<Either<Failure, Unit>> deleteCustomer(int id);
 }
 
@@ -20,9 +23,9 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   Future<Either<Failure, List<Customer>>> getCustomers() async {
     try {
       final response =
-      await SupabaseClientProvider.client.from('customer').select();
+          await SupabaseClientProvider.client.from('customer').select();
       final customers =
-      response.map((json) => CustomerModel.fromJson(json)).toList();
+          response.map((json) => CustomerModel.fromJson(json)).toList();
       return Right(customers);
     } catch (e) {
       logger.e("Error fetching customers: $e");
@@ -34,15 +37,14 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   Future<Either<Failure, Unit>> addCustomer(Customer customer) async {
     try {
       await SupabaseClientProvider.client.from('customer').insert(CustomerModel(
-        id: customer.id,
-        uncooperative: customer.uncooperative,
-        poor: customer.poor,
-        good: customer.good,
-        veryGood: customer.veryGood,
-        excellent: customer.excellent,
-        name: customer.name,
-        userId: customer.userId,
-      ).toJson());
+            uncooperative: customer.uncooperative ?? 0,
+            poor: customer.poor ?? 0,
+            good: customer.good ?? 0,
+            veryGood: customer.veryGood ?? 0,
+            excellent: customer.excellent ?? 0,
+            name: customer.name,
+            userId: customer.userId,
+          ).toJson());
       return const Right(unit);
     } catch (e) {
       logger.e("Error adding customer: $e");
@@ -53,7 +55,10 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   @override
   Future<Either<Failure, Unit>> deleteCustomer(int id) async {
     try {
-      await SupabaseClientProvider.client.from('customer').delete().eq('id', id);
+      await SupabaseClientProvider.client
+          .from('customer')
+          .delete()
+          .eq('id', id);
       return const Right(unit);
     } catch (e) {
       logger.e("Error deleting customer: $e");
@@ -66,17 +71,19 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
     try {
       await SupabaseClientProvider.client
           .from('customer')
-          .update(CustomerModel(
-        id: customer.id,
-        uncooperative: customer.uncooperative,
-        poor: customer.poor,
-        good: customer.good,
-        veryGood: customer.veryGood,
-        excellent: customer.excellent,
-        name: customer.name,
-        userId: customer.userId,
-      ).toJson())
-          .eq('id', customer.id);
+          .update(
+            CustomerModel(
+              id: customer.id,
+              uncooperative: customer.uncooperative,
+              poor: customer.poor,
+              good: customer.good,
+              veryGood: customer.veryGood,
+              excellent: customer.excellent,
+              name: customer.name,
+              userId: customer.userId,
+            ).toJson(),
+          )
+          .eq('id', customer.id!);
       return const Right(unit);
     } catch (e) {
       logger.e("Error updating customer: $e");

@@ -3,7 +3,7 @@ import '../../domain/entities/customer.dart';
 
 class CustomerModel extends Customer {
   CustomerModel({
-    required super.id,
+    super.id,
     required super.uncooperative,
     required super.poor,
     required super.good,
@@ -28,7 +28,6 @@ class CustomerModel extends Customer {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'uncooperative': uncooperative,
       'poor': poor,
       'good': good,
