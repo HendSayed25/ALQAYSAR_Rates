@@ -40,60 +40,62 @@ class LoginScreen extends StatelessWidget {
             child: Form(
               key: formKey,
               child: Center(
-                child: SingleChildScrollView(
+                child:  SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const LoginHeader(),
-                      const MyForm(),
-                      SizedBox(height: 8.h),
-                      const ForgetPasswordButton(),
-                      SizedBox(height: 100.h),
-                      BlocConsumer<AuthCubit, AuthState>(
-                        listener: (context, state) {
-                          if (state is AuthAuthenticated) {
-                            sl<AppPrefs>().setString("id", state.userEntity.id);
-                            sl<AppPrefs>().setString("role", state.userEntity.role);
-
-                            Logger().i("${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role}");
-
-                            if (state.userEntity.role == "user") {
-                              context.pushReplacementNamed(
-                                  Routes.homeScreenUserRoute);
-                            } else {
-                              context.pushReplacementNamed(
-                                  Routes.homeScreenAdminRoute);
-                            }
-                          } else if (state is AuthError) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(AppStrings.emailPasswordError),
-                              ),
-                            );
-                          }
-                        },
-                        builder: (BuildContext context, AuthState state) {
-                          return CustomButton(
-                            text: AppStrings.loginButtonText,
-                            onPressed: () {
-                              if (formKey.currentState?.validate() ?? false) {
-                                context.read<AuthCubit>().loginUser(
-                                    email: DataIntent.popEmail()!,
-                                    password: DataIntent.popPassword()!);
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const LoginHeader(),
+                        const MyForm(),
+                        SizedBox(height: 8.h),
+                        const ForgetPasswordButton(),
+                        SizedBox(height: 100.h),
+                        BlocConsumer<AuthCubit, AuthState>(
+                          listener: (context, state) {
+                            if (state is AuthAuthenticated) {
+                              sl<AppPrefs>().setString("id", state.userEntity.id);
+                              sl<AppPrefs>().setString("role", state.userEntity.role);
+                  
+                              Logger().i("${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role}");
+                  
+                              if (state.userEntity.role == "user") {
+                                context.pushReplacementNamed(
+                                    Routes.homeScreenUserRoute);
+                              } else {
+                                context.pushReplacementNamed(
+                                    Routes.homeScreenAdminRoute);
                               }
-                            },
-                            isLoading: state is AuthLoading,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                            } else if (state is AuthError) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(AppStrings.emailPasswordError),
+                                ),
+                              );
+                            }
+                          },
+                          builder: (BuildContext context, AuthState state) {
+                            return CustomButton(
+                              colorOfBorder: Colors.transparent,
+                              text: AppStrings.loginButtonText,
+                              onPressed: () {
+                                if (formKey.currentState?.validate() ?? false) {
+                                  context.read<AuthCubit>().loginUser(
+                                      email: DataIntent.popEmail()!,
+                                      password: DataIntent.popPassword()!);
+                                }
+                              },
+                              isLoading: state is AuthLoading,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                ),
                 ),
               ),
             ),
           ),
         ),
-      ),
+
     );
   }
 }

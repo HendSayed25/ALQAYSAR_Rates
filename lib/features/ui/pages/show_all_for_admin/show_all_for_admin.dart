@@ -2,8 +2,8 @@ import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/resource/colors_manager.dart';
-import '../common/user_card_design.dart';
+import '../../../../../core/resource/colors_manager.dart';
+import '../../common/user_card_design.dart';
 
 class ShowAllForAdminScreen extends StatefulWidget {
   const ShowAllForAdminScreen({super.key});

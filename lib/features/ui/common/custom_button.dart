@@ -16,6 +16,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.textStyle,
+    required this.colorOfBorder,
   });
 
   final String? text;
@@ -28,6 +29,8 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final TextStyle? textStyle;
+  final Color colorOfBorder;
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +41,14 @@ class CustomButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
         borderRadius: BorderRadius.circular(borderRadius ?? 25.r),
+
       ),
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
+          side: BorderSide(color:colorOfBorder),
           padding: padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 25.r),

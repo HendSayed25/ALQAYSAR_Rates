@@ -1,4 +1,7 @@
+import 'package:alqaysar_rates/features/ui/common/user_card_design_in_search.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/resource/colors_manager.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -8,34 +11,35 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // Sample list of users
-  final List<String> users = [
-    'John Doe',
-    'Jane Smith',
-    'Alice Johnson',
-    'Bob Brown',
-    'Charlie Davis',
-  ];
-
-  // List to store filtered users
-  List<String> filteredUsers = [];
-
-  // Controller for the TextField
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
+  final List<Map<String, dynamic>> _allUsers = [
+    {'userName': 'Hend', 'rating': 4.5, 'showRating': true},
+    {'userName': 'Ahmed', 'rating': 4.5, 'showRating': true},
+    {'userName': 'Asmaa', 'rating': 4.0, 'showRating': true},
+    {'userName': 'Alaa', 'rating': 3.0, 'showRating': true},
+    ];
+  List<Map<String,dynamic>> _filteredUsers = [];
 
   @override
   void initState() {
     super.initState();
-    // Initially, show all users
-    filteredUsers = users;
+    _filteredUsers = _allUsers;
   }
 
-  // Function to filter users based on the search query
-  void filterUsers(String query) {
-    setState(() {
-      filteredUsers = users
-          .where((user) => user.toLowerCase().contains(query.toLowerCase()))
+  void _filterSearchResults(String query) {
+    List<Map<String, dynamic>> results = [];
+    if (query.isEmpty) {
+      results = _allUsers;
+    } else {
+      results = _allUsers
+          .where((user) => user['userName']
+          .toLowerCase()
+          .contains(query.toLowerCase()))
           .toList();
+    }
+    setState(() {
+      _filteredUsers = results;
     });
   }
 
@@ -43,96 +47,64 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search '),
+        backgroundColor: Colors.transparent,
+        title: _isSearching
+            ? TextField(
+          controller: _searchController,
+          autofocus: true,
+          decoration: const InputDecoration(
+            hintText: 'Search...',
+            border: InputBorder.none,
+          ),
+          onChanged: _filterSearchResults,
+        )
+            : const Text('ALQAYSAR'),
         actions: [
-          // Search icon
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(_isSearching ? Icons.clear : Icons.search,color: Colors.white,),
             onPressed: () {
-              // Show the search bar when clicked
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(
-                  onSearch: filterUsers,
-                  users: users,
-                ),
-              );
+              setState(() {
+                if (_isSearching) {
+                  _isSearching = false;
+                  _searchController.clear();
+                  _filteredUsers = _allUsers;
+                } else {
+                  _isSearching = true;
+                }
+              });
             },
           ),
         ],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors:  AppColors.backgroundColor,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
-      body: ListView.builder(
-        itemCount: filteredUsers.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(filteredUsers[index]),
-          );
-        },
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors:  AppColors.backgroundColor,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: _filteredUsers.length,
+          itemBuilder: (context, index) {
+            var user = _filteredUsers[index];
+            return UserCardInSearch(
+              userName: user['userName'],
+              rating: user['rating'],
+              showRating: user['showRating'],
+            );
+          },
+        ),
       ),
-    );
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate {
-  final Function(String) onSearch;
-  final List<String> users;
-
-  CustomSearchDelegate({required this.onSearch, required this.users});
-
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = ''; // Clear the search query
-          onSearch(query); // Update the user list
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null); // Close the search bar
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // Show the results based on the search query
-    final results = users
-        .where((user) => user.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-
-    return ListView.builder(
-      itemCount: results.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(results[index]),
-        );
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // Show suggestions based on the query
-    final suggestions = users
-        .where((user) => user.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
-
-    return ListView.builder(
-      itemCount: suggestions.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(suggestions[index]),
-        );
-      },
     );
   }
 }

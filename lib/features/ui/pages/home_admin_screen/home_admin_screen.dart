@@ -1,4 +1,5 @@
 import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:alqaysar_rates/features/ui/common/bottom_sheet_design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -100,6 +101,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: CustomButton(
+                        colorOfBorder: Colors.transparent,
                           text: 'Show All',
                           onPressed: () {
                             context.pushNamed(Routes.showAllForAdminRoute);
@@ -108,8 +110,21 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                     height: 30.h,
                   ),
                   CustomButton(
+                    colorOfBorder: AppColors.successColor,
                     text: 'Add',
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30.0),
+                          ),
+                        ),
+                        builder: (context) {
+                          return const BottomSheetDesign(textBtn: 'Add',);
+                        },
+                      );},
                   )
                   // Container(
                   //   width: 300.w,
@@ -150,6 +165,9 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
     );
   }
 }
+
+
+
 
 // SearchBar(
 // backgroundColor: const WidgetStatePropertyAll(AppColors.secondaryContainerColor),
