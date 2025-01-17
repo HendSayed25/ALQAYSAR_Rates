@@ -47,6 +47,8 @@ dependencies:
   logger:
   equatable:
   flutter_layout_grid:
+  firebase_core:
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:

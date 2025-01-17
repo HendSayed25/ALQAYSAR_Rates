@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: [EasyLocalization.of(context)!.delegate],
         theme: ThemeData(fontFamily: AppLanguages.getPrimaryFont(context)),
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.homeScreenUserRoute,
+        initialRoute: Routes.userOverviewScreenRoute,
       ),
     );
   }

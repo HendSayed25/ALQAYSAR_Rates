@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "312100610811",
+    "project_id": "alqaysar-22f21",
+    "storage_bucket": "alqaysar-22f21.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312100610811:android:7921042f1ec6713d5a865e",
+        "android_client_info": {
+          "package_name": "com.example.alqaysar_rates"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuaqjWf3CsHX3Xq9ZgT5YxunANakfY3VU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

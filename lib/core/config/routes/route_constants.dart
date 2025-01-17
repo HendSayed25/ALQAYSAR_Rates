@@ -7,5 +7,6 @@ class Routes {
   static const String homeScreenAdminRoute = "/homeAdmin";
   static const String showAllForAdminRoute = "/showAllAdmin";
   static const String searchScreenRoute = "/search";
+  static const String userOverviewScreenRoute = "/overview";
 
 }

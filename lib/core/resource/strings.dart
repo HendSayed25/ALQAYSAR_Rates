@@ -24,8 +24,11 @@ class AppStrings {
   static const String hiAdmin = "Hi Admin";
   static const String showAll = "Show All";
   static const String add = "Add";
+  static const String edit = "Edit";
+  static const String delete = "Delete";
   static const String nameRequired = "Name is required";
   static const String customerAddedSuccessfully = "Customer added successfully!";
+  static const String customerEditedSuccessfully = "Customer edited successfully!";
   static const String search = "Search";
 
   // Bottom Sheet Design
