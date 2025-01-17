@@ -47,5 +47,5 @@ Future<void> setupServiceLocator() async {
 
   /// Presentation Layer
   sl.registerFactory(() => AuthCubit(login: sl()));
-  sl.registerFactory(() => CustomerCubit(getCustomers: sl(),addCustomer: sl()));
+  sl.registerFactory(() => CustomerCubit(getCustomersUsecase: sl(),addCustomerUsecase: sl(), deleteCustomerUsecase: sl(), updateCustomerUsecase: sl()));
 }

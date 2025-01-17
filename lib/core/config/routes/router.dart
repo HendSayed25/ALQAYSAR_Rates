@@ -1,4 +1,4 @@
-import 'package:alqaysar_rates/features/ui/pages/SearchScreen.dart';
+import 'package:alqaysar_rates/features/ui/pages/search_screen/search_screen.dart';
 import 'package:alqaysar_rates/features/ui/cubit/customer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +7,7 @@ import '../../../features/ui/cubit/login_cubit.dart';
 import '../../../features/ui/pages/home_admin_screen/home_admin_screen.dart';
 import '../../../features/ui/pages/home_user_screen/home_screen.dart';
 import '../../../features/ui/pages/login_screen/login_screen.dart';
-import '../../../features/ui/pages/show_all_for_admin/show_all_for_admin.dart';
+import '../../../features/ui/pages/show_all_for_admin_screen/show_all_for_admin.dart';
 import '../../../features/ui/pages/splash_screen/splash_screen.dart';
 import '../../../service_locator.dart';
 import 'route_constants.dart';
@@ -53,7 +53,10 @@ class RouteGenerator {
 
       case Routes.searchScreenRoute:
         return MaterialPageRoute(
-          builder: (context) => const SearchScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => sl<CustomerCubit>()..fetchCustomers(),
+            child: const SearchScreen(),
+          ),
         );
 
       default:

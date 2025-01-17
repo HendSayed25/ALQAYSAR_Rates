@@ -54,6 +54,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
 
   @override
   Future<Either<Failure, Unit>> deleteCustomer(int id) async {
+    logger.i("Deleting customer with id: $id");
     try {
       await SupabaseClientProvider.client
           .from('customer')
@@ -68,21 +69,30 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
 
   @override
   Future<Either<Failure, Unit>> updateCustomer(Customer customer) async {
+    logger.i("Updating customer with name: ${customer.name}");
     try {
+      final response = await SupabaseClientProvider.client
+          .from('customer')
+          .select()
+          .eq('id', customer.id!)
+          .single();
+
+      final oldCustomer = CustomerModel.fromJson(response);
+      final currentCustomer = CustomerModel(
+        uncooperative: customer.uncooperative,
+        poor: customer.poor,
+        good: customer.good,
+        veryGood: customer.veryGood,
+        excellent: customer.excellent,
+        name: customer.name,
+        userId: customer.userId,
+        id: customer.id,
+      );
+      final updatedCustomer = updateRate(oldCustomer, currentCustomer);
+
       await SupabaseClientProvider.client
           .from('customer')
-          .update(
-            CustomerModel(
-              id: customer.id,
-              uncooperative: customer.uncooperative,
-              poor: customer.poor,
-              good: customer.good,
-              veryGood: customer.veryGood,
-              excellent: customer.excellent,
-              name: customer.name,
-              userId: customer.userId,
-            ).toJson(),
-          )
+          .update(updatedCustomer.toJson())
           .eq('id', customer.id!);
       return const Right(unit);
     } catch (e) {
@@ -90,4 +100,18 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
       return const Left(ServerFailure("Failed to update customer"));
     }
   }
+}
+
+CustomerModel updateRate(CustomerModel customer, CustomerModel newCustomer) {
+  return CustomerModel(
+    id: newCustomer.id,
+    uncooperative:
+        (newCustomer.uncooperative ?? 0) + (customer.uncooperative ?? 0),
+    poor: (newCustomer.poor ?? 0) + (customer.poor ?? 0),
+    good: (newCustomer.good ?? 0) + (customer.good ?? 0),
+    veryGood: (newCustomer.veryGood ?? 0) + (customer.veryGood ?? 0),
+    excellent: (newCustomer.excellent ?? 0) + (customer.excellent ?? 0),
+    name: newCustomer.name,
+    userId: newCustomer.userId,
+  );
 }

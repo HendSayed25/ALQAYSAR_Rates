@@ -22,6 +22,10 @@ class CustomerLoaded extends CustomerState {
 
 class CustomerAddedSuccessfully extends CustomerState {}
 
+class CustomerDeletedSuccessfully extends CustomerState {}
+
+class CustomerUpdatedSuccessfully extends CustomerState {}
+
 class CustomerError extends CustomerState {
   final String message;
 

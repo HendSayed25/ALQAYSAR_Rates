@@ -1,4 +1,3 @@
-import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:logger/logger.dart';
 import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
+import '../../../../core/helper/extensions.dart';
 import '../../../../core/resource/strings.dart';
 import '../../../../service_locator.dart';
 import '../../../data/local/app_prefs.dart';
@@ -63,7 +63,11 @@ class HomeAdminScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 112.h),
-                    SearchBarWidget(onSearch: (query) {}),
+                    GestureDetector(
+                        onTap: () {
+                          context.pushNamed(Routes.searchScreenRoute);
+                        },
+                        child: const SearchBarWidget()),
                     SizedBox(height: 107.h),
                     CustomButton(
                       gradient: const LinearGradient(
@@ -80,7 +84,6 @@ class HomeAdminScreen extends StatelessWidget {
                       listener: (context, state) {
                         Logger().e(state);
                         if (state is CustomerAddedSuccessfully) {
-                          // Show success message
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content:
@@ -88,7 +91,6 @@ class HomeAdminScreen extends StatelessWidget {
                             ),
                           );
                         } else if (state is CustomerError) {
-                          // Show error message
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(state.message),

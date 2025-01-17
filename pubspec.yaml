@@ -46,6 +46,7 @@ dependencies:
   dartz:
   logger:
   equatable:
+  flutter_layout_grid:
 
 dev_dependencies:
   flutter_test:

@@ -21,6 +21,6 @@ class Customer {
 
   double get rating {
     final total = uncooperative! + poor! + good! + veryGood! + excellent!;
-    return (total == 0) ? 0.0 : total / 5;
+    return (total == 0) ? 0.0 : (good! + veryGood! + excellent!) / total * 5;
   }
 }

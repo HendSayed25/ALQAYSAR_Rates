@@ -18,62 +18,65 @@ class UserCardInSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Center(
-       child:  Center(
-         child: Container(
-           margin: const EdgeInsets.only(top:25.0,left: 18,right: 18),
-           padding: const EdgeInsets.all(15.0),
-           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: AppColors.primaryContainerColor,
+    return Center(
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.only(top: 25.0.h, left: 18.w, right: 18.w),
+          padding: EdgeInsets.all(15.0.r),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: AppColors.primaryContainerColor,
+            ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(33.r),
+              bottomRight: Radius.circular(33.r),
+              topLeft: Radius.circular(33.r),
+              topRight: Radius.circular(33.r),
+            ),
+          ),
+          child: Row(
+            children: [
+              Image.asset(
+                ImageAssets.person,
+                width: 180.w,
+                height: 160.h,
               ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(38),
-                bottomRight: Radius.circular(38),
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      userName,
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 6.h),
+                    if (showRating) ...[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            "$rating / 5",
+                            style: TextStyle(
+                                fontSize: 14.sp, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 5.w),
+                          Icon(Icons.star, color: Colors.amber, size: 16.r),
+                        ],
+                      ),
+                    ],
+                  ],
+                ),
               ),
-
-           ),
-           child: Row(
-             children: [
-               Image.asset(
-                   ImageAssets.person,
-                   width: 180.w,
-                   height: 160.h,
-                 ),
-               SizedBox(width: 16.0.w),
-               Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   Text(
-                     userName,
-                     style: TextStyle(
-                       fontSize: 20.sp,
-                       fontWeight: FontWeight.bold,
-                     ),
-                   ),
-                   SizedBox(height: 15.h),
-                   if (showRating) ...[
-                     Row(
-                       children: [
-                         Text(
-                           "$rating / 5",
-                           style: TextStyle(fontSize: 17.sp),
-                         ),
-                         SizedBox(width: 5.w),
-                         const Icon(Icons.star,
-                             color: Colors.amber, size: 16),
-                       ],
-                     ),
-                   ],
-                 ],
-               ),
-             ],
-           ),
-         ),
-       ),
-     );
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
