@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
+import 'package:alqaysar_rates/core/resource/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -49,12 +52,13 @@ class _SearchScreenState extends State<SearchScreen> {
         title: TextField(
           controller: _searchController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'Search by name...',
-            hintStyle: TextStyle(color: Colors.grey),
+          decoration: InputDecoration(
+            hintText:AppStrings.searchByName.tr(),
+            hintStyle: const TextStyle(color: Colors.grey),
             border: InputBorder.none,
           ),
-          style: const TextStyle(color: Colors.white),
+          style:TextStyle(color: Colors.white,fontFamily: AppLanguages.getPrimaryFont(context)),
+          textDirection: AppLanguages.getCurrentTextDirection(context),
           onChanged: _onSearchChanged,
         ),
         flexibleSpace: Container(
@@ -97,22 +101,25 @@ class _SearchScreenState extends State<SearchScreen> {
               );
             } else if (state is CustomerLoaded) {
               if (state.customers.isEmpty) {
-                return const Center(
+                return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.search_off,
                         size: 64,
                         color: Colors.grey,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Text(
-                        'No customers found',
-                        style: TextStyle(
+                        AppStrings.noCustomersFound.tr(),
+                        style:TextStyle(
                           fontSize: 18,
                           color: Colors.grey,
+                          fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
+                        textDirection: AppLanguages.getCurrentTextDirection(context),
+
                       ),
                     ],
                   ),
@@ -133,7 +140,13 @@ class _SearchScreenState extends State<SearchScreen> {
             } else if (state is CustomerError) {
               return Center(child: Text(state.message));
             } else {
-              return const Center(child: Text('Start typing to search...'));
+              return Center(
+                child: Text(AppStrings.startTypingToSearch.tr(),
+                  textDirection: AppLanguages.getCurrentTextDirection(context),
+                  style:TextStyle(fontFamily: AppLanguages.getPrimaryFont(context),) ,
+                ),
+
+              );
             }
           },
         ),

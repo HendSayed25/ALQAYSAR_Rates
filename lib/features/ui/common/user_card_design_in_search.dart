@@ -1,3 +1,4 @@
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +53,9 @@ class UserCardInSearch extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
+                        fontFamily: AppLanguages.getPrimaryFont(context),
                       ),
+                      textDirection: AppLanguages.getCurrentTextDirection(context),
                     ),
                     SizedBox(height: 6.h),
                     if (showRating) ...[

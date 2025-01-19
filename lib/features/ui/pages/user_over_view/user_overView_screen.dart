@@ -1,20 +1,16 @@
-import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:alqaysar_rates/features/ui/common/bottom_sheet_design.dart';
 import 'package:alqaysar_rates/features/ui/common/custom_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
+import 'package:alqaysar_rates/features/ui/pages/user_over_view/widgets/chart_rate_design.dart';
 
-import '../../../../core/config/routes/route_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/colors_manager.dart';
-import '../../../../service_locator.dart';
-import '../../../data/local/app_prefs.dart';
-import '../../../domain/entities/customer.dart';
-import '../../cubit/customer_cubit.dart';
-import '../../states/customer_state.dart';
+
 
 class UserOverViewScreen extends StatelessWidget {
   const UserOverViewScreen({super.key});
@@ -32,7 +28,7 @@ class UserOverViewScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 5.0),
+          padding: const EdgeInsets.only(top: 5.0),
           child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -47,7 +43,7 @@ class UserOverViewScreen extends StatelessWidget {
                               begin: Alignment.topLeft,
                               end: Alignment.topRight,
                             ),
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35),bottomRight:  Radius.circular(35)),
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(35),bottomRight:  Radius.circular(35)),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.2),
@@ -72,37 +68,34 @@ class UserOverViewScreen extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.all(50.0),
+                      margin: const EdgeInsets.all(20.0),
                         child: Text("User Name",
                         style: TextStyle(
+                          fontFamily: AppLanguages.getPrimaryFont(context),
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 35.sp,
-
-                        ),)
+                          fontSize: 35.sp,),
+                        )
                     ),
-                 Container(
-                   width: 280.w,
-                   height: 190.h,
-                   decoration:  const BoxDecoration(
-                     gradient: LinearGradient(
-                       colors: AppColors.primaryContainerColor,
-                       begin: Alignment.topLeft,
-                       end: Alignment.topRight,
-                     ),
-                   )
-
+                    Container(
+                     width: 270.w,
+                     height: 270.h,
+                       child:const FittedBox(
+                           child: SizedBox(
+                               width:280,
+                               height:280,
+                               child: PieChartSample2()),
+                                   ),
                  ),
 
-                    SizedBox(height: 90.h),
+                    SizedBox(height: 60.h),
                     CustomButton(
                       gradient: const LinearGradient(
                         colors: AppColors.primaryContainerColor,
                       ),
                       colorOfBorder: Colors.yellow,
-                      text: AppStrings.edit,
+                      text: AppStrings.edit.tr(),
                       onPressed: () {
-                      //  context.pushNamed(Routes.showAllForAdminRoute);
                       },
                     ),
                     SizedBox(height: 30.h),
@@ -111,9 +104,8 @@ class UserOverViewScreen extends StatelessWidget {
                         colors: AppColors.primaryContainerColor,
                       ),
                       colorOfBorder: Colors.red,
-                      text: AppStrings.delete,
+                      text: AppStrings.delete.tr(),
                       onPressed: () {
-                        //  context.pushNamed(Routes.showAllForAdminRoute);
                       },
                     ),
 

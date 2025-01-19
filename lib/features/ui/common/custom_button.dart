@@ -1,3 +1,4 @@
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -66,7 +67,9 @@ class CustomButton extends StatelessWidget {
                       TextStyle(
                         fontSize: 18.sp,
                         color: Colors.black,
+                        fontFamily: AppLanguages.getPrimaryFont(context)
                       ),
+                  textDirection: AppLanguages.getCurrentTextDirection(context),
                 ),
       ),
     );

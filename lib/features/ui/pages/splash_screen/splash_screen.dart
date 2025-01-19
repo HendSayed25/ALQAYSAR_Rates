@@ -1,6 +1,7 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
+import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -102,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     TextAnimation(
                       text1Opacity: _text2Opacity,
-                      text: 'ALQAYSAR',
+                      text: AppStrings.appName,
                       textSize: 24,
                     ),
                   ],

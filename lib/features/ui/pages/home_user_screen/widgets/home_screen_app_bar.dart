@@ -1,5 +1,7 @@
 import 'package:alqaysar_rates/core/helper/extensions.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
+import 'package:alqaysar_rates/core/resource/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,24 +25,31 @@ class HomeScreenAppBarWidget extends StatelessWidget{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              margin: const EdgeInsets.only(
-                  left: 40, top: 35, bottom: 10, right: 20),
-              child: Image.asset(
-                ImageAssets.languageIcon,
-                width: 30.w,
-                height: 30.h,
+            GestureDetector(
+              child: Container(
+                margin: const EdgeInsets.only(
+                    left: 40, top: 35, bottom: 10, right: 20),
+                child: Image.asset(
+                  ImageAssets.languageIcon,
+                  width: 30.w,
+                  height: 30.h,
+                ),
               ),
+              onTap: (){
+                AppLanguages.toggleLocal(context);
+              }
             ),
             Container(
               margin: const EdgeInsets.only(
-                  left: 50, top: 35, bottom: 10, right: 30),
-              child: const Text(
-                "ALQAYSAR",
+                  left: 50, top: 35, bottom: 10, right: 65),
+              child: Text(
+                AppStrings.appName.tr(),
+                textDirection: AppLanguages.getCurrentTextDirection(context),
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 25,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: AppLanguages.getPrimaryFont(context)),
               ),
             ),
             const Spacer(), // to handle spaces between appBar elements

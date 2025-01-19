@@ -1,3 +1,5 @@
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,10 +49,12 @@ class HomeAdminScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        AppStrings.hiAdmin,
+                        AppStrings.hiAdmin.tr(),
+                        textDirection: AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
                           fontSize: 15.sp,
                           color: Colors.black,
+                          fontFamily: AppLanguages.getPrimaryFont(context)
                         ),
                       ),
                     ),
@@ -74,7 +78,7 @@ class HomeAdminScreen extends StatelessWidget {
                         colors: AppColors.primaryContainerColor,
                       ),
                       colorOfBorder: Colors.transparent,
-                      text: AppStrings.showAll,
+                      text: AppStrings.showAll.tr(),
                       onPressed: () {
                         context.pushNamed(Routes.showAllForAdminRoute);
                       },
@@ -85,9 +89,11 @@ class HomeAdminScreen extends StatelessWidget {
                         Logger().e(state);
                         if (state is CustomerAddedSuccessfully) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
+                            SnackBar(
                               content:
-                                  Text(AppStrings.customerAddedSuccessfully),
+                                  Text(AppStrings.customerAddedSuccessfully.tr(),
+                                  textDirection: AppLanguages.getCurrentTextDirection(context),
+                                  style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context)),),
                             ),
                           );
                         } else if (state is CustomerError) {
@@ -104,7 +110,7 @@ class HomeAdminScreen extends StatelessWidget {
                             colors: AppColors.primaryContainerColor,
                           ),
                           colorOfBorder: Colors.transparent,
-                          text: AppStrings.add,
+                          text: AppStrings.add.tr(),
                           onPressed: () {
                             showModalBottomSheet(
                               context: context,
@@ -116,7 +122,7 @@ class HomeAdminScreen extends StatelessWidget {
                               ),
                               builder: (_) {
                                 return BottomSheetDesign(
-                                  textBtn: AppStrings.add,
+                                  textBtn: AppStrings.add.tr(),
                                   onPressed: (String name) {
                                     if (name.isNotEmpty) {
                                       context
@@ -131,9 +137,9 @@ class HomeAdminScreen extends StatelessWidget {
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           content:
-                                              Text(AppStrings.nameRequired),
+                                              Text(AppStrings.nameRequired.tr()),
                                         ),
                                       );
                                     }

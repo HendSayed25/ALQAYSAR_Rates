@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/helper/language/language_helper.dart';
 import '../home_user_screen/widgets/home_screen_app_bar.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
@@ -94,12 +96,16 @@ class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
                         style: TextStyle(
                           fontSize: 18.sp,
                           color: Colors.red,
+                          fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
+                        textDirection: AppLanguages.getCurrentTextDirection(context),
                       ),
                     );
                   } else {
-                    return const Center(
-                      child: Text(AppStrings.noCustomersFound),
+                    return Center(
+                      child: Text(AppStrings.noCustomersFound.tr(),
+                      textDirection: AppLanguages.getCurrentTextDirection(context),
+                      style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context),),),
                     );
                   }
                 },

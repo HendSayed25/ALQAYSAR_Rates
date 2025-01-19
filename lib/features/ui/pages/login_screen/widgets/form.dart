@@ -1,3 +1,5 @@
+import 'package:alqaysar_rates/core/resource/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -46,7 +48,7 @@ class _MyFormState extends State<MyForm> {
             focusNode: emailFocusNode,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              labelText: "Email",
+              labelText: AppStrings.email.tr(),
               labelStyle: const TextStyle(color: Colors.black),
               prefixIcon: const Icon(Icons.email),
               border: OutlineInputBorder(
@@ -97,7 +99,7 @@ class _MyFormState extends State<MyForm> {
             // Set focusNode for this field
             obscureText: !passwordVisible,
             decoration: InputDecoration(
-              labelText: "Password",
+              labelText: AppStrings.password.tr(),
               labelStyle: const TextStyle(color: Colors.black),
               prefixIcon: const Icon(Icons.lock),
               suffixIcon: IconButton(

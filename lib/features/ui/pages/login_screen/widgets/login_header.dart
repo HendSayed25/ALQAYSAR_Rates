@@ -1,3 +1,6 @@
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
+import 'package:alqaysar_rates/core/resource/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,20 +15,24 @@ class LoginHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "Login",
+          AppStrings.login.tr(),
           style: TextStyle(
             fontSize: 32.sp,
             fontWeight: FontWeight.bold,
+            fontFamily: AppLanguages.getPrimaryFont(context),
             color: Colors.black,
           ),
+          textDirection: AppLanguages.getCurrentTextDirection(context),
         ),
         SizedBox(height: 8.h),
         Text(
-          "Enter your email & password",
+          AppStrings.enterEmailPassword.tr(),
           style: TextStyle(
             fontSize: 18.sp,
+            fontFamily: AppLanguages.getPrimaryFont(context),
             color: AppColors.primaryTextColor,
           ),
+          textDirection: AppLanguages.getCurrentTextDirection(context),
         ),
         SizedBox(height: 126.h),
       ],

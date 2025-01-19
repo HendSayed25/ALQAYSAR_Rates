@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helper/language/language_helper.dart';
+
 class TextAnimation extends StatelessWidget {
   const TextAnimation({
     super.key,
@@ -24,7 +26,9 @@ class TextAnimation extends StatelessWidget {
         style: TextStyle(
           fontSize: _textSize.sp,
           fontWeight: FontWeight.bold,
+          fontFamily: AppLanguages.getPrimaryFont(context),
         ),
+        textDirection: AppLanguages.getCurrentTextDirection(context),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:logger/logger.dart';
 import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/helper/data_intent.dart';
 import '../../../../core/helper/extensions.dart';
+import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
 import '../../../../service_locator.dart';
@@ -71,8 +73,11 @@ class LoginScreen extends StatelessWidget {
                             }
                           } else if (state is AuthError) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(AppStrings.emailPasswordError),
+                              SnackBar(
+                                content: Text(AppStrings.emailPasswordError.tr(),
+                                  textDirection: AppLanguages.getCurrentTextDirection(context),
+                                  style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context)),
+                                ),
                               ),
                             );
                           }
@@ -80,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                         builder: (BuildContext context, AuthState state) {
                           return CustomButton(
                             gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
-                            text: AppStrings.loginButtonText,
+                            text: AppStrings.loginButtonText.tr(),
                             onPressed: () {
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<AuthCubit>().loginUser(

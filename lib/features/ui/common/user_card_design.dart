@@ -1,3 +1,4 @@
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -63,7 +64,9 @@ class UserCard extends StatelessWidget {
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.primaryTextColor,
+              fontFamily: AppLanguages.getPrimaryFont(context)
             ),
+            textDirection: AppLanguages.getCurrentTextDirection(context),
           ),
           showRating
               ? Column(
@@ -77,8 +80,12 @@ class UserCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
+                            fontFamily: AppLanguages.getPrimaryFont(context) ,
                             color: AppColors.primaryTextColor,
+
                           ),
+                          textDirection: AppLanguages.getCurrentTextDirection(context),
+
                         ),
                         SizedBox(width: 5.w),
                         Icon(

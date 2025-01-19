@@ -5,15 +5,15 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'app/app.dart';
 import 'core/helper/language/language_helper.dart';
+import 'firebase_options.dart';
 import 'service_locator.dart';
 
 late final WidgetsBinding engine;
 
 void main() async {
-
-
-
   engine = WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,  );
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,

@@ -1,3 +1,4 @@
+import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,19 +12,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLanguages.init(context);//get the language of app when start
     return ScreenUtilInit(
       designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'ALQYSAR',
+        title: AppStrings.appName.tr(),
         locale: context.locale,
-        supportedLocales: AppLanguages.locals,
-        localizationsDelegates: [EasyLocalization.of(context)!.delegate],
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
         theme: ThemeData(fontFamily: AppLanguages.getPrimaryFont(context)),
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.userOverviewScreenRoute,
+        initialRoute: Routes.homeScreenAdminRoute
       ),
     );
   }

@@ -1,6 +1,8 @@
+import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../core/config/routes/route_constants.dart';
 import '../../../service_locator.dart';
 import '../../data/local/app_prefs.dart';
 import '../../domain/entities/customer.dart';
@@ -40,10 +42,13 @@ class CustomerGrid extends StatelessWidget {
               return SizedBox(
                 width: 190.w,
                 height: 235.h,
-                child: UserCard(
-                  userName: customer.name,
-                  showRating: sl<AppPrefs>().getString("role") == "admin",
-                  rating: double.parse(customer.rating.toStringAsFixed(1)),
+                child: GestureDetector(
+                onTap:(){context.pushNamed(Routes.userOverviewScreenRoute);},
+                  child: UserCard(
+                    userName: customer.name,
+                    showRating: sl<AppPrefs>().getString("role") == "admin",
+                    rating: double.parse(customer.rating.toStringAsFixed(1)),
+                  ),
                 ),
               );
             }),

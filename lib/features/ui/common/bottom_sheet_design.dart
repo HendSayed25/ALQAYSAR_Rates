@@ -1,7 +1,8 @@
 import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/resource/assets_manager.dart';
 import '../../../core/resource/colors_manager.dart';
 import '../../../core/resource/strings.dart';
@@ -69,8 +70,8 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
 
                   InputField(
                     controller: _nameController,
-                    labelText: AppStrings.name,
-                    hintText: AppStrings.enterName,
+                    labelText: AppStrings.name.tr(),
+                    hintText: AppStrings.enterName.tr(),
                     keyboardType: TextInputType.text,
                   ),
                   SizedBox(height: 80.h),
@@ -82,14 +83,16 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
                       end: Alignment.bottomRight,
                     ),
                     colorOfBorder: AppColors.successColor,
-                    text: widget.textBtn,
+                    text: widget.textBtn.tr(),
                     isLoading: widget.isLoading??false,
                     onPressed: () {
                       if (_nameController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(AppStrings.nameRequired),
-                          ),
+                           SnackBar(
+                            content: Text(AppStrings.nameRequired.tr(),
+                           textDirection:AppLanguages.getCurrentTextDirection(context),
+                          )
+                           ),
                         );
                       } else {
                         widget.onPressed(_nameController.text);
@@ -131,12 +134,13 @@ class InputField extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: TextField(
+        textDirection: AppLanguages.getCurrentTextDirection(context),
         controller: controller,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          labelText: labelText,
+          labelText: labelText.tr(),
           labelStyle: const TextStyle(color: Colors.black),
-          hintText: hintText,
+          hintText: hintText.tr(),
           hintStyle: const TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.r),

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as local;
 import 'package:flutter/material.dart';
 
 import '../../../main.dart';
@@ -63,14 +63,14 @@ class AppLanguages {
     }
   }
 
-  static TextDirection getCurrentTextDirection(BuildContext context) {
+  static TextDirection? getCurrentTextDirection(BuildContext context) {
     switch (context.locale.languageCode) {
       case 'en':
-        return TextDirection.LTR;
+        return TextDirection.ltr;
       case 'ar':
-        return TextDirection.RTL;
+        return TextDirection.rtl;
       default:
-        return TextDirection.LTR;
+        return TextDirection.ltr;
     }
   }
 }
