@@ -1,4 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:alqaysar_rates/core/config/notifications/push_notification_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,7 +23,8 @@ void main() async {
       systemNavigationBarColor: Colors.black,
     ),
   );
-
+  await Firebase.initializeApp();
+  await PushNotificationService.init();
   await EasyLocalization.ensureInitialized();
   await setupServiceLocator();
 
@@ -33,5 +37,3 @@ void main() async {
     ),
   );
 }
-
-
