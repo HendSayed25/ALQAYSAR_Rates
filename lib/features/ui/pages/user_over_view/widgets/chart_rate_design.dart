@@ -56,58 +56,46 @@ class PieChart2State extends State {
               ),
             ),
           ),
-          SizedBox(width: 40.w,),
+          SizedBox(width: 40.w),
           const Spacer(),
           const Spacer(),
-         Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Indicator(
-                  color: Colors.green,
-                  text: AppStrings.excellent.tr(),
-                  isSquare: true,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Indicator(
-                  color: Colors.blue,
-                  text: AppStrings.veryGood.tr(),
-                  isSquare: true,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Indicator(
-                  color: Colors.purple,
-                  text: AppStrings.good.tr(),
-                  isSquare: true,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Indicator(
-                  color: Colors.yellow,
-                  text: AppStrings.weak.tr(),
-                  isSquare: true,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Indicator(
-                  color: Colors.red,
-                  text: AppStrings.bad.tr(),
-                  isSquare: true,
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-              ],
-            ),
-          const SizedBox(
-            width: 28,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Indicator(
+                color: Colors.green,
+                text: AppStrings.excellent.tr(),
+                isSquare: true,
+              ),
+              SizedBox(height: 8.h),
+              Indicator(
+                color: Colors.blue,
+                text: AppStrings.veryGood.tr(),
+                isSquare: true,
+              ),
+              SizedBox(height: 8.h),
+              Indicator(
+                color: Colors.purple,
+                text: AppStrings.good.tr(),
+                isSquare: true,
+              ),
+              SizedBox(height: 8.h),
+              Indicator(
+                color: Colors.yellow,
+                text: AppStrings.weak.tr(),
+                isSquare: true,
+              ),
+              SizedBox(height: 8.h),
+              Indicator(
+                color: Colors.red,
+                text: AppStrings.bad.tr(),
+                isSquare: true,
+              ),
+              SizedBox(height: 18.h),
+            ],
           ),
+          SizedBox(width: 28.h),
         ],
       ),
     );
@@ -116,9 +104,9 @@ class PieChart2State extends State {
   List<PieChartSectionData> showingSections() {
     return List.generate(5, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
+      final fontSize = isTouched ? 25.0.sp : 16.0.sp;
+      final radius = isTouched ? 60.0.r : 50.0.r;
+      final shadows = [Shadow(color: Colors.black, blurRadius: 2.r)];
       switch (i) {
         case 0:
           return PieChartSectionData(

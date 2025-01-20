@@ -58,11 +58,10 @@ class LoginScreen extends StatelessWidget {
                         listener: (context, state) {
                           if (state is AuthAuthenticated) {
                             sl<AppPrefs>().setString("id", state.userEntity.id);
-                            sl<AppPrefs>()
-                                .setString("role", state.userEntity.role);
+                            sl<AppPrefs>().setString("role", state.userEntity.role);
 
                             Logger().i(
-                                "${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role}");
+                                "${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role} + token ${state.userEntity.token}}");
 
                             if (state.userEntity.role == "user") {
                               context.pushReplacementNamed(

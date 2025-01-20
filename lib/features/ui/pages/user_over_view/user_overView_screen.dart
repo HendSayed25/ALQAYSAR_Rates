@@ -11,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/colors_manager.dart';
 
-
 class UserOverViewScreen extends StatelessWidget {
   const UserOverViewScreen({super.key});
 
@@ -30,87 +29,83 @@ class UserOverViewScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 5.0),
           child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 300.h,
-                          decoration:  BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: AppColors.primaryContainerColor,
-                              begin: Alignment.topLeft,
-                              end: Alignment.topRight,
-                            ),
-                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(35),bottomRight:  Radius.circular(35)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2.r,
-                                  blurRadius: 8.r,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ]
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.all(50.0),
-                            width: 50.w,
-                            height: 50.h,
-                            child: Image.asset(
-                                  ImageAssets.person,
-                              fit: BoxFit.contain,
-
-                                ),
-                          ),
-
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300.h,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: AppColors.primaryContainerColor,
+                          begin: Alignment.topLeft,
+                          end: Alignment.topRight,
                         ),
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20.0),
-                        child: Text("User Name",
-                        style: TextStyle(
-                          fontFamily: AppLanguages.getPrimaryFont(context),
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35.sp,),
-                        )
-                    ),
-                    Container(
-                     width: 270.w,
-                     height: 270.h,
-                       child:const FittedBox(
-                           child: SizedBox(
-                               width:280,
-                               height:280,
-                               child: PieChartSample2()),
-                                   ),
-                 ),
-
-                    SizedBox(height: 60.h),
-                    CustomButton(
-                      gradient: const LinearGradient(
-                        colors: AppColors.primaryContainerColor,
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(35),
+                            bottomRight: Radius.circular(35)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 2.r,
+                            blurRadius: 8.r,
+                            offset: const Offset(0, 4),
+                          ),
+                        ]),
+                    child: Container(
+                      padding: const EdgeInsets.all(50.0),
+                      width: 50.w,
+                      height: 50.h,
+                      child: Image.asset(
+                        ImageAssets.person,
+                        fit: BoxFit.contain,
                       ),
-                      colorOfBorder: Colors.yellow,
-                      text: AppStrings.edit.tr(),
-                      onPressed: () {
-                      },
                     ),
-                    SizedBox(height: 30.h),
-                    CustomButton(
-                      gradient: const LinearGradient(
-                        colors: AppColors.primaryContainerColor,
-                      ),
-                      colorOfBorder: Colors.red,
-                      text: AppStrings.delete.tr(),
-                      onPressed: () {
-                      },
+                  ),
+                ],
+              ),
+              Container(
+                  margin: const EdgeInsets.all(20.0),
+                  child: Text(
+                    "User Name",
+                    style: TextStyle(
+                      fontFamily: AppLanguages.getPrimaryFont(context),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35.sp,
                     ),
-
-                 ],
+                  )),
+              Center(
+                child: SizedBox(
+                  width: 270.w,
+                  height: 270.h,
+                  child: const FittedBox(
+                    child: SizedBox(
+                        width: 280, height: 280, child: PieChartSample2()),
+                  ),
                 ),
+              ),
+              SizedBox(height: 60.h),
+              CustomButton(
+                gradient: const LinearGradient(
+                  colors: AppColors.primaryContainerColor,
+                ),
+                colorOfBorder: Colors.yellow,
+                text: AppStrings.edit.tr(),
+                onPressed: () {},
+              ),
+              SizedBox(height: 30.h),
+              CustomButton(
+                gradient: const LinearGradient(
+                  colors: AppColors.primaryContainerColor,
+                ),
+                colorOfBorder: Colors.red,
+                text: AppStrings.delete.tr(),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

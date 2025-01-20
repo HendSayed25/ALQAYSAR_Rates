@@ -10,6 +10,7 @@ import '../../../features/ui/pages/home_admin_screen/home_admin_screen.dart';
 import '../../../features/ui/pages/home_user_screen/home_screen.dart';
 import '../../../features/ui/pages/login_screen/login_screen.dart';
 import '../../../features/ui/pages/show_all_for_admin_screen/show_all_for_admin.dart';
+import '../../../features/ui/pages/splash_screen/splash_screen.dart';
 import '../../../service_locator.dart';
 import 'route_constants.dart';
 
@@ -18,10 +19,10 @@ class RouteGenerator {
 
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case Routes.splashScreenRoute:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const SplashScreen(),
-      //   );
+      case Routes.splashScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+        );
 
       case Routes.loginScreenRoute:
         return MaterialPageRoute(
