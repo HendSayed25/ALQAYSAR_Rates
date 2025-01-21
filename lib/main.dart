@@ -31,7 +31,7 @@ void main() async {
 
   await Future.wait([
     SupabaseClientProvider.initialize(),
-    LocalNotificationService.init(),
+    // LocalNotificationService.init(),
     EasyLocalization.ensureInitialized(),
     setupServiceLocator(),
   ]);

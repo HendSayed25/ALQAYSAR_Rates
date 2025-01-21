@@ -27,9 +27,9 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<AppPrefs>(() => AppPrefsImpl(sharedPreferences));
 
   /// notifications
-  NotificationService notificationService = NotificationService(SupabaseClientProvider.client);
-  notificationService.initNotifications();
-  sl.registerLazySingleton(() => notificationService);
+  // NotificationService notificationService = NotificationService(SupabaseClientProvider.client);
+  // notificationService.initNotifications();
+  // sl.registerLazySingleton(() => notificationService);
 
   /// one signal
   // sl.registerLazySingleton(() => OneSignalService());

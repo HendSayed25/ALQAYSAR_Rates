@@ -60,19 +60,11 @@ class HomeAdminScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 95.h),
-                    GestureDetector(
-                      onTap: () async {
-                        await sl<NotificationService>().sendNotification(
-                            adminUid: sl<AppPrefs>().getString("id")!,
-                            title: 'title',
-                            body: 'message');
-                      },
-                      child: Center(
-                        child: Image.asset(
-                          ImageAssets.logo,
-                          width: 200.w,
-                          height: 200.h,
-                        ),
+                    Center(
+                      child: Image.asset(
+                        ImageAssets.logo,
+                        width: 200.w,
+                        height: 200.h,
                       ),
                     ),
                     SizedBox(height: 112.h),
