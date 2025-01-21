@@ -53,10 +53,10 @@ dependencies:
 #  charts_flutter:
  # syncfusion_flutter_charts:
 
-  flutter_local_notifications:
-  http:
-  googleapis_auth:
-  onesignal_flutter:
+#  flutter_local_notifications:
+#  http:
+#  googleapis_auth:
+#  onesignal_flutter:
 
 dev_dependencies:
   flutter_test:
