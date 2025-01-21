@@ -2,9 +2,11 @@ import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
+import 'package:alqaysar_rates/features/data/local/app_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../service_locator.dart';
 import 'widgets/image_animation.dart';
 import 'widgets/text_animation.dart';
 
@@ -61,7 +63,8 @@ class _SplashScreenState extends State<SplashScreen>
 
     // After the animation finishes, navigate to the LoginScreen
     Future.delayed(const Duration(milliseconds: 2500), () {
-      context.pushReplacementNamed(Routes.loginScreenRoute);
+      sl<AppPrefs>().getBool("remember")==true?context.pushNamed(Routes.showAllRoute) :context.pushReplacementNamed(Routes.loginScreenRoute);
+      //context.pushReplacementNamed(Routes.loginScreenRoute);
     });
   }
 

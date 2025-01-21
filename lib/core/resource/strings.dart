@@ -10,6 +10,7 @@ class AppStrings {
   static const String forgetPassword = "Forget Password?";
   static const String loginButtonText = "Login";
   static const String emailPasswordError = "Email OR Password is wrong";
+  static const String rememberMe="Remember Me";
 
   // Common
   static const String errorOccurred = "An error occurred. Please try again.";

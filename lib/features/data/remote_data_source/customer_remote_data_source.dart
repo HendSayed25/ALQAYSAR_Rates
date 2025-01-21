@@ -70,6 +70,8 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   @override
   Future<Either<Failure, Unit>> updateCustomer(Customer customer) async {
     logger.i("Updating customer with name: ${customer.name}");
+    //logger.i("Updating customer with id: ${customer.id}");
+
     try {
       final response = await SupabaseClientProvider.client
           .from('customer')

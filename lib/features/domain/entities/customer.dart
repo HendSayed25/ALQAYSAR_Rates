@@ -43,7 +43,7 @@ class Customer {
     return (totalRating == 0) ? 0.0 : excellent! / totalRating * 100;
   }
 
-  double get rating {
+  double get rating {//?
     return (totalRating == 0)
         ? 0.0
         : (good! + veryGood! + excellent!) / totalRating * 5;

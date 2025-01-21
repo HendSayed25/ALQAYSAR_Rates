@@ -1,13 +1,18 @@
+import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
+import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../core/helper/data_intent.dart';
+import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
 import '../../../domain/entities/customer.dart';
+import '../../common/bottom_sheet_design.dart';
 import '../../common/custom_button.dart';
 import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
@@ -74,7 +79,7 @@ class UserOverViewScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 50.h),
               child: Text(
-                (customer.name ?? "Unknown User").toUpperCase(),
+                customer.name ?? "Unknown User",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -104,7 +109,30 @@ class UserOverViewScreen extends StatelessWidget {
             ),
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                Logger().e(state);
+                if (state is CustomerAddedSuccessfully) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppStrings.customerEditedSuccessfully.tr(),
+                        textDirection:
+                        AppLanguages.getCurrentTextDirection(
+                            context),
+                        style: TextStyle(
+                            fontFamily:
+                            AppLanguages.getPrimaryFont(context)),
+                      ),
+                    ),
+                  );
+                } else if (state is CustomerError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return CustomButton(
                   gradient: const LinearGradient(
@@ -112,7 +140,41 @@ class UserOverViewScreen extends StatelessWidget {
                   ),
                   colorOfBorder: Colors.yellow,
                   text: AppStrings.edit.tr(),
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(30.0.r),
+                        ),
+                      ),
+                      builder: (_) {
+                        return BottomSheetDesign(
+                          textBtn: AppStrings.edit.tr(),
+                          inputTextValue: customer.name,
+                          onPressed: (String name) {
+                            if (name.isNotEmpty) {
+                              context
+                                  .read<CustomerCubit>()
+                                  .updateCustomerUsecase(Customer(name:name,id: customer.id,));
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    AppStrings.nameRequired.tr(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          isLoading: state is CustomerLoading,
+
+                        );
+                      },
+                    );
+                  },
                 );
               },
             ),
@@ -126,7 +188,11 @@ class UserOverViewScreen extends StatelessWidget {
                   ),
                   colorOfBorder: Colors.red,
                   text: AppStrings.delete.tr(),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<CustomerCubit>().deleteCustomerUsecase(customer.id!);
+                    context.pushNamed(Routes.showAllRoute);
+
+                  },
                 );
               },
             ),

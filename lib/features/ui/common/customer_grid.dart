@@ -45,9 +45,9 @@ class CustomerGrid extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       DataIntent.pushCustomer(customer);
-                      sl<AppPrefs>().getString("role") == "admin"
-                          ? context.pushNamed(Routes.userOverviewScreenRoute)
-                          : context.pushNamed(Routes.rateScreenUserRoute);
+                       sl<AppPrefs>().getString("role") == "admin"
+                      ? context.pushNamed(Routes.userOverviewScreenRoute) :
+                        context.pushNamed(Routes.rateScreenUserRoute);
                     },
                     child: UserCard(
                       userName: customer.name ?? "Unknown User",

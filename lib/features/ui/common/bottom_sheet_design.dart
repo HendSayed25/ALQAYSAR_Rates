@@ -11,6 +11,7 @@ import 'custom_button.dart';
 class BottomSheetDesign extends StatefulWidget {
   final String textBtn;
   final bool? isLoading;
+  final String? inputTextValue;
   final Function(String) onPressed;
 
   const BottomSheetDesign({
@@ -18,6 +19,7 @@ class BottomSheetDesign extends StatefulWidget {
     required this.textBtn,
     required this.onPressed,
     this.isLoading,
+    this.inputTextValue
   });
 
   @override
@@ -25,12 +27,17 @@ class BottomSheetDesign extends StatefulWidget {
 }
 
 class _BottomSheetDesignState extends State<BottomSheetDesign> {
-  final TextEditingController _nameController = TextEditingController();
+ late TextEditingController _nameController;
 
   @override
   void dispose() {
     _nameController.dispose();
     super.dispose();
+  }
+  @override
+  void initState() {
+    super.initState();
+    _nameController=TextEditingController(text:widget.inputTextValue??'',);
   }
 
   @override
@@ -146,7 +153,11 @@ class InputField extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.r),
             borderSide: const BorderSide(color: AppColors.enableBorderColor),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 40.h).copyWith(left: 15.w),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.r),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 10.h).copyWith(left: 20.w),
         ),
       ),
     );

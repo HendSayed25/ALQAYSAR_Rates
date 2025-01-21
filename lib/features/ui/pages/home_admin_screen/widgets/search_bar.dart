@@ -31,7 +31,7 @@ class SearchBarWidget extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const Icon(Icons.search, color: Colors.grey,),
+              const Icon(Icons.search, color: Colors.black,),
               SizedBox(width: 8.w),
               Expanded(
                 child: IgnorePointer(
@@ -39,7 +39,7 @@ class SearchBarWidget extends StatelessWidget {
                     readOnly: true,
                     decoration: InputDecoration(
                       hintText: AppStrings.search.tr(),
-                      hintStyle: const TextStyle(color: Colors.grey),
+                      hintStyle: const TextStyle(color: Colors.black),
                       border: InputBorder.none,
                     ),
                     textDirection: AppLanguages.getCurrentTextDirection(context),

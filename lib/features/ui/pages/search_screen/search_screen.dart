@@ -57,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
           autofocus: true,
           decoration: InputDecoration(
             hintText:AppStrings.searchByName.tr(),
-            hintStyle: const TextStyle(color: Colors.grey),
+            hintStyle: const TextStyle(color: Colors.black),
             border: InputBorder.none,
           ),
           style:TextStyle(color: Colors.white,fontFamily: AppLanguages.getPrimaryFont(context)),
@@ -111,14 +111,14 @@ class _SearchScreenState extends State<SearchScreen> {
                       const Icon(
                         Icons.search_off,
                         size: 64,
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                       const SizedBox(height: 16),
                       Text(
                         AppStrings.noCustomersFound.tr(),
                         style:TextStyle(
                           fontSize: 18,
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
                         textDirection: AppLanguages.getCurrentTextDirection(context),
