@@ -22,6 +22,7 @@ class PieChartSample2 extends StatefulWidget {
 
 class PieChart2State extends State<PieChartSample2> {
   int touchedIndex = -1;
+
   List<String> rating = [
     AppStrings.excellent.tr(),
     AppStrings.veryGood.tr(),
@@ -64,38 +65,17 @@ class PieChart2State extends State<PieChartSample2> {
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Indicator(
-              color: widget.colors[0],
-              text: rating[0],
-              isSquare: true,
+          children: List.generate(
+            widget.values.length,
+                (index) => Padding(
+              padding: EdgeInsets.only(bottom: 8.h),
+              child: Indicator(
+                color: widget.colors[index],
+                text: rating[index],
+                isSquare: true,
+              ),
             ),
-            SizedBox(height: 8.h),
-            Indicator(
-              color: widget.colors[1],
-              text: rating[1],
-              isSquare: true,
-            ),
-            SizedBox(height: 8.h),
-            Indicator(
-              color: widget.colors[2],
-              text: rating[2],
-              isSquare: true,
-            ),
-            SizedBox(height: 8.h),
-            Indicator(
-              color: widget.colors[3],
-              text: rating[3],
-              isSquare: true,
-            ),
-            SizedBox(height: 8.h),
-            Indicator(
-              color: widget.colors[4],
-              text: rating[4],
-              isSquare: true,
-            ),
-            SizedBox(height: 18.h),
-          ],
+          ),
         ),
       ],
     );

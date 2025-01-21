@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const LoginHeader(),
-                      const MyForm(),
+                      const AutofillGroup(child: MyForm()),
                       SizedBox(height: 8.h),
                       const ForgetPasswordButton(),
                       SizedBox(height: 100.h),
@@ -58,14 +58,14 @@ class LoginScreen extends StatelessWidget {
                         listener: (context, state) {
                           if (state is AuthAuthenticated) {
                             sl<AppPrefs>().setString("id", state.userEntity.id);
-                            sl<AppPrefs>().setString("role", state.userEntity.role);
+                            sl<AppPrefs>()
+                                .setString("role", state.userEntity.role);
 
                             Logger().i(
                                 "${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role} + token ${state.userEntity.token}}");
 
                             if (state.userEntity.role == "user") {
-                              context.pushReplacementNamed(
-                                  Routes.homeScreenUserRoute);
+                              context.pushReplacementNamed(Routes.showAllRoute);
                             } else {
                               context.pushReplacementNamed(
                                   Routes.homeScreenAdminRoute);
@@ -73,9 +73,14 @@ class LoginScreen extends StatelessWidget {
                           } else if (state is AuthError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(AppStrings.emailPasswordError.tr(),
-                                  textDirection: AppLanguages.getCurrentTextDirection(context),
-                                  style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context)),
+                                content: Text(
+                                  AppStrings.emailPasswordError.tr(),
+                                  textDirection:
+                                      AppLanguages.getCurrentTextDirection(
+                                          context),
+                                  style: TextStyle(
+                                      fontFamily:
+                                          AppLanguages.getPrimaryFont(context)),
                                 ),
                               ),
                             );
@@ -83,13 +88,14 @@ class LoginScreen extends StatelessWidget {
                         },
                         builder: (BuildContext context, AuthState state) {
                           return CustomButton(
-                            gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
+                            gradient: const LinearGradient(
+                                colors: AppColors.primaryContainerColor),
                             text: AppStrings.loginButtonText.tr(),
                             onPressed: () {
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<AuthCubit>().loginUser(
-                                    email: DataIntent.popEmail()!,
-                                    password: DataIntent.popPassword()!);
+                                    email: DataIntent.email!,
+                                    password: DataIntent.password!);
                               }
                             },
                             isLoading: state is AuthLoading,

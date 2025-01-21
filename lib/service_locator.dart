@@ -1,8 +1,7 @@
-import 'package:alqaysar_rates/core/config/notifications/push_notification_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/config/notifications/one_signal_service.dart';
+import 'core/config/notifications/push_notification_service.dart';
 import 'core/config/supabase/supabase_client.dart';
 import 'features/data/local/app_prefs.dart';
 import 'features/data/remote_data_source/auth_remote_data_source.dart';

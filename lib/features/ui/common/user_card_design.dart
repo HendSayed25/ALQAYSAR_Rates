@@ -56,48 +56,50 @@ class UserCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10.h),
-          Text(
-            userName,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryTextColor,
-              fontFamily: AppLanguages.getPrimaryFont(context)
-            ),
-            textDirection: AppLanguages.getCurrentTextDirection(context),
-          ),
-          showRating
-              ? Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "${rating.toStringAsFixed(1)} / 5",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: AppLanguages.getPrimaryFont(context) ,
-                            color: AppColors.primaryTextColor,
-
+          // SizedBox(height: 10.h),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  userName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryTextColor,
+                    fontFamily: AppLanguages.getPrimaryFont(context),
+                  ),
+                  textDirection: AppLanguages.getCurrentTextDirection(context),
+                ),
+                showRating
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${rating.toStringAsFixed(1)} / 5",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: AppLanguages.getPrimaryFont(context),
+                              color: AppColors.primaryTextColor,
+                            ),
+                            textDirection:
+                                AppLanguages.getCurrentTextDirection(context),
                           ),
-                          textDirection: AppLanguages.getCurrentTextDirection(context),
-
-                        ),
-                        SizedBox(width: 5.w),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 16.r,
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              : const SizedBox.shrink()
+                          SizedBox(width: 5.w),
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 16.r,
+                          ),
+                        ],
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            ),
+          )
         ],
       ),
     );

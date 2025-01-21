@@ -1,4 +1,5 @@
 
+
 import '../../domain/entities/customer.dart';
 
 class CustomerModel extends Customer {
@@ -10,7 +11,7 @@ class CustomerModel extends Customer {
     required super.veryGood,
     required super.excellent,
     required super.name,
-    required super.userId,
+    required super.comments,
   });
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) {
@@ -22,7 +23,7 @@ class CustomerModel extends Customer {
       veryGood: json['very_good'],
       excellent: json['excellent'],
       name: json['name'],
-      userId: json['user_id'],
+      comments: List<String>.from(json['comments'] ?? []),
     );
   }
 
@@ -33,8 +34,8 @@ class CustomerModel extends Customer {
       'good': good,
       'very_good': veryGood,
       'excellent': excellent,
-      'name': name,
-      'user_id': userId,
+      'name': name?.trim(),
+      'comments': comments,
     };
   }
 }

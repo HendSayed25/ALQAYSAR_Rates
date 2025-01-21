@@ -1,13 +1,11 @@
+import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'app/app.dart';
 import 'core/config/notifications/local_notifications_service.dart';
-import 'core/config/notifications/one_signal_service.dart';
-import 'core/config/notifications/push_notification_service.dart';
 import 'core/config/supabase/supabase_client.dart';
 import 'core/helper/language/language_helper.dart';
 import 'firebase_options.dart';
@@ -17,13 +15,12 @@ late final WidgetsBinding engine;
 
 void main() async {
   engine = WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.black,
-    ),
+    SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.black,
+        statusBarColor: AppColors.backgroundColor[0]),
   );
 //   //Remove this method to stop OneSignal Debugging
 //   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);

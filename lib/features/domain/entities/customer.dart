@@ -5,8 +5,8 @@ class Customer {
   final int? good;
   final int? veryGood;
   final int? excellent;
-  final String name;
-  final String userId;
+  final String? name;
+  final List<String>? comments;
 
   Customer({
     this.id,
@@ -15,12 +15,37 @@ class Customer {
     this.good,
     this.veryGood,
     this.excellent,
-    required this.name,
-    required this.userId,
+    this.name,
+    this.comments,
   });
 
+  int get totalRating {
+    return uncooperative! + poor! + good! + veryGood! + excellent!;
+  }
+
+  double get rateOfUncooperative {
+    return (totalRating == 0) ? 0.0 : uncooperative! / totalRating * 100;
+  }
+
+  double get rateOfPoor {
+    return (totalRating == 0) ? 0.0 : poor! / totalRating * 100;
+  }
+
+  double get rateOfGood {
+    return (totalRating == 0) ? 0.0 : good! / totalRating * 100;
+  }
+
+  double get rateOfVeryGood {
+    return (totalRating == 0) ? 0.0 : veryGood! / totalRating * 100;
+  }
+
+  double get rateOfExcellent {
+    return (totalRating == 0) ? 0.0 : excellent! / totalRating * 100;
+  }
+
   double get rating {
-    final total = uncooperative! + poor! + good! + veryGood! + excellent!;
-    return (total == 0) ? 0.0 : (good! + veryGood! + excellent!) / total * 5;
+    return (totalRating == 0)
+        ? 0.0
+        : (good! + veryGood! + excellent!) / totalRating * 5;
   }
 }

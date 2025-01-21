@@ -13,20 +13,14 @@ import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
 import '../../common/customer_grid.dart';
 
-class ShowAllForAdminScreen extends StatefulWidget {
-  const ShowAllForAdminScreen({super.key});
+class ShowAllScreen extends StatefulWidget {
+  const ShowAllScreen({super.key});
 
   @override
-  State<ShowAllForAdminScreen> createState() => _HomeAdminScreenState();
+  State<ShowAllScreen> createState() => _HomeAdminScreenState();
 }
 
-class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<CustomerCubit>().fetchCustomers();
-  }
-
+class _HomeAdminScreenState extends State<ShowAllScreen> {
   Future<void> _onRefresh() async {
     context.read<CustomerCubit>().fetchCustomers();
   }
@@ -35,7 +29,7 @@ class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(95.h), //height of appBar
+        preferredSize: Size.fromHeight(95.h),
         child: const HomeScreenAppBarWidget(),
       ),
       body: Container(
@@ -70,7 +64,6 @@ class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
                             (index) => Customer(
                               id: index,
                               name: 'Loading...',
-                              userId: 'Loading...',
                               uncooperative: 0,
                               poor: 0,
                               good: 0,
@@ -98,14 +91,20 @@ class _HomeAdminScreenState extends State<ShowAllForAdminScreen> {
                           color: Colors.red,
                           fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
-                        textDirection: AppLanguages.getCurrentTextDirection(context),
+                        textDirection:
+                            AppLanguages.getCurrentTextDirection(context),
                       ),
                     );
                   } else {
                     return Center(
-                      child: Text(AppStrings.noCustomersFound.tr(),
-                      textDirection: AppLanguages.getCurrentTextDirection(context),
-                      style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context),),),
+                      child: Text(
+                        AppStrings.noCustomersFound.tr(),
+                        textDirection:
+                            AppLanguages.getCurrentTextDirection(context),
+                        style: TextStyle(
+                          fontFamily: AppLanguages.getPrimaryFont(context),
+                        ),
+                      ),
                     );
                   }
                 },

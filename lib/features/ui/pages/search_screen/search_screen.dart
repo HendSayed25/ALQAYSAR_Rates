@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../../core/config/routes/route_constants.dart';
+import '../../../../core/helper/data_intent.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../service_locator.dart';
 import '../../../data/local/app_prefs.dart';
@@ -129,10 +132,18 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemCount: state.customers.length,
                   itemBuilder: (context, index) {
                     final customer = state.customers[index];
-                    return UserCardInSearch(
-                      userName: customer.name,
-                      rating: customer.rating,
-                      showRating: sl<AppPrefs>().getString("role") == "admin",
+                    return GestureDetector(
+                      onTap: (){
+                        DataIntent.pushCustomer(customer);
+                        sl<AppPrefs>().getString("role") == "admin"
+                            ? context.pushNamed(Routes.userOverviewScreenRoute)
+                            : context.pushNamed(Routes.rateScreenUserRoute);
+                      },
+                      child: UserCardInSearch(
+                        userName: customer.name!,
+                        rating: customer.rating,
+                        showRating: sl<AppPrefs>().getString("role") == "admin",
+                      ),
                     );
                   },
                 );

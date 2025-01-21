@@ -40,16 +40,25 @@ class CustomerCubit extends Cubit<CustomerState> {
     final Either<Failure, Unit> result = await addCustomerUsecase(customer);
     result.fold(
       (failure) => emit(CustomerError(failure.message)),
-      (_) {
+      (_) async {
         emit(CustomerAddedSuccessfully());
-        fetchCustomers();
+        final Either<Failure, List<Customer>> fetchResult =
+            await getCustomersUsecase();
+        fetchResult.fold(
+          (failure) => emit(CustomerError(failure.message)),
+          (customers) {
+            _allCustomers = customers;
+            emit(CustomerLoaded(customers));
+          },
+        );
       },
     );
   }
 
   Future<void> deleteCustomer(int customerId) async {
     emit(CustomerLoading());
-    final Either<Failure, Unit> result = await deleteCustomerUsecase(customerId);
+    final Either<Failure, Unit> result =
+        await deleteCustomerUsecase(customerId);
     result.fold(
       (failure) => emit(CustomerError(failure.message)),
       (_) {
@@ -77,9 +86,22 @@ class CustomerCubit extends Cubit<CustomerState> {
     } else {
       final filteredCustomers = _allCustomers
           .where((customer) =>
-              customer.name.toLowerCase().contains(query.toLowerCase()))
+              (customer.name ?? "Unknown User").toLowerCase().contains(query.toLowerCase()))
           .toList();
       emit(CustomerLoaded(filteredCustomers));
+    }
+  }
+
+  Future<void> getCustomerById(int customerId) async {
+    emit(CustomerLoading());
+    try {
+      final customer = _allCustomers.firstWhere(
+        (customer) => customer.id == customerId,
+        orElse: () => throw Exception("Customer not found"),
+      );
+      emit(CustomerLoaded([customer]));
+    } catch (e) {
+      emit(CustomerError("Customer with ID $customerId not found."));
     }
   }
 }

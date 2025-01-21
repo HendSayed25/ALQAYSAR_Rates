@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/logger.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../core/error.dart';
 import '../../../service_locator.dart';

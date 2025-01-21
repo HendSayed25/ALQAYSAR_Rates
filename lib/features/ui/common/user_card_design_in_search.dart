@@ -64,7 +64,7 @@ class UserCardInSearch extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            "$rating / 5",
+                            "${rating.toStringAsFixed(1)} / 5",
                             style: TextStyle(
                                 fontSize: 14.sp, fontWeight: FontWeight.bold),
                           ),

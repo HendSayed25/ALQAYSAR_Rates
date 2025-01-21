@@ -20,6 +20,15 @@ class CustomerLoaded extends CustomerState {
   List<Object?> get props => [customers];
 }
 
+class CustomerByIdLoaded extends CustomerState {
+  final Customer customer;
+
+  CustomerByIdLoaded(this.customer);
+
+  @override
+  List<Object?> get props => [customer];
+}
+
 class CustomerAddedSuccessfully extends CustomerState {}
 
 class CustomerDeletedSuccessfully extends CustomerState {}
@@ -34,3 +43,5 @@ class CustomerError extends CustomerState {
   @override
   List<Object?> get props => [message];
 }
+
+class CustomerEmpty extends CustomerState {}

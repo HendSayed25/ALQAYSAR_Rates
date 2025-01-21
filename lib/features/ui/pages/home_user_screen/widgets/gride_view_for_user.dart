@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 import '../../../common/user_card_design.dart';
 
-class GridViewWidget extends StatelessWidget{
+class GridViewWidget extends StatelessWidget {
   const GridViewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
@@ -22,12 +22,13 @@ class GridViewWidget extends StatelessWidget{
                 crossAxisSpacing: 13,
                 mainAxisSpacing: 13,
                 childAspectRatio: 0.9,
-
               ),
               itemCount: 8,
               itemBuilder: (context, index) {
-                return  GestureDetector(
-                  onTap:(){context.pushNamed(Routes.userOverviewScreenRoute); },
+                return GestureDetector(
+                  onTap: () {
+                    context.pushNamed(Routes.userOverviewScreenRoute);
+                  },
                   child: const UserCard(
                     userName: "userName",
                     showRating: false,
@@ -41,6 +42,4 @@ class GridViewWidget extends StatelessWidget{
       ],
     );
   }
-
-
 }

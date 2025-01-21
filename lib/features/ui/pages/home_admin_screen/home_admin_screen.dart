@@ -51,18 +51,22 @@ class HomeAdminScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         AppStrings.hiAdmin.tr(),
-                        textDirection: AppLanguages.getCurrentTextDirection(context),
+                        textDirection:
+                            AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
-                          fontSize: 15.sp,
-                          color: Colors.black,
-                          fontFamily: AppLanguages.getPrimaryFont(context)
-                        ),
+                            fontSize: 15.sp,
+                            color: Colors.black,
+                            fontFamily: AppLanguages.getPrimaryFont(context)),
                       ),
                     ),
                     SizedBox(height: 95.h),
                     GestureDetector(
                       onTap: () async {
-                        await sl<NotificationService>().sendNotification(adminUid: sl<AppPrefs>().getString("id")!, title: 'title', body: 'message');},
+                        await sl<NotificationService>().sendNotification(
+                            adminUid: sl<AppPrefs>().getString("id")!,
+                            title: 'title',
+                            body: 'message');
+                      },
                       child: Center(
                         child: Image.asset(
                           ImageAssets.logo,
@@ -85,7 +89,7 @@ class HomeAdminScreen extends StatelessWidget {
                       colorOfBorder: Colors.transparent,
                       text: AppStrings.showAll.tr(),
                       onPressed: () {
-                        context.pushNamed(Routes.showAllForAdminRoute);
+                        context.pushNamed(Routes.showAllRoute);
                       },
                     ),
                     SizedBox(height: 30.h),
@@ -95,14 +99,18 @@ class HomeAdminScreen extends StatelessWidget {
                         if (state is CustomerAddedSuccessfully) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content:
-                                  Text(AppStrings.customerAddedSuccessfully.tr(),
-                                  textDirection: AppLanguages.getCurrentTextDirection(context),
-                                  style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context)),),
+                              content: Text(
+                                AppStrings.customerAddedSuccessfully.tr(),
+                                textDirection:
+                                    AppLanguages.getCurrentTextDirection(
+                                        context),
+                                style: TextStyle(
+                                    fontFamily:
+                                        AppLanguages.getPrimaryFont(context)),
+                              ),
                             ),
                           );
-                        }
-                        else if (state is CustomerError) {
+                        } else if (state is CustomerError) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(state.message),
@@ -133,19 +141,14 @@ class HomeAdminScreen extends StatelessWidget {
                                     if (name.isNotEmpty) {
                                       context
                                           .read<CustomerCubit>()
-                                          .addNewCustomer(
-                                            Customer(
-                                              name: name,
-                                              userId: sl<AppPrefs>()
-                                                  .getString("id")!,
-                                            ),
-                                          );
+                                          .addNewCustomer(Customer(name: name));
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                          content:
-                                              Text(AppStrings.nameRequired.tr()),
+                                          content: Text(
+                                            AppStrings.nameRequired.tr(),
+                                          ),
                                         ),
                                       );
                                     }
