@@ -1,18 +1,15 @@
-import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
 
-import '../../../../core/config/notifications/push_notification_service.dart';
 import '../../../../core/config/routes/route_constants.dart';
+import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/helper/extensions.dart';
 import '../../../../core/resource/strings.dart';
-import '../../../../service_locator.dart';
-import '../../../data/local/app_prefs.dart';
 import '../../../domain/entities/customer.dart';
 import '../../common/bottom_sheet_design.dart';
 import '../../common/custom_button.dart';

@@ -1,5 +1,3 @@
-import 'package:alqaysar_rates/features/ui/cubit/customer_cubit.dart';
-import 'package:alqaysar_rates/features/ui/states/customer_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +9,8 @@ import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
 import '../../../domain/entities/customer.dart';
 import '../../common/custom_button.dart';
+import '../../cubit/customer_cubit.dart';
+import '../../states/customer_state.dart';
 import 'widgets/chart_rate_design.dart';
 
 class UserOverViewScreen extends StatelessWidget {

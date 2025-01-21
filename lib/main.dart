@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'app/app.dart';
-import 'core/config/notifications/local_notifications_service.dart';
 import 'core/config/supabase/supabase_client.dart';
 import 'core/helper/language/language_helper.dart';
 import 'firebase_options.dart';
