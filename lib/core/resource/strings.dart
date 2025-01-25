@@ -49,4 +49,8 @@ class AppStrings {
   // Search Screen
   static const String searchByName = "Search by name...";
   static const String startTypingToSearch = "Start typing to search...";
+
+  //overView Screen
+  static const String unKnownUser="Unknown User";
+  static const String rateAnalytics="Rate Analytics";
 }

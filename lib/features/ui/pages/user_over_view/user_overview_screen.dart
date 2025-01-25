@@ -77,9 +77,9 @@ class UserOverViewScreen extends StatelessWidget {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 50.h),
+              margin: EdgeInsets.only(top: 40.h),
               child: Text(
-                customer.name ?? "Unknown User",
+                customer.name ?? AppStrings.unKnownUser.tr(),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -87,26 +87,38 @@ class UserOverViewScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: 280,
-              height: 280,
-              child: PieChartSample2(
-                values: [
-                  customer.rateOfExcellent,
-                  customer.rateOfVeryGood,
-                  customer.rateOfGood,
-                  customer.rateOfPoor,
-                  customer.rateOfUncooperative
-                ],
-                colors: const [
-                  Colors.blue,
-                  Colors.yellow,
-                  Colors.purple,
-                  Colors.green,
-                  Colors.red,
-                ],
-              ),
-            ),
+            SizedBox(height: 25.h,),
+            // SizedBox(
+            //   width: 380,
+            //   height: 280,
+            //   child:
+               RatingChart(
+                 values: [
+                       customer.rateOfExcellent,
+                       customer.rateOfVeryGood,
+                       customer.rateOfGood,
+                       customer.rateOfPoor,
+                       customer.rateOfUncooperative
+                 ],
+                 customerName: customer.name!,
+               ),
+              // PieChartSample2(
+              //   values: [
+              //     customer.rateOfExcellent,
+              //     customer.rateOfVeryGood,
+              //     customer.rateOfGood,
+              //     customer.rateOfPoor,
+              //     customer.rateOfUncooperative
+              //   ],
+              //   colors: const [
+              //     Colors.blue,
+              //     Colors.yellow,
+              //     Colors.purple,
+              //     Colors.green,
+              //     Colors.red,
+              //   ],
+              // ),
+           // ),
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
