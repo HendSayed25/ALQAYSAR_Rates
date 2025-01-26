@@ -107,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     TextAnimation(
                       text1Opacity: _text2Opacity,
-                      text: AppStrings.appName,
+                      text: AppStrings.appName.tr(),
                       textSize: 24,
                     ),
                   ],
