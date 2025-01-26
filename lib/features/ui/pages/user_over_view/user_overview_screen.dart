@@ -1,5 +1,6 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -127,7 +128,7 @@ class UserOverViewScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        AppStrings.customerEditedSuccessfully,
+                        AppStrings.customerEditedSuccessfully.tr(),
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
@@ -149,7 +150,7 @@ class UserOverViewScreen extends StatelessWidget {
                     colors: AppColors.primaryContainerColor,
                   ),
                   colorOfBorder: Colors.yellow,
-                  text: AppStrings.edit,
+                  text: AppStrings.edit.tr(),
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -161,7 +162,7 @@ class UserOverViewScreen extends StatelessWidget {
                       ),
                       builder: (_) {
                         return BottomSheetDesign(
-                          textBtn: AppStrings.edit,
+                          textBtn: AppStrings.edit.tr(),
                           inputTextValue: customer.name,
                           onPressed: (String name) {
                             if (name.isNotEmpty) {
@@ -171,7 +172,7 @@ class UserOverViewScreen extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    AppStrings.nameRequired,
+                                    AppStrings.nameRequired.tr(),
                                   ),
                                 ),
                               );
@@ -194,7 +195,7 @@ class UserOverViewScreen extends StatelessWidget {
                     colors: AppColors.primaryContainerColor,
                   ),
                   colorOfBorder: Colors.red,
-                  text: AppStrings.delete,
+                  text: AppStrings.delete.tr(),
                   onPressed: () {
                     context
                         .read<CustomerCubit>()

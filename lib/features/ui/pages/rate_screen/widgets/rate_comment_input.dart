@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +33,7 @@ class RateCommentInput extends StatelessWidget {
         textInputAction: TextInputAction.done,
         maxLines: 7,
         decoration: InputDecoration(
-          hintText: AppStrings.enterYourCommentHere,
+          hintText: AppStrings.enterYourCommentHere.tr(),
           contentPadding: EdgeInsets.only(left: 10.w, top: 70.h),
           border: InputBorder.none,
         ),

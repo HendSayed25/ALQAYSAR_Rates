@@ -1,4 +1,5 @@
 import 'package:alqaysar_rates/features/domain/entities/customer_entity.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -96,7 +97,7 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
                   } else {
                     return Center(
                       child: Text(
-                        AppStrings.noCustomersFound,
+                        AppStrings.noCustomersFound.tr(),
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(

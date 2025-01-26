@@ -1,4 +1,5 @@
 import 'package:alqaysar_rates/core/resource/assets_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
@@ -18,27 +19,27 @@ class _EmojiDesignWidgetState extends State<EmojiDesignWidget> {
   final List<Map<String, dynamic>> emojis = [
     {
       'emoji': ImageAssets.emojiBad,
-      'title': AppStrings.bad,
+      'title': AppStrings.bad.tr(),
       'category': 'uncooperative'
     },
     {
       'emoji': ImageAssets.emojiWeek,
-      'title': AppStrings.weak,
+      'title': AppStrings.weak.tr(),
       'category': 'poor'
     },
     {
       'emoji': ImageAssets.emojiGood,
-      'title': AppStrings.good,
+      'title': AppStrings.good.tr(),
       'category': 'good'
     },
     {
       'emoji': ImageAssets.emojiVeryGood,
-      'title': AppStrings.veryGood,
+      'title': AppStrings.veryGood.tr(),
       'category': 'veryGood'
     },
     {
       'emoji': ImageAssets.emojiExcellent,
-      'title': AppStrings.excellent,
+      'title': AppStrings.excellent.tr(),
       'category': 'excellent'
     },
   ];

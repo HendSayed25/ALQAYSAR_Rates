@@ -127,6 +127,7 @@ import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:alqaysar_rates/features/ui/pages/comments_screen/comments_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -134,11 +135,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RatingChart extends StatelessWidget {
   List<String> rating = [
-    AppStrings.excellent,
-    AppStrings.veryGood,
-    AppStrings.good,
-    AppStrings.weak,
-    AppStrings.bad
+    AppStrings.excellent.tr(),
+    AppStrings.veryGood.tr(),
+    AppStrings.good.tr(),
+    AppStrings.weak.tr(),
+    AppStrings.bad.tr()
   ];
   List<double> values;
   final String customerName;
@@ -169,7 +170,7 @@ class RatingChart extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  AppStrings.rateAnalytics,
+                  AppStrings.rateAnalytics.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,

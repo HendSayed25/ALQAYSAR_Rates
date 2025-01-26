@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,11 +24,11 @@ class PieChart2State extends State<PieChartSample2> {
   int touchedIndex = -1;
 
   List<String> rating = [
-    AppStrings.excellent,
-    AppStrings.veryGood,
-    AppStrings.good,
-    AppStrings.weak,
-    AppStrings.bad
+    AppStrings.excellent.tr(),
+    AppStrings.veryGood.tr(),
+    AppStrings.good.tr(),
+    AppStrings.weak.tr(),
+    AppStrings.bad.tr(),
   ];
 
   @override

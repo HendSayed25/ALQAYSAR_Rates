@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class HomeAdminScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        AppStrings.hiAdmin,
+                        AppStrings.hiAdmin.tr(),
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
@@ -75,7 +76,7 @@ class HomeAdminScreen extends StatelessWidget {
                         colors: AppColors.primaryContainerColor,
                       ),
                       colorOfBorder: Colors.transparent,
-                      text: AppStrings.showAll,
+                      text: AppStrings.showAll.tr(),
                       onPressed: () {
                         context.pushNamed(Routes.showAllRoute);
                       },
@@ -88,7 +89,7 @@ class HomeAdminScreen extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                AppStrings.customerAddedSuccessfully,
+                                AppStrings.customerAddedSuccessfully.tr(),
                                 textDirection:
                                     AppLanguages.getCurrentTextDirection(
                                         context),
@@ -111,7 +112,7 @@ class HomeAdminScreen extends StatelessWidget {
                           gradient: const LinearGradient(
                               colors: AppColors.primaryContainerColor),
                           colorOfBorder: Colors.transparent,
-                          text: AppStrings.add,
+                          text: AppStrings.add.tr(),
                           onPressed: () {
                             showModalBottomSheet(
                               context: context,
@@ -123,7 +124,7 @@ class HomeAdminScreen extends StatelessWidget {
                               ),
                               builder: (_) {
                                 return BottomSheetDesign(
-                                  textBtn: AppStrings.add,
+                                  textBtn: AppStrings.add.tr(),
                                   onPressed: (String name) {
                                     if (name.isNotEmpty) {
                                       context
@@ -136,7 +137,7 @@ class HomeAdminScreen extends StatelessWidget {
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            AppStrings.nameRequired,
+                                            AppStrings.nameRequired.tr(),
                                           ),
                                         ),
                                       );

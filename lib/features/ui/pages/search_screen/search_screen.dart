@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -57,7 +58,7 @@ class _SearchScreenState extends State<SearchScreen> {
           controller: _searchController,
           autofocus: true,
           decoration: InputDecoration(
-            hintText: AppStrings.searchByName,
+            hintText: AppStrings.searchByName.tr(),
             hintStyle: const TextStyle(color: Colors.black),
             border: InputBorder.none,
           ),
@@ -118,7 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        AppStrings.noCustomersFound,
+                        AppStrings.noCustomersFound.tr(),
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -158,7 +159,7 @@ class _SearchScreenState extends State<SearchScreen> {
             } else {
               return Center(
                 child: Text(
-                  AppStrings.startTypingToSearch,
+                  AppStrings.startTypingToSearch.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
                   style: TextStyle(
                     fontFamily: AppLanguages.getPrimaryFont(context),

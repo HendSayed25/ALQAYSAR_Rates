@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,7 +34,7 @@ class AppBarSection extends StatelessWidget {
           margin:
               EdgeInsets.only(left: 50.w, top: 70.h, bottom: 10.h, right: 30.w),
           child: Text(
-            AppStrings.appName,
+            AppStrings.appName.tr(),
             style: TextStyle(
               color: Colors.black,
               fontSize: 25.sp,

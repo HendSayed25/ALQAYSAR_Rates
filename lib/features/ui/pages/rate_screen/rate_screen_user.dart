@@ -38,7 +38,7 @@ class RateScreenUser extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  AppStrings.thanksForRating,
+                  AppStrings.thanksForRating.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
                   style: TextStyle(
                     fontFamily: AppLanguages.getPrimaryFont(context),
@@ -51,7 +51,7 @@ class RateScreenUser extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  AppStrings.errorRating,
+                  AppStrings.errorRating.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
                   style: TextStyle(
                     fontFamily: AppLanguages.getPrimaryFont(context),
@@ -137,7 +137,7 @@ class RateScreenUser extends StatelessWidget {
           textFieldController: phoneController,
           formatInput: true,
           inputDecoration: InputDecoration(
-            hintText: AppStrings.enterPhoneNumber,
+            hintText: AppStrings.enterPhoneNumber.tr(),
             border: InputBorder.none,
             contentPadding: EdgeInsets.only(right: 10.w, bottom: 14.h),
             hintStyle: TextStyle(
@@ -171,7 +171,7 @@ class RateScreenUser extends StatelessWidget {
     return CustomButton(
       gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
       colorOfBorder: AppColors.enableBorderColor,
-      text: AppStrings.submit,
+      text: AppStrings.submit.tr(),
       onPressed: () {
         if (selectedRatingCategory == null) {
           ScaffoldMessenger.of(context).showSnackBar(
