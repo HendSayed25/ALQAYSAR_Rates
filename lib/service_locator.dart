@@ -1,4 +1,5 @@
 import 'package:alqaysar_rates/features/domain/usecases/customer/add_customer_rate_usecase.dart';
+import 'package:alqaysar_rates/features/domain/usecases/customer/get_customer_rate._usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,8 +51,9 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton(() => AddCustomerRateUsecase(sl()));
   sl.registerLazySingleton(() => UpdateCustomerNameUsecase(sl()));
   sl.registerLazySingleton(() => DeleteCustomerUsecase(sl()));
+  sl.registerLazySingleton(()=>GetCustomerRateUseCase(sl()));
 
   /// Presentation Layer
   sl.registerFactory(() => AuthCubit(login: sl()));
-  sl.registerFactory(() => CustomerCubit(getCustomersUsecase: sl(),addCustomerUsecase: sl(), deleteCustomerUsecase: sl(), updateCustomerNameUsecase: sl(), addCustomerRateUsecase: sl()));
+  sl.registerFactory(() => CustomerCubit(getCustomersUsecase: sl(),addCustomerUsecase: sl(), deleteCustomerUsecase: sl(), updateCustomerNameUsecase: sl(), addCustomerRateUsecase: sl(), getCustomerRateUseCase: sl()));
 }

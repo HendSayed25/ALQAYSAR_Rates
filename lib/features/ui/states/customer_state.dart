@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../domain/entities/customer_entity.dart';
+import '../../domain/entities/rate_entity.dart';
 
 abstract class CustomerState extends Equatable {
   const CustomerState();
@@ -31,6 +32,15 @@ class CustomerLoaded extends CustomerState {
   @override
   List<Object?> get props => [customers];
 }
+class CustomerRateLoaded extends CustomerState {
+  final List<RateEntity> rates;
+
+  const CustomerRateLoaded(this.rates);
+
+  @override
+  List<Object?> get props => [rates];
+}
+
 
 class CustomerAddedSuccessfully extends CustomerState {}
 

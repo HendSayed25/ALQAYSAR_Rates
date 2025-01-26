@@ -32,11 +32,6 @@ class RouteGenerator {
           ),
         );
 
-      // case Routes.homeScreenUserRoute:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const HomeUserScreen(),
-      //   );
-
       case Routes.homeScreenAdminRoute:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<CustomerCubit>(
@@ -82,7 +77,11 @@ class RouteGenerator {
       //   );
       case Routes.negativeScreen:
         return MaterialPageRoute(
-          builder: (context) => NegativeScreen(),
+          builder: (context) => BlocProvider<CustomerCubit>(
+          create:(_)=>sl<CustomerCubit>() ,
+          child:NegativeScreen() ,
+    )
+
         );
       default:
         return unDefinedRoute();

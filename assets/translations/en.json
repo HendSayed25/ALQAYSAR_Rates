@@ -1,5 +1,5 @@
 {
-  "appName": "ALQAYSAR",
+  "ALQAYSAR": "ALQAYSAR",
   "login": "Login",
   "email": "Email",
   "password": "Password",
@@ -35,5 +35,14 @@
   "thanksForRating": "Thanks For Rating",
   "errorRating": "Error Rating",
   "searchByName": "Search by name...",
-  "startTypingToSearch": "Start typing to search..."
+  "startTypingToSearch": "Start typing to search...",
+  "rate Analytics": "rate Analytics",
+  "Remember Me": "Remember Me",
+  "Phone: ": "Phone: ",
+  "Please rate": "Please rate",
+  "No rate available": "No rate available",
+  "No comment": "No comment",
+  "No phone": "No phone",
+  "Show negative rate": "Show negative rate"
+
 }

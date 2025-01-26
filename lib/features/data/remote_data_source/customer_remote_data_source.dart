@@ -14,6 +14,8 @@ abstract class CustomerRemoteDataSource {
   Future<Either<Failure, Unit>> updateCustomerName(CustomerEntity customer);
   Future<Either<Failure, Unit>> addCustomerRate(RateEntity customerRate);
   Future<Either<Failure, Unit>> deleteCustomer(int id);
+  Future<Either<Failure,List<RateEntity>>> getAllRateForCustomer(int id);
+  Future<Either<Failure, List<RateEntity>>> getAllRates();
 }
 
 class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
@@ -80,4 +82,35 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
       return const Left(ServerFailure("Failed to add customer rate"));
     }
   }
+
+  @override
+  Future<Either<Failure, List<RateEntity>>> getAllRateForCustomer(int customerId) async{
+    try {
+      final response = await SupabaseClientProvider.client.from('rates').select().eq('customer_id', customerId);
+      final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
+      return Right(rates);
+    } catch (e) {
+      logger.e("Error getting customer rate: $e");
+      return const Left(ServerFailure("Failed to get customer rate"));
+    }
+  }
+  @override
+  Future<Either<Failure, List<RateEntity>>> getAllRates() async {
+    try {
+      final response = await SupabaseClientProvider.client
+          .from('rates')
+          .select();
+
+      final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
+      return Right(rates);
+    } catch (e) {
+      logger.e("Error getting customer rate: $e");
+      return const Left(ServerFailure("Failed to get customer rate"));
+    }
+  }
+
+
+
+
+
 }

@@ -1,4 +1,6 @@
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
+import 'package:alqaysar_rates/core/resource/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -44,7 +46,7 @@ class CommentItemDesign extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: Text("Phone: ",
+                    child: Text(AppStrings.Phone.tr(),
                     style:TextStyle(fontWeight: FontWeight.bold),),
                   ),
                   Text(phone, style:TextStyle(fontWeight: FontWeight.bold),),

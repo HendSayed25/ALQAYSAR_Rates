@@ -1,12 +1,12 @@
-import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:alqaysar_rates/features/ui/pages/user_over_view/widgets/chart_rate_design.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
 
+import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/helper/data_intent.dart';
-import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
@@ -15,15 +15,26 @@ import '../../common/bottom_sheet_design.dart';
 import '../../common/custom_button.dart';
 import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
-import 'widgets/chart_rate_design.dart';
 
-class UserOverViewScreen extends StatelessWidget {
+class UserOverViewScreen extends StatefulWidget {
   const UserOverViewScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    CustomerEntity customer = DataIntent.customer;
+  State<UserOverViewScreen> createState() => _UserOverViewScreenState();
+}
 
+class _UserOverViewScreenState extends State<UserOverViewScreen> {
+  late CustomerEntity customer;
+
+  @override
+  void initState() {
+    super.initState();
+    customer = DataIntent.customer;
+    context.read<CustomerCubit>().fetchCustomerRates(customer.id!);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -72,6 +83,7 @@ class UserOverViewScreen extends StatelessWidget {
                 ),
               ],
             ),
+
             Container(
               margin: EdgeInsets.only(top: 40.h),
               child: Text(
@@ -83,55 +95,69 @@ class UserOverViewScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 25.h,
+            SizedBox(height: 25.h),
+
+            BlocBuilder<CustomerCubit, CustomerState>(
+              builder: (context, state) {
+                if (state is CustomerRateLoaded) {
+                  final rates = state.rates;
+
+                  int excellentCount = 0;
+                  int goodCount = 0;
+                  int veryGoodCount = 0;
+                  int badCount = 0;
+                  int weakCount = 0;
+                  int totalCount = rates.length;
+
+                  for (var rate in rates) {
+                    if (rate.rate == 'excellent') {
+                      excellentCount++;
+                    } else if (rate.rate == 'good') {
+                      goodCount++;
+                    } else if (rate.rate == 'veryGood') {
+                      veryGoodCount++;
+                    } else if (rate.rate == 'poor') {
+                      weakCount++;
+                    } else {
+                      badCount++;
+                    }
+                  }
+
+                  double excellentPercentage = (excellentCount / totalCount) * 100;
+                  double goodPercentage = (goodCount / totalCount) * 100;
+                  double veryGoodPercentage = (veryGoodCount / totalCount) * 100;
+                  double weakPercentage = (weakCount / totalCount) * 100;
+                  double badPercentage = (badCount / totalCount) * 100;
+
+                  return RatingChart(
+                    values: [
+                      excellentPercentage,
+                      veryGoodPercentage,
+                      goodPercentage,
+                      weakPercentage,
+                      badPercentage,
+                    ],
+                    customerName: customer.name,
+                    customerId: customer.id!,
+                  );
+                } else if (state is CustomerError) {
+                  return Center(
+                    child: Text("Error: ${state.message}"),
+                  );
+                }
+                return const CircularProgressIndicator();
+              },
             ),
-            // SizedBox(
-            //   width: 380,
-            //   height: 280,
-            //   child:
-            RatingChart(
-              /// TODO: get rate
-              values: [
-                5, 5, 5, 5, 5,
-                // customer.rateOfExcellent,
-                // customer.rateOfVeryGood,
-                // customer.rateOfGood,
-                // customer.rateOfPoor,
-                // customer.rateOfUncooperative
-              ],
-              customerName: customer.name,
-            ),
-            // PieChartSample2(
-            //   values: [
-            //     customer.rateOfExcellent,
-            //     customer.rateOfVeryGood,
-            //     customer.rateOfGood,
-            //     customer.rateOfPoor,
-            //     customer.rateOfUncooperative
-            //   ],
-            //   colors: const [
-            //     Colors.blue,
-            //     Colors.yellow,
-            //     Colors.purple,
-            //     Colors.green,
-            //     Colors.red,
-            //   ],
-            // ),
-            // ),
+
             SizedBox(height: 60.h),
+
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
-                Logger().e(state);
                 if (state is CustomerAddedSuccessfully) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        AppStrings.customerEditedSuccessfully,
-                        textDirection:
-                            AppLanguages.getCurrentTextDirection(context),
-                        style: TextStyle(
-                            fontFamily: AppLanguages.getPrimaryFont(context)),
+                        AppStrings.customerEditedSuccessfully.tr(),
                       ),
                     ),
                   );
@@ -149,7 +175,7 @@ class UserOverViewScreen extends StatelessWidget {
                     colors: AppColors.primaryContainerColor,
                   ),
                   colorOfBorder: Colors.yellow,
-                  text: AppStrings.edit,
+                  text: AppStrings.edit.tr(),
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -161,17 +187,18 @@ class UserOverViewScreen extends StatelessWidget {
                       ),
                       builder: (_) {
                         return BottomSheetDesign(
-                          textBtn: AppStrings.edit,
+                          textBtn: AppStrings.edit.tr(),
                           inputTextValue: customer.name,
                           onPressed: (String name) {
                             if (name.isNotEmpty) {
                               context.read<CustomerCubit>().updateCustomerName(
-                                  CustomerEntity(name: name, id: customer.id));
+                                CustomerEntity(name: name, id: customer.id),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    AppStrings.nameRequired,
+                                    AppStrings.nameRequired.tr(),
                                   ),
                                 ),
                               );
@@ -185,7 +212,9 @@ class UserOverViewScreen extends StatelessWidget {
                 );
               },
             ),
+
             SizedBox(height: 30.h),
+
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {},
               builder: (context, state) {
@@ -194,7 +223,7 @@ class UserOverViewScreen extends StatelessWidget {
                     colors: AppColors.primaryContainerColor,
                   ),
                   colorOfBorder: Colors.red,
-                  text: AppStrings.delete,
+                  text: AppStrings.delete.tr(),
                   onPressed: () {
                     context
                         .read<CustomerCubit>()

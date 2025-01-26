@@ -1,5 +1,5 @@
 {
-  "appName": "القيصر",
+  "ALQAYSAR": "القيصر",
   "login": "تسجيل الدخول",
   "email": "البريد الالكترونى",
   "password": "كلمه المرور",
@@ -35,5 +35,13 @@
   "thanksForRating": "شكرا على التقييم",
   "errorRating": "خطأ في التقييم، يرجى المحاولة مرة أخرى",
   "searchByName": "ابحث باستخدام الاسم",
-  "startTypingToSearch": "ابدا بالكتابه لكى تبحث..."
+  "startTypingToSearch": "ابدا بالكتابه لكى تبحث...",
+  "rate Analytics": "تحليل التقييم",
+  "Remember Me": "تذكرنى",
+  "Phone: ": "رقم الهاتف",
+  "Please rate": "ادخل تقييم",
+  "No rate available": "لا يوجد تقييم حتى الان",
+  "No comment": "لا تعليق",
+  "No phone": "لا يوجد رقم هاتف",
+  "Show negative rate": "عرض التقييمات السيئة"
 }

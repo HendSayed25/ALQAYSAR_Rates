@@ -36,6 +36,16 @@ class CustomerRepositoryImpl implements CustomerRepository {
     return await remoteDataSource.updateCustomerName(customer);
   }
 
+  @override
+  Future<Either<Failure, List<RateEntity>>> getAllRateForCustomer(int customerId)async{
+    return await remoteDataSource.getAllRateForCustomer(customerId);
+  }
+
+  @override
+  Future<Either<Failure, List<RateEntity>>> getAllRates() async {
+    return await remoteDataSource.getAllRates();
+  }
+
 
 
 }

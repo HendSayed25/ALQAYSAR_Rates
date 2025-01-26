@@ -3,6 +3,7 @@ import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:alqaysar_rates/features/data/local/app_prefs.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -63,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // After the animation finishes, navigate to the LoginScreen
     Future.delayed(const Duration(milliseconds: 2500), () {
-      sl<AppPrefs>().getBool("remember")==true?context.pushNamed(Routes.showAllRoute) :context.pushReplacementNamed(Routes.loginScreenRoute);
+      sl<AppPrefs>().getBool("remember")==true?context.pushNamed(Routes.homeScreenAdminRoute) :context.pushReplacementNamed(Routes.loginScreenRoute);
       //context.pushReplacementNamed(Routes.loginScreenRoute);
     });
   }

@@ -1,6 +1,7 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,7 +42,7 @@ class SearchBarWidget extends StatelessWidget {
                   child: TextField(
                     readOnly: true,
                     decoration: InputDecoration(
-                      hintText: AppStrings.search,
+                      hintText: AppStrings.search.tr(),
                       hintStyle: const TextStyle(color: Colors.black),
                       border: InputBorder.none,
                     ),

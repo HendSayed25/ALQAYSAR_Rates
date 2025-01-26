@@ -10,4 +10,6 @@ abstract class CustomerRepository {
   Future<Either<Failure, Unit>> updateCustomerName(CustomerEntity customer);
   Future<Either<Failure, Unit>> addCustomerRate(RateEntity customerRate);
   Future<Either<Failure, Unit>> deleteCustomer(int id);
+  Future<Either<Failure, List<RateEntity>>> getAllRateForCustomer(int customerId);
+  Future<Either<Failure, List<RateEntity>>> getAllRates();
 }
