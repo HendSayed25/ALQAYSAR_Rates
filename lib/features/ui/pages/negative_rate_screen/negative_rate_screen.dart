@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
@@ -23,7 +22,7 @@ class NegativeScreen extends StatelessWidget {
                 return CommentItemDesign(
                     phone: "01279336697",
                     comment: "good",
-                    imagePath: ImageAssets.emojySad,
+                    imagePath: ImageAssets.emojiBad,
                     screenType:"negative",
                     customerName: "Mohamed Ahmed",
                 );

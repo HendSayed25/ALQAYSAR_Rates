@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,8 +13,9 @@ class AppBarSection extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 40.w, top: 70.h, bottom: 10.h, right: 20.w),
-          child:  GestureDetector(
+          margin:
+              EdgeInsets.only(left: 40.w, top: 70.h, bottom: 10.h, right: 20.w),
+          child: GestureDetector(
               child: Container(
                 margin: const EdgeInsets.only(
                     left: 40, top: 35, bottom: 10, right: 20),
@@ -25,15 +25,15 @@ class AppBarSection extends StatelessWidget {
                   height: 30.h,
                 ),
               ),
-              onTap: (){
+              onTap: () {
                 AppLanguages.toggleLocal(context);
-              }
-          ),
+              }),
         ),
         Container(
-          margin: EdgeInsets.only(left: 50.w, top: 70.h, bottom: 10.h, right: 30.w),
+          margin:
+              EdgeInsets.only(left: 50.w, top: 70.h, bottom: 10.h, right: 30.w),
           child: Text(
-            AppStrings.appName.tr(),
+            AppStrings.appName,
             style: TextStyle(
               color: Colors.black,
               fontSize: 25.sp,
@@ -44,7 +44,8 @@ class AppBarSection extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: 40.w, top: 70.h, bottom: 10.h, right: 10.w),
+          margin:
+              EdgeInsets.only(left: 40.w, top: 70.h, bottom: 10.h, right: 10.w),
           child: Image.asset(
             ImageAssets.searchIcon,
             width: 25.w,

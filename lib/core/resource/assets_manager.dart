@@ -8,8 +8,10 @@ class ImageAssets{
   static const languageIcon="${_imagePath}language_icon.png";
   static const searchIcon="${_imagePath}search_icon.png";
   static const commentIcon="${_imagePath}comment_icon.png";
-  static const emojySad="${_imagePath}bad_icon.png";
-
-
+  static const emojiExcellent="${_imagePath}excellent_icon.png";
+  static const emojiGood="${_imagePath}good.png";
+  static const emojiVeryGood="${_imagePath}v_good_icon.png";
+  static const emojiWeek="${_imagePath}weak_icon.png";
+  static const emojiBad="${_imagePath}bad_icon.png";
 
 }

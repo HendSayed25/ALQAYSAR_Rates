@@ -1,3 +1,4 @@
+import 'package:alqaysar_rates/features/domain/usecases/customer/add_customer_rate_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +14,7 @@ import 'features/domain/usecases/auth/logout_usecase.dart';
 import 'features/domain/usecases/customer/add_customer_usecase.dart';
 import 'features/domain/usecases/customer/delete_customer_usecase.dart';
 import 'features/domain/usecases/customer/get_customers_usecase.dart';
-import 'features/domain/usecases/customer/update_customer_usecase.dart';
+import 'features/domain/usecases/customer/update_customer_name_usecase.dart';
 import 'features/ui/cubit/customer_cubit.dart';
 import 'features/ui/cubit/login_cubit.dart';
 
@@ -46,10 +47,11 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton(() => LogoutUsecase(sl()));
   sl.registerLazySingleton(() => GetCustomersUsecase(sl()));
   sl.registerLazySingleton(() => AddCustomerUsecase(sl()));
-  sl.registerLazySingleton(() => UpdateCustomerUsecase(sl()));
+  sl.registerLazySingleton(() => AddCustomerRateUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateCustomerNameUsecase(sl()));
   sl.registerLazySingleton(() => DeleteCustomerUsecase(sl()));
 
   /// Presentation Layer
   sl.registerFactory(() => AuthCubit(login: sl()));
-  sl.registerFactory(() => CustomerCubit(getCustomersUsecase: sl(),addCustomerUsecase: sl(), deleteCustomerUsecase: sl(), updateCustomerUsecase: sl()));
+  sl.registerFactory(() => CustomerCubit(getCustomersUsecase: sl(),addCustomerUsecase: sl(), deleteCustomerUsecase: sl(), updateCustomerNameUsecase: sl(), addCustomerRateUsecase: sl()));
 }

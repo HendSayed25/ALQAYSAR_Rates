@@ -1,41 +1,36 @@
+import '../../domain/entities/customer_entity.dart';
 
-
-import '../../domain/entities/customer.dart';
-
-class CustomerModel extends Customer {
-  CustomerModel({
-    super.id,
-    required super.uncooperative,
-    required super.poor,
-    required super.good,
-    required super.veryGood,
-    required super.excellent,
+class CustomerModel extends CustomerEntity {
+  const CustomerModel({
+    required super.id,
     required super.name,
-    required super.comments,
   });
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) {
     return CustomerModel(
       id: json['id'],
-      uncooperative: json['uncooperative'],
-      poor: json['poor'],
-      good: json['good'],
-      veryGood: json['very_good'],
-      excellent: json['excellent'],
       name: json['name'],
-      comments: List<String>.from(json['comments'] ?? []),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'uncooperative': uncooperative,
-      'poor': poor,
-      'good': good,
-      'very_good': veryGood,
-      'excellent': excellent,
-      'name': name?.trim(),
-      'comments': comments,
+      'name': name,
     };
   }
+
+  CustomerEntity toEntity() {
+    return CustomerEntity(
+      id: id,
+      name: name,
+    );
+  }
+
+  static CustomerModel fromEntity(CustomerEntity entity) {
+    return CustomerModel(
+      id: entity.id,
+      name: entity.name,
+    );
+  }
+
 }

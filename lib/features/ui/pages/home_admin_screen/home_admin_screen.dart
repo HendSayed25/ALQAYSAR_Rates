@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +9,7 @@ import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/helper/extensions.dart';
 import '../../../../core/resource/strings.dart';
-import '../../../domain/entities/customer.dart';
+import '../../../domain/entities/customer_entity.dart';
 import '../../common/bottom_sheet_design.dart';
 import '../../common/custom_button.dart';
 import '../../cubit/customer_cubit.dart';
@@ -47,7 +46,7 @@ class HomeAdminScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        AppStrings.hiAdmin.tr(),
+                        AppStrings.hiAdmin,
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
@@ -76,7 +75,7 @@ class HomeAdminScreen extends StatelessWidget {
                         colors: AppColors.primaryContainerColor,
                       ),
                       colorOfBorder: Colors.transparent,
-                      text: AppStrings.showAll.tr(),
+                      text: AppStrings.showAll,
                       onPressed: () {
                         context.pushNamed(Routes.showAllRoute);
                       },
@@ -89,7 +88,7 @@ class HomeAdminScreen extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                AppStrings.customerAddedSuccessfully.tr(),
+                                AppStrings.customerAddedSuccessfully,
                                 textDirection:
                                     AppLanguages.getCurrentTextDirection(
                                         context),
@@ -110,33 +109,34 @@ class HomeAdminScreen extends StatelessWidget {
                       builder: (context, state) {
                         return CustomButton(
                           gradient: const LinearGradient(
-                            colors: AppColors.primaryContainerColor,
-                          ),
+                              colors: AppColors.primaryContainerColor),
                           colorOfBorder: Colors.transparent,
-                          text: AppStrings.add.tr(),
+                          text: AppStrings.add,
                           onPressed: () {
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(30.0.r),
+                                  top: Radius.circular(30.r),
                                 ),
                               ),
                               builder: (_) {
                                 return BottomSheetDesign(
-                                  textBtn: AppStrings.add.tr(),
+                                  textBtn: AppStrings.add,
                                   onPressed: (String name) {
                                     if (name.isNotEmpty) {
                                       context
                                           .read<CustomerCubit>()
-                                          .addNewCustomer(Customer(name: name));
+                                          .addNewCustomer(
+                                            CustomerEntity(name: name),
+                                          );
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            AppStrings.nameRequired.tr(),
+                                            AppStrings.nameRequired,
                                           ),
                                         ),
                                       );

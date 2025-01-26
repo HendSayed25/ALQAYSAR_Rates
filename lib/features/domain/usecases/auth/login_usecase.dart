@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error.dart';
-import '../../entities/user.dart';
+import '../../entities/user_entity.dart';
 import '../../repository/auth_repository.dart';
 
 class LoginUsecase {

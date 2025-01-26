@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/resource/strings.dart';
-import 'indecator.dart';
+import 'indicator.dart';
 
 class PieChartSample2 extends StatefulWidget {
   final List<double> values;
@@ -24,11 +23,11 @@ class PieChart2State extends State<PieChartSample2> {
   int touchedIndex = -1;
 
   List<String> rating = [
-    AppStrings.excellent.tr(),
-    AppStrings.veryGood.tr(),
-    AppStrings.good.tr(),
-    AppStrings.weak.tr(),
-    AppStrings.bad.tr()
+    AppStrings.excellent,
+    AppStrings.veryGood,
+    AppStrings.good,
+    AppStrings.weak,
+    AppStrings.bad
   ];
 
   @override
@@ -67,7 +66,7 @@ class PieChart2State extends State<PieChartSample2> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
             widget.values.length,
-                (index) => Padding(
+            (index) => Padding(
               padding: EdgeInsets.only(bottom: 8.h),
               child: Indicator(
                 color: widget.colors[index],

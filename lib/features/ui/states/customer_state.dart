@@ -1,8 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-import '../../domain/entities/customer.dart';
+import '../../domain/entities/customer_entity.dart';
 
 abstract class CustomerState extends Equatable {
+  const CustomerState();
+
   @override
   List<Object?> get props => [];
 }
@@ -11,37 +14,56 @@ class CustomerInitial extends CustomerState {}
 
 class CustomerLoading extends CustomerState {}
 
-class CustomerLoaded extends CustomerState {
-  final List<Customer> customers;
+class CustomerError extends CustomerState {
+  final String message;
 
-  CustomerLoaded(this.customers);
+  const CustomerError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class CustomerLoaded extends CustomerState {
+  final List<CustomerEntity> customers;
+
+  const CustomerLoaded(this.customers);
 
   @override
   List<Object?> get props => [customers];
-}
-
-class CustomerByIdLoaded extends CustomerState {
-  final Customer customer;
-
-  CustomerByIdLoaded(this.customer);
-
-  @override
-  List<Object?> get props => [customer];
 }
 
 class CustomerAddedSuccessfully extends CustomerState {}
 
 class CustomerDeletedSuccessfully extends CustomerState {}
 
-class CustomerUpdatedSuccessfully extends CustomerState {}
+class CustomerNameUpdatedSuccessfully extends CustomerState {}
 
-class CustomerError extends CustomerState {
-  final String message;
+class CustomerRateUpdatedSuccessfully extends CustomerState {}
 
-  CustomerError(this.message);
+// class CustomerByIdLoaded extends CustomerState {
+//   final CustomerEntity customer;
+//
+//   const CustomerByIdLoaded(this.customer);
+//
+//   @override
+//   List<Object?> get props => [customer];
+// }
+//
+
+class RatingCategorySelected extends CustomerState {
+  final String category;
+
+  const RatingCategorySelected(this.category);
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [category];
 }
 
-class CustomerEmpty extends CustomerState {}
+class RatingPhoneNumberUpdated extends CustomerState {
+  final PhoneNumber phoneNumber;
+
+  const RatingPhoneNumberUpdated(this.phoneNumber);
+
+  @override
+  List<Object?> get props => [phoneNumber];
+}

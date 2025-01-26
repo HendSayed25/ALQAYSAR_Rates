@@ -1,4 +1,3 @@
-import 'package:alqaysar_rates/features/ui/pages/comments_screen/comments_screen.dart';
 import 'package:alqaysar_rates/features/ui/pages/negative_rate_screen/negative_rate_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +19,10 @@ class RouteGenerator {
 
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case Routes.splashScreenRoute:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const SplashScreen(),
-      //   );
+      case Routes.splashScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+        );
 
       case Routes.loginScreenRoute:
         return MaterialPageRoute(

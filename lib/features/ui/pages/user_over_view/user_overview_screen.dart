@@ -1,6 +1,5 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +10,7 @@ import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
-import '../../../domain/entities/customer.dart';
+import '../../../domain/entities/customer_entity.dart';
 import '../../common/bottom_sheet_design.dart';
 import '../../common/custom_button.dart';
 import '../../cubit/customer_cubit.dart';
@@ -23,7 +22,7 @@ class UserOverViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Customer customer = DataIntent.customer;
+    CustomerEntity customer = DataIntent.customer;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -41,10 +40,7 @@ class UserOverViewScreen extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   height: 300.h,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
@@ -79,7 +75,7 @@ class UserOverViewScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 40.h),
               child: Text(
-                customer.name ?? AppStrings.unKnownUser.tr(),
+                customer.name,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -87,38 +83,42 @@ class UserOverViewScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 25.h,),
+            SizedBox(
+              height: 25.h,
+            ),
             // SizedBox(
             //   width: 380,
             //   height: 280,
             //   child:
-               RatingChart(
-                 values: [
-                       customer.rateOfExcellent,
-                       customer.rateOfVeryGood,
-                       customer.rateOfGood,
-                       customer.rateOfPoor,
-                       customer.rateOfUncooperative
-                 ],
-                 customerName: customer.name!,
-               ),
-              // PieChartSample2(
-              //   values: [
-              //     customer.rateOfExcellent,
-              //     customer.rateOfVeryGood,
-              //     customer.rateOfGood,
-              //     customer.rateOfPoor,
-              //     customer.rateOfUncooperative
-              //   ],
-              //   colors: const [
-              //     Colors.blue,
-              //     Colors.yellow,
-              //     Colors.purple,
-              //     Colors.green,
-              //     Colors.red,
-              //   ],
-              // ),
-           // ),
+            RatingChart(
+              /// TODO: get rate
+              values: [
+                5, 5, 5, 5, 5,
+                // customer.rateOfExcellent,
+                // customer.rateOfVeryGood,
+                // customer.rateOfGood,
+                // customer.rateOfPoor,
+                // customer.rateOfUncooperative
+              ],
+              customerName: customer.name,
+            ),
+            // PieChartSample2(
+            //   values: [
+            //     customer.rateOfExcellent,
+            //     customer.rateOfVeryGood,
+            //     customer.rateOfGood,
+            //     customer.rateOfPoor,
+            //     customer.rateOfUncooperative
+            //   ],
+            //   colors: const [
+            //     Colors.blue,
+            //     Colors.yellow,
+            //     Colors.purple,
+            //     Colors.green,
+            //     Colors.red,
+            //   ],
+            // ),
+            // ),
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
@@ -127,13 +127,11 @@ class UserOverViewScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        AppStrings.customerEditedSuccessfully.tr(),
+                        AppStrings.customerEditedSuccessfully,
                         textDirection:
-                        AppLanguages.getCurrentTextDirection(
-                            context),
+                            AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
-                            fontFamily:
-                            AppLanguages.getPrimaryFont(context)),
+                            fontFamily: AppLanguages.getPrimaryFont(context)),
                       ),
                     ),
                   );
@@ -151,7 +149,7 @@ class UserOverViewScreen extends StatelessWidget {
                     colors: AppColors.primaryContainerColor,
                   ),
                   colorOfBorder: Colors.yellow,
-                  text: AppStrings.edit.tr(),
+                  text: AppStrings.edit,
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -163,26 +161,23 @@ class UserOverViewScreen extends StatelessWidget {
                       ),
                       builder: (_) {
                         return BottomSheetDesign(
-                          textBtn: AppStrings.edit.tr(),
+                          textBtn: AppStrings.edit,
                           inputTextValue: customer.name,
                           onPressed: (String name) {
                             if (name.isNotEmpty) {
-                              context
-                                  .read<CustomerCubit>()
-                                  .updateCustomerUsecase(Customer(name:name,id: customer.id,));
+                              context.read<CustomerCubit>().updateCustomerName(
+                                  CustomerEntity(name: name, id: customer.id));
                             } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(
+                              ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    AppStrings.nameRequired.tr(),
+                                    AppStrings.nameRequired,
                                   ),
                                 ),
                               );
                             }
                           },
                           isLoading: state is CustomerLoading,
-
                         );
                       },
                     );
@@ -199,11 +194,12 @@ class UserOverViewScreen extends StatelessWidget {
                     colors: AppColors.primaryContainerColor,
                   ),
                   colorOfBorder: Colors.red,
-                  text: AppStrings.delete.tr(),
+                  text: AppStrings.delete,
                   onPressed: () {
-                    context.read<CustomerCubit>().deleteCustomerUsecase(customer.id!);
+                    context
+                        .read<CustomerCubit>()
+                        .deleteCustomerUsecase(customer.id!);
                     context.pushNamed(Routes.showAllRoute);
-
                   },
                 );
               },

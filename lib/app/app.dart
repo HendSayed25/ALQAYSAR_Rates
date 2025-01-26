@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: context.localizationDelegates,
         theme: ThemeData(fontFamily: AppLanguages.getPrimaryFont(context)),
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.userOverviewScreenRoute,
+        initialRoute: Routes.splashScreenRoute,
       ),
     );
   }

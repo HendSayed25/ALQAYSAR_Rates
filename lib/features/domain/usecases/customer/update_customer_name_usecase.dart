@@ -4,12 +4,12 @@ import '../../../../core/error.dart';
 import '../../entities/customer_entity.dart';
 import '../../repository/customer_repository.dart';
 
-class GetCustomersUsecase {
+class UpdateCustomerNameUsecase {
   final CustomerRepository repository;
 
-  GetCustomersUsecase(this.repository);
+  UpdateCustomerNameUsecase(this.repository);
 
-  Future<Either<Failure, List<CustomerEntity>>> call() async {
-    return await repository.getCustomers();
+  Future<Either<Failure, Unit>> call(CustomerEntity customer) async {
+    return await repository.updateCustomerName(customer);
   }
 }

@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/config/routes/route_constants.dart';
 import '../../../service_locator.dart';
 import '../../data/local/app_prefs.dart';
-import '../../domain/entities/customer.dart';
+import '../../domain/entities/customer_entity.dart';
 import 'user_card_design.dart';
 
 class CustomerGrid extends StatelessWidget {
-  final List<Customer> customers;
+  final List<CustomerEntity> customers;
+  final double? averageRate;
   final int crossAxisCount;
   final double crossAxisSpacing;
   final double mainAxisSpacing;
@@ -18,6 +19,7 @@ class CustomerGrid extends StatelessWidget {
   const CustomerGrid({
     super.key,
     required this.customers,
+    required this.averageRate,
     this.crossAxisCount = 2,
     this.crossAxisSpacing = 33,
     this.mainAxisSpacing = 33,
@@ -45,14 +47,15 @@ class CustomerGrid extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       DataIntent.pushCustomer(customer);
-                       sl<AppPrefs>().getString("role") == "admin"
-                      ? context.pushNamed(Routes.userOverviewScreenRoute) :
-                        context.pushNamed(Routes.rateScreenUserRoute);
+                      sl<AppPrefs>().getString("role") == "admin"
+                          ? context.pushNamed(Routes.userOverviewScreenRoute)
+                          : context.pushNamed(Routes.rateScreenUserRoute);
                     },
                     child: UserCard(
-                      userName: customer.name ?? "Unknown User",
+                      userName: customer.name,
                       showRating: sl<AppPrefs>().getString("role") == "admin",
-                      rating: double.parse(customer.rating.toStringAsFixed(1)),
+                      // rating: double.parse(customer.rating.toStringAsFixed(1)),
+                      rating: averageRate ?? 5,
                     ),
                   ),
                 );

@@ -1,56 +1,61 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class AppStrings {
   // App Name
-  static const String appName = "ALQAYSAR";
+  static String appName = tr('appName');
 
   // Login Screen
-  static const String login = "Login";
-  static const String email = "Email";
-  static const String password = "Password";
-  static const String enterEmailPassword = "Enter your email & password";
-  static const String forgetPassword = "Forget Password?";
-  static const String loginButtonText = "Login";
-  static const String emailPasswordError = "Email OR Password is wrong";
-  static const String rememberMe="Remember Me";
+  static String login = tr('login');
+  static String email = tr('email');
+  static String password = tr('password');
+  static String enterEmailPassword = tr('enterEmailPassword');
+  static String forgetPassword = tr('forgetPassword');
+  static String loginButtonText = tr('loginButtonText');
+  static String emailPasswordError = tr('emailPasswordError');
+  static String rememberMe = tr('rememberMe');
 
   // Common
-  static const String errorOccurred = "An error occurred. Please try again.";
-  static const String noInternet = "No internet connection.";
-  static const String welcomeMessage = "Welcome back!";
-  static const String logout = "Logout";
+  static String errorOccurred = tr('errorOccurred');
+  static String noInternet = tr('noInternet');
+  static String welcomeMessage = tr('welcomeMessage');
+  static String logout = tr('logout');
 
   // Home Screen
-  static const String noCustomersFound = "No customers found.";
+  static String noCustomersFound = tr('noCustomersFound');
 
   // Home Admin Screen
-  static const String hiAdmin = "Hi Admin";
-  static const String showAll = "Show All";
-  static const String add = "Add";
-  static const String edit = "Edit";
-  static const String delete = "Delete";
-  static const String search = "Search";
-  static const String name = "Name";
-  static const String enterName = "Enter your name";
-  static const String nameRequired = "Name is required";
-  static const String customerAddedSuccessfully = "Customer added successfully!";
-  static const String customerEditedSuccessfully = "Customer edited successfully!";
+  static String hiAdmin = tr('hiAdmin');
+  static String showAll = tr('showAll');
+  static String add = tr('add');
+  static String edit = tr('edit');
+  static String delete = tr('delete');
+  static String search = tr('search');
+  static String name = tr('name');
+  static String enterName = tr('enterName');
+  static String nameRequired = tr('nameRequired');
+  static String customerAddedSuccessfully = tr('customerAddedSuccessfully');
+  static String customerEditedSuccessfully = tr('customerEditedSuccessfully');
 
   // Rate Screen
-  static const String submit = "Submit";
-  static const String comment = "Any Comment";
-  static const String excellent = "Excellent";
-  static const String veryGood = "Very Good";
-  static const String good = "Good";
-  static const String weak = "Weak";
-  static const String bad = "Bad";
-  static const String enterYourCommentHere = "Enter Your Comment Here";
-  static const String thanksForRating = "Thanks For Rating";
-  static const String errorRating = "Error Rating";
+  static String submit = tr('submit');
+  static String comment = tr('comment');
+  static String excellent = tr('excellent');
+  static String veryGood = tr('veryGood');
+  static String good = tr('good');
+  static String weak = tr('weak');
+  static String bad = tr('bad');
+  static String enterYourCommentHere = tr('enterYourCommentHere');
+  static String thanksForRating = tr('thanksForRating');
+  static String errorRating = tr('errorRating');
 
   // Search Screen
-  static const String searchByName = "Search by name...";
-  static const String startTypingToSearch = "Start typing to search...";
+  static String searchByName = tr('searchByName');
+  static String startTypingToSearch = tr('startTypingToSearch');
 
-  //overView Screen
-  static const String unKnownUser="Unknown User";
-  static const String rateAnalytics="Rate Analytics";
+  // Overview Screen
+  static String unKnownUser = tr('unKnownUser');
+  static String rateAnalytics = tr('rateAnalytics');
+
+  // Additional New Strings
+  static String enterPhoneNumber = tr('enterYourPhoneNumber');
 }

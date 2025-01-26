@@ -16,7 +16,6 @@ import '../../../data/local/app_prefs.dart';
 import '../../common/custom_button.dart';
 import '../../cubit/login_cubit.dart';
 import '../../states/login_state.dart';
-import 'widgets/forget_password_button.dart';
 import 'widgets/login_header.dart';
 import 'widgets/form.dart';
 
@@ -59,12 +58,10 @@ class LoginScreen extends StatelessWidget {
                       BlocConsumer<AuthCubit, AuthState>(
                         listener: (context, state) {
                           if (state is AuthAuthenticated) {
-                            sl<AppPrefs>().setString("id", state.userEntity.id);
-                            sl<AppPrefs>()
-                                .setString("role", state.userEntity.role);
+                            sl<AppPrefs>().setString("id", state.userEntity.uid);
+                            sl<AppPrefs>().setString("role", state.userEntity.role);
 
-                            Logger().i(
-                                "${state.userEntity.email} + ${state.userEntity.id} + ${state.userEntity.role} + token ${state.userEntity.token}}");
+                            Logger().i("${state.userEntity.email} + ${state.userEntity.uid} + ${state.userEntity.role} + token ${state.userEntity.token}}");
 
                             if (state.userEntity.role == "user") {
                               context.pushReplacementNamed(Routes.showAllRoute);
@@ -77,12 +74,8 @@ class LoginScreen extends StatelessWidget {
                               SnackBar(
                                 content: Text(
                                   AppStrings.emailPasswordError.tr(),
-                                  textDirection:
-                                      AppLanguages.getCurrentTextDirection(
-                                          context),
-                                  style: TextStyle(
-                                      fontFamily:
-                                          AppLanguages.getPrimaryFont(context)),
+                                  textDirection: AppLanguages.getCurrentTextDirection(context),
+                                  style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context)),
                                 ),
                               ),
                             );
@@ -96,8 +89,8 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () {
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<AuthCubit>().loginUser(
-                                    email: DataIntent.email!,
-                                    password: DataIntent.password!);
+                                    email: DataIntent.email,
+                                    password: DataIntent.password);
                               }
                             },
                             isLoading: state is AuthLoading,

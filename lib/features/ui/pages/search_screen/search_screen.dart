@@ -1,14 +1,15 @@
 import 'dart:async';
-import 'package:alqaysar_rates/core/helper/extensions.dart';
-import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
-import 'package:alqaysar_rates/core/resource/strings.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
 import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/helper/data_intent.dart';
+import '../../../../core/helper/extensions.dart';
+import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/colors_manager.dart';
+import '../../../../core/resource/strings.dart';
 import '../../../../service_locator.dart';
 import '../../../data/local/app_prefs.dart';
 import '../../common/user_card_design_in_search.dart';
@@ -56,11 +57,13 @@ class _SearchScreenState extends State<SearchScreen> {
           controller: _searchController,
           autofocus: true,
           decoration: InputDecoration(
-            hintText:AppStrings.searchByName.tr(),
+            hintText: AppStrings.searchByName,
             hintStyle: const TextStyle(color: Colors.black),
             border: InputBorder.none,
           ),
-          style:TextStyle(color: Colors.white,fontFamily: AppLanguages.getPrimaryFont(context)),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: AppLanguages.getPrimaryFont(context)),
           textDirection: AppLanguages.getCurrentTextDirection(context),
           onChanged: _onSearchChanged,
         ),
@@ -115,14 +118,14 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        AppStrings.noCustomersFound.tr(),
-                        style:TextStyle(
+                        AppStrings.noCustomersFound,
+                        style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
                           fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
-                        textDirection: AppLanguages.getCurrentTextDirection(context),
-
+                        textDirection:
+                            AppLanguages.getCurrentTextDirection(context),
                       ),
                     ],
                   ),
@@ -133,15 +136,17 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemBuilder: (context, index) {
                     final customer = state.customers[index];
                     return GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         DataIntent.pushCustomer(customer);
                         sl<AppPrefs>().getString("role") == "admin"
                             ? context.pushNamed(Routes.userOverviewScreenRoute)
                             : context.pushNamed(Routes.rateScreenUserRoute);
                       },
                       child: UserCardInSearch(
-                        userName: customer.name!,
-                        rating: customer.rating,
+                        userName: customer.name,
+                        rating: 5,
+
+                        /// TODO: add average rate
                         showRating: sl<AppPrefs>().getString("role") == "admin",
                       ),
                     );
@@ -152,11 +157,13 @@ class _SearchScreenState extends State<SearchScreen> {
               return Center(child: Text(state.message));
             } else {
               return Center(
-                child: Text(AppStrings.startTypingToSearch.tr(),
+                child: Text(
+                  AppStrings.startTypingToSearch,
                   textDirection: AppLanguages.getCurrentTextDirection(context),
-                  style:TextStyle(fontFamily: AppLanguages.getPrimaryFont(context),) ,
+                  style: TextStyle(
+                    fontFamily: AppLanguages.getPrimaryFont(context),
+                  ),
                 ),
-
               );
             }
           },

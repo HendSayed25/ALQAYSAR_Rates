@@ -3,18 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/resource/assets_manager.dart';
 import '../../../../../core/resource/colors_manager.dart';
-import '../../../../domain/entities/customer.dart';
 
 class RateHeader extends StatelessWidget {
-  final Customer customer;
 
-  const RateHeader({super.key, required this.customer});
+  const RateHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 300.h,
+      height: 215.h,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: AppColors.primaryContainerColor,

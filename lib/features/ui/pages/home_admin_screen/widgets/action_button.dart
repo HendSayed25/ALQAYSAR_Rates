@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,7 +8,11 @@ class ActionButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const ActionButton({super.key, required this.text, required this.onPressed, bool? isLoading});
+  const ActionButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      bool? isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class ActionButton extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        text: text.tr(),
+        text: text,
         onPressed: onPressed,
       ),
     );

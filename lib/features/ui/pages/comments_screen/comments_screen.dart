@@ -53,7 +53,7 @@ class CommentsScreen extends StatelessWidget {
                     return CommentItemDesign(
                         phone: "01279336697",
                         comment: "good",
-                        imagePath: ImageAssets.emojySad,
+                        imagePath: ImageAssets.emojiBad,
                         screenType: "comment",
                         customerName: "",
                     );

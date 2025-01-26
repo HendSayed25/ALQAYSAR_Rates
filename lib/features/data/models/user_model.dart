@@ -1,8 +1,8 @@
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
-    required super.id,
+    required super.uid,
     required super.email,
     required super.role,
     required super.token,
@@ -10,7 +10,7 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
+      uid: json['uid'],
       email: json['email'],
       role: json['role'],
       token: json['token'],
@@ -19,15 +19,16 @@ class UserModel extends UserEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'uid': uid,
       'email': email,
       'role': role,
+      'token': token,
     };
   }
 
   UserEntity toEntity() {
     return UserEntity(
-      id: id,
+      uid: uid,
       email: email,
       role: role,
       token: token,

@@ -1,13 +1,13 @@
-import 'package:alqaysar_rates/features/domain/entities/customer.dart';
+import 'package:alqaysar_rates/features/domain/entities/customer_entity.dart';
 
 class DataIntent {
   DataIntent._();
 
-  static Customer? _customer;
+  static CustomerEntity _customer = CustomerEntity(name: "");
   static String? _email;
   static String? _password;
 
-  static void pushCustomer(Customer customer) => _customer = customer;
+  static void pushCustomer(CustomerEntity customer) => _customer = customer;
 
   static void pushEmail(String email) => _email = email;
 

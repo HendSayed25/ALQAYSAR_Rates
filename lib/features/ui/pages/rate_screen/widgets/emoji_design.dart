@@ -1,6 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../../core/resource/strings.dart';
 
@@ -15,11 +16,31 @@ class EmojiDesignWidget extends StatefulWidget {
 
 class _EmojiDesignWidgetState extends State<EmojiDesignWidget> {
   final List<Map<String, dynamic>> emojis = [
-    {'emoji': '😡', 'title': AppStrings.bad.tr(), 'category': 'uncooperative'},
-    {'emoji': '😟', 'title': AppStrings.weak.tr(), 'category': 'poor'},
-    {'emoji': '🙂', 'title': AppStrings.good.tr(), 'category': 'good'},
-    {'emoji': '😊', 'title': AppStrings.veryGood.tr(), 'category': 'veryGood'},
-    {'emoji': '😍', 'title': AppStrings.excellent.tr(), 'category': 'excellent'},
+    {
+      'emoji': ImageAssets.emojiBad,
+      'title': AppStrings.bad,
+      'category': 'uncooperative'
+    },
+    {
+      'emoji': ImageAssets.emojiWeek,
+      'title': AppStrings.weak,
+      'category': 'poor'
+    },
+    {
+      'emoji': ImageAssets.emojiGood,
+      'title': AppStrings.good,
+      'category': 'good'
+    },
+    {
+      'emoji': ImageAssets.emojiVeryGood,
+      'title': AppStrings.veryGood,
+      'category': 'veryGood'
+    },
+    {
+      'emoji': ImageAssets.emojiExcellent,
+      'title': AppStrings.excellent,
+      'category': 'excellent'
+    },
   ];
 
   int? selectedEmojiIndex;
@@ -33,13 +54,13 @@ class _EmojiDesignWidgetState extends State<EmojiDesignWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: emojis.asMap().entries.map((entry) {
             final index = entry.key;
-            final emoji = entry.value['emoji']!;
-            final title = entry.value['title']!;
+            final emoji = entry.value['emoji'];
+            final title = entry.value['title'];
 
             return _buildEmojiItem(index, emoji, title);
           }).toList(),
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: 30.h),
       ],
     );
   }
@@ -55,15 +76,15 @@ class _EmojiDesignWidgetState extends State<EmojiDesignWidget> {
         if (widget.onEmojiSelected != null) {
           widget.onEmojiSelected!(emojis[index]['category']);
         }
+        Logger().i('emoji $emoji');
       },
       child: Column(
         children: [
-          Text(
+          Image.asset(
             emoji,
-            style: TextStyle(
-              fontSize: 40.sp,
-              color: isSelected ? Colors.white : Colors.black,
-            ),
+            width: 40.w,
+            height: 40.w,
+            color: isSelected ? Colors.white : Colors.black,
           ),
           SizedBox(height: 8.h),
           Text(
