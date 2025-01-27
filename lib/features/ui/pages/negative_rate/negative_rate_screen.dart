@@ -49,10 +49,13 @@ class _NegativeScreenState extends State<NegativeScreen> {
                 itemBuilder: (context, index) {
                   final rate = negativeRates[index];
                   String emojiPath;
+                  String rateTr;
                   if (rate.rate == 'poor') {
                     emojiPath = ImageAssets.emojiWeek;
+                    rateTr=AppStrings.weak.tr();
                   } else {
                     emojiPath = ImageAssets.emojiBad;
+                    rateTr=AppStrings.bad.tr();
                   }
 
                   return CommentItemDesign(
@@ -61,7 +64,7 @@ class _NegativeScreenState extends State<NegativeScreen> {
                     imagePath: emojiPath,
                     screenType: "negative",
                     customerName:rate.customerName ?? 'not found',
-                    rate: rate.rate.tr(),
+                    rate: rateTr,
                   );
                 },
               );
