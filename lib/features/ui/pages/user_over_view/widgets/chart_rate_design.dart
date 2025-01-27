@@ -123,6 +123,8 @@
 //     });
 //   }
 // }
+import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
+import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -131,8 +133,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/resource/assets_manager.dart';
 import '../../../../../core/resource/colors_manager.dart';
 import '../../../../../core/resource/strings.dart';
-import '../../comments/comments_screen.dart';
-
 
 class RatingChart extends StatelessWidget {
   final List<String> rating = [
@@ -146,7 +146,11 @@ class RatingChart extends StatelessWidget {
   final String customerName;
   final int customerId;
 
-  RatingChart({super.key, required this.values, required this.customerName,required this.customerId});
+  RatingChart(
+      {super.key,
+      required this.values,
+      required this.customerName,
+      required this.customerId});
 
   @override
   Widget build(BuildContext context) {
@@ -180,11 +184,21 @@ class RatingChart extends StatelessWidget {
                 ),
                 Spacer(),
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              CommentsScreen(customerName: customerName,customerId: customerId,))),
+                  onTap: () => context.pushNamed(Routes.commentScreen,
+                      arguments: {
+                        "customerName": customerName,
+                        "customerId": customerId
+                      }),
+
+                  //     Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => CommentsScreen(
+                  //       customerName: customerName,
+                  //       customerId: customerId,
+                  //     ),
+                  //   ),
+                  // ),
                   child: Image.asset(
                     ImageAssets.commentIcon,
                     width: 25.w,
@@ -211,7 +225,7 @@ class RatingChart extends StatelessWidget {
                         getTitlesWidget: (double value, TitleMeta meta) {
                           //value of rate
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.r),
                             child: Text(
                               values[value.toInt()].toStringAsFixed(1),
                               // Show the actual value (percentage)

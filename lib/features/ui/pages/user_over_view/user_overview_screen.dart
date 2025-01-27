@@ -1,3 +1,4 @@
+import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/features/ui/pages/user_over_view/widgets/chart_rate_design.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -101,7 +102,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                   double veryGoodCount = 0;
                   double badCount = 0;
                   double weakCount = 0;
-                  int totalCount = rates.length;
+                  int totalCount = rates.length == 0 ? 1 : rates.length;
 
                   for (var rate in rates) {
                     if (rate.rate == 'excellent') {
@@ -224,7 +225,21 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
             ),
             SizedBox(height: 30.h),
             BlocConsumer<CustomerCubit, CustomerState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is CustomerDeletedSuccessfully) {
+                  context.pushNamedAndRemoveUntil(
+                    Routes.homeScreenAdminRoute,
+                    predicate: (route) => false,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "success delete",
+                      ),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return CustomButton(
                   gradient: const LinearGradient(
@@ -233,10 +248,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                   colorOfBorder: Colors.red,
                   text: AppStrings.delete.tr(),
                   onPressed: () {
-                    context
-                        .read<CustomerCubit>()
-                        .deleteCustomerUsecase(customer.id!);
-                    context.pop();
+                    context.read<CustomerCubit>().deleteCustomer(customer.id!);
                   },
                 );
               },

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/ui/cubit/customer_cubit.dart';
 import '../../../features/ui/cubit/login_cubit.dart';
+import '../../../features/ui/pages/comments/comments_screen.dart';
 import '../../../features/ui/pages/home/show_all_screen.dart';
 import '../../../features/ui/pages/home_admin/home_admin_screen.dart';
 import '../../../features/ui/pages/login/login_screen.dart';
@@ -71,18 +72,22 @@ class RouteGenerator {
             child: RateScreenUser(),
           ),
         );
-      // case Routes.commentScreen:
-      //   return MaterialPageRoute(
-      //     builder: (context) => CommentsScreen(),
-      //   );
-      case Routes.negativeScreen:
+
+      case Routes.commentScreen:
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (context) => BlocProvider<CustomerCubit>(
-          create:(_)=>sl<CustomerCubit>() ,
-          child:NegativeScreen() ,
-    )
-
+            create: (_) => sl<CustomerCubit>()..fetchCustomerRates(args["customerId"]),
+            child: CommentsScreen(data: args),
+          ),
         );
+
+      case Routes.negativeScreen:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider<CustomerCubit>(
+                  create: (_) => sl<CustomerCubit>(),
+                  child: NegativeScreen(),
+                ));
       default:
         return unDefinedRoute();
     }

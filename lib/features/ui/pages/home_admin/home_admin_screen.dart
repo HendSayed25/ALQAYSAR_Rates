@@ -96,7 +96,7 @@ class HomeAdminScreen extends StatelessWidget {
                     ),
                     BlocConsumer<CustomerCubit, CustomerState>(
                       listener: (context, state) {
-                        Logger().e(state);
+                        Logger().i(state);
                         if (state is CustomerAddedSuccessfully) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

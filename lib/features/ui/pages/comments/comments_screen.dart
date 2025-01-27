@@ -1,32 +1,27 @@
-import 'package:alqaysar_rates/core/resource/assets_manager.dart';
-import 'package:alqaysar_rates/core/resource/strings.dart';
-import 'package:alqaysar_rates/features/domain/usecases/rate/add_customer_rate_usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/add_customer_usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/delete_customer_usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/rate/get_customer_rate._usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/get_customers_usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/update_customer_name_usecase.dart';
-import 'package:alqaysar_rates/features/ui/common/comment_item_design.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
-import '../../../../service_locator.dart';
+import '../../../../core/resource/strings.dart';
+import '../../common/comment_item_design.dart';
 import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
 
 class CommentsScreen extends StatelessWidget {
-  final String customerName;
-  final int customerId;
+  final Map<String, dynamic> data;
+
   const CommentsScreen({
     Key? key,
-    required this.customerName,
-    required this.customerId,
+    required this.data,
   });
 
   @override
   Widget build(BuildContext context) {
+    final String customerName = data['customerName'];
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -61,61 +56,71 @@ class CommentsScreen extends StatelessWidget {
               ),
               Expanded(
                 flex: 9,
-                child: BlocProvider(
-                  create: (context) => CustomerCubit(
-                      deleteCustomerUsecase: sl<DeleteCustomerUsecase>(),
-                      updateCustomerNameUsecase:sl<UpdateCustomerNameUsecase>(),
-                      getCustomersUsecase: sl<GetCustomersUsecase>(),
-                      addCustomerUsecase:  sl<AddCustomerUsecase>(),
-                      addCustomerRateUsecase:  sl<AddCustomerRateUsecase>(),
-                      getCustomerRateUseCase: sl<GetCustomerRateUseCase>()
-                  )..fetchCustomerRates(customerId),
-                  child: BlocBuilder<CustomerCubit, CustomerState>(
-                    builder: (context, state) {
-                      if (state is CustomerLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is CustomerRateLoaded) {
-                        final rates = state.rates;
-                         if(rates.length>0)
-                          return ListView.builder(
+                child: BlocBuilder<CustomerCubit, CustomerState>(
+                  builder: (context, state) {
+                    if (state is CustomerLoading) {
+                      return Skeletonizer(
+                        enabled: true,
+                        effect: ShimmerEffect(
+                          baseColor: AppColors.primaryColor[1],
+                          highlightColor: AppColors.primaryColor[0],
+                        ),
+                        child: ListView.builder(
+                          itemCount: 5,
+                          itemBuilder: (context, index) => CommentItemDesign(
+                            phone: AppStrings.noPhone.tr(),
+                            comment: AppStrings.noComment.tr(),
+                            imagePath: ImageAssets.emojiExcellent,
+                            screenType: "comment",
+                            customerName: "ahmed sobhi",
+                            rate: AppStrings.excellent.tr(),
+                          ),
+                        ),
+                      );
+                    } else if (state is CustomerRateLoaded) {
+                      final rates = state.rates;
+                      if (rates.length > 0)
+                        return ListView.builder(
                           itemCount: rates.length,
                           itemBuilder: (context, index) {
                             final rate = rates[index];
                             String emojiPath;
                             String rateTr;
-                            if (rate.rate=='excellent') {
+                            if (rate.rate == 'excellent') {
                               emojiPath = ImageAssets.emojiExcellent;
-                              rateTr=AppStrings.excellent.tr();
+                              rateTr = AppStrings.excellent.tr();
                             } else if (rate.rate == 'good') {
                               emojiPath = ImageAssets.emojiGood;
-                              rateTr=AppStrings.good.tr();
-                            } else if(rate.rate=='poor'){
+                              rateTr = AppStrings.good.tr();
+                            } else if (rate.rate == 'poor') {
                               emojiPath = ImageAssets.emojiWeek;
-                              rateTr=AppStrings.weak.tr();
-                            }else if(rate.rate=='veryGood'){
+                              rateTr = AppStrings.weak.tr();
+                            } else if (rate.rate == 'veryGood') {
                               emojiPath = ImageAssets.emojiVeryGood;
-                              rateTr=AppStrings.veryGood.tr();
-                            }else{
+                              rateTr = AppStrings.veryGood.tr();
+                            } else {
                               emojiPath = ImageAssets.emojiBad;
-                              rateTr=AppStrings.bad.tr();
+                              rateTr = AppStrings.bad.tr();
                             }
                             return CommentItemDesign(
-                              phone: rate.phone ??AppStrings.noPhone.tr(),
-                              comment: rate.comment ?? AppStrings.noComment.tr(),
+                              phone: rate.phone ?? AppStrings.noPhone.tr(),
+                              comment:
+                                  rate.comment ?? AppStrings.noComment.tr(),
                               imagePath: emojiPath,
                               screenType: "comment",
                               customerName: customerName,
-                              rate:rateTr,
+                              rate: rateTr,
                             );
                           },
                         );
-                         else  return Center(child: Text(AppStrings.noRateAvailable.tr()));
-                      } else if (state is CustomerError) {
-                        return Center(child: Text(state.message));
-                      }
-                      return Center(child: Text(AppStrings.noRateAvailable.tr()));
-                    },
-                  ),
+                      else
+                        return Center(
+                            child: Text(AppStrings.noRateAvailable.tr()));
+                    } else if (state is CustomerError) {
+                      return Center(child: Text(state.message));
+                    }
+                    return Center(child: Text(AppStrings.noRateAvailable.tr()));
+                  },
                 ),
               ),
             ],

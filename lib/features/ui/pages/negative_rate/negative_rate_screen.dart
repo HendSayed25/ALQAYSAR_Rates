@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
@@ -35,10 +36,27 @@ class _NegativeScreenState extends State<NegativeScreen> {
         child: BlocBuilder<CustomerCubit, CustomerState>(
           builder: (context, state) {
             if (state is CustomerLoading) {
-              return Center(child: CircularProgressIndicator());
+              return Skeletonizer(
+                enabled: true,
+                effect: ShimmerEffect(
+                  baseColor: AppColors.primaryColor[1],
+                  highlightColor: AppColors.primaryColor[0],
+                ),
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) => CommentItemDesign(
+                    phone: AppStrings.noPhone.tr(),
+                    comment: AppStrings.noComment.tr(),
+                    imagePath: ImageAssets.emojiExcellent,
+                    screenType: "comment",
+                    customerName: "ahmed sobhi",
+                    rate: AppStrings.excellent.tr(),
+                  ),
+                ),
+              );
             }
             if (state is CustomerError) {
-             return Center(child: Text(state.message));
+              return Center(child: Text(state.message));
             }
 
             if (state is CustomerRateLoaded) {
@@ -52,18 +70,18 @@ class _NegativeScreenState extends State<NegativeScreen> {
                   String rateTr;
                   if (rate.rate == 'poor') {
                     emojiPath = ImageAssets.emojiWeek;
-                    rateTr=AppStrings.weak.tr();
+                    rateTr = AppStrings.weak.tr();
                   } else {
                     emojiPath = ImageAssets.emojiBad;
-                    rateTr=AppStrings.bad.tr();
+                    rateTr = AppStrings.bad.tr();
                   }
 
                   return CommentItemDesign(
                     phone: rate.phone ?? AppStrings.noPhone.tr(),
-                    comment: rate.comment??"",
+                    comment: rate.comment ?? "",
                     imagePath: emojiPath,
                     screenType: "negative",
-                    customerName:rate.customerName ?? 'not found',
+                    customerName: rate.customerName ?? 'not found',
                     rate: rateTr,
                   );
                 },

@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:alqaysar_rates/features/data/models/rate_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:logger/logger.dart';
 
@@ -9,6 +6,7 @@ import '../../domain/entities/customer_entity.dart';
 import '../../domain/entities/rate_entity.dart';
 import '../models/customer_model.dart';
 import '../../../core/config/supabase/supabase_client.dart';
+import '../models/rate_model.dart';
 
 abstract class CustomerRemoteDataSource {
   Future<Either<Failure, List<CustomerEntity>>> getCustomers();
