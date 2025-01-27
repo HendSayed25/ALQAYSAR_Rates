@@ -10,6 +10,7 @@ class CommentItemDesign extends StatelessWidget {
   final String imagePath;
   final String screenType;
   final String customerName;
+  final String rate;
 
 
   const CommentItemDesign({
@@ -19,6 +20,7 @@ class CommentItemDesign extends StatelessWidget {
     required this.imagePath,
     required this.screenType,
     required this.customerName,
+    required this.rate
   });
 
   @override
@@ -60,14 +62,23 @@ class CommentItemDesign extends StatelessWidget {
                   ),
                 ],
               ),
-              if(screenType=="negative")
                 Row(
                   children: [
+                    if(screenType=="negative")
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(customerName,
                         style:TextStyle(fontWeight: FontWeight.bold),),
                     ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        rate,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
+
                   ],
                 ),
               Divider(

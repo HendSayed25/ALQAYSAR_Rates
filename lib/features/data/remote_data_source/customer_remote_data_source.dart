@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:alqaysar_rates/features/data/models/rate_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:logger/logger.dart';
@@ -95,20 +97,42 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
       return const Left(ServerFailure("Failed to get customer rate"));
     }
   }
-  @override
+  // @override
+  // Future<Either<Failure, List<RateEntity>>> getAllRates() async {
+  //   try {
+  //     final response = await SupabaseClientProvider.client
+  //         .from('rates')
+  //         .select();
+  //
+  //     final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
+  //     return Right(rates);
+  //   } catch (e) {
+  //     logger.e("Error getting customer rate: $e");
+  //     return const Left(ServerFailure("Failed to get customer rate"));
+  //   }
+  // }
   Future<Either<Failure, List<RateEntity>>> getAllRates() async {
     try {
       final response = await SupabaseClientProvider.client
           .from('rates')
-          .select();
+          .select('rate, customers(name),comment,phone')
+          .or('rate.eq.poor,rate.eq.uncooperative');
 
-      final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
+      final List<RateEntity>rates = response.map((rate) {
+        return RateEntity(
+          rate: rate['rate'],
+          customerName: rate['customers']['name'],
+          phone: rate['phone'],
+          comment: rate['comment']
+        );
+      }).toList();
+
       return Right(rates);
     } catch (e) {
-      logger.e("Error getting customer rate: $e");
-      return const Left(ServerFailure("Failed to get customer rate"));
+      return Left(ServerFailure(e.toString()));
     }
   }
+
 
 
 

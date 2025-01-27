@@ -58,21 +58,21 @@ class UserCardInSearch extends StatelessWidget {
                       textDirection: AppLanguages.getCurrentTextDirection(context),
                     ),
                     SizedBox(height: 6.h),
-                    if (showRating) ...[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            "${rating.toStringAsFixed(1)} / 5",
-                            style: TextStyle(
-                                fontSize: 14.sp, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(width: 5.w),
-                          Icon(Icons.star, color: Colors.amber, size: 16.r),
-                        ],
-                      ),
-                    ],
+                    // if (showRating) ...[
+                    //   Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     mainAxisSize: MainAxisSize.max,
+                    //     children: [
+                    //       Text(
+                    //         "${rating.toStringAsFixed(1)} / 5",
+                    //         style: TextStyle(
+                    //             fontSize: 14.sp, fontWeight: FontWeight.bold),
+                    //       ),
+                    //       SizedBox(width: 5.w),
+                    //       Icon(Icons.star, color: Colors.amber, size: 16.r),
+                    //     ],
+                    //   ),
+                    // ],
                   ],
                 ),
               ),

@@ -60,7 +60,8 @@ class _NegativeScreenState extends State<NegativeScreen> {
                     comment: rate.comment??"",
                     imagePath: emojiPath,
                     screenType: "negative",
-                    customerName:"" ?? 'not found',
+                    customerName:rate.customerName ?? 'not found',
+                    rate: rate.rate.tr(),
                   );
                 },
               );

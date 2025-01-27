@@ -4,6 +4,7 @@ class RateEntity {
   final String? phone;
   final String rate;
   final String? comment;
+  final String? customerName;
 
   const RateEntity({
     this.id,
@@ -11,5 +12,6 @@ class RateEntity {
     this.phone,
     required this.rate,
     this.comment,
+    this.customerName
   });
 }

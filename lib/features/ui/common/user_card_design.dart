@@ -72,32 +72,32 @@ class UserCard extends StatelessWidget {
                   ),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
                 ),
-                showRating
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${rating.toStringAsFixed(1)} / 5",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: AppLanguages.getPrimaryFont(context),
-                              color: AppColors.primaryTextColor,
-                            ),
-                            textDirection:
-                                AppLanguages.getCurrentTextDirection(context),
-                          ),
-                          SizedBox(width: 5.w),
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 16.r,
-                          ),
-                        ],
-                      )
-                    : const SizedBox.shrink(),
-              ],
+              //   showRating
+              //       ? Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Text(
+              //               "${rating.toStringAsFixed(1)} / 5",
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                 fontSize: 14.sp,
+              //                 fontWeight: FontWeight.w500,
+              //                 fontFamily: AppLanguages.getPrimaryFont(context),
+              //                 color: AppColors.primaryTextColor,
+              //               ),
+              //               textDirection:
+              //                   AppLanguages.getCurrentTextDirection(context),
+              //             ),
+              //             SizedBox(width: 5.w),
+              //             Icon(
+              //               Icons.star,
+              //               color: Colors.amber,
+              //               size: 16.r,
+              //             ),
+              //           ],
+              //         )
+              //       : const SizedBox.shrink(),
+               ],
             ),
           )
         ],

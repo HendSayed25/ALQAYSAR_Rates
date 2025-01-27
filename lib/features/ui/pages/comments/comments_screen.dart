@@ -82,16 +82,22 @@ class CommentsScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final rate = rates[index];
                             String emojiPath;
+                            String rateTr;
                             if (rate.rate=='excellent') {
                               emojiPath = ImageAssets.emojiExcellent;
+                              rateTr=AppStrings.excellent.tr();
                             } else if (rate.rate == 'good') {
                               emojiPath = ImageAssets.emojiGood;
+                              rateTr=AppStrings.good.tr();
                             } else if(rate.rate=='poor'){
                               emojiPath = ImageAssets.emojiWeek;
+                              rateTr=AppStrings.weak.tr();
                             }else if(rate.rate=='veryGood'){
                               emojiPath = ImageAssets.emojiVeryGood;
+                              rateTr=AppStrings.veryGood.tr();
                             }else{
                               emojiPath = ImageAssets.emojiBad;
+                              rateTr=AppStrings.bad.tr();
                             }
                             return CommentItemDesign(
                               phone: rate.phone ??AppStrings.noPhone.tr(),
@@ -99,6 +105,7 @@ class CommentsScreen extends StatelessWidget {
                               imagePath: emojiPath,
                               screenType: "comment",
                               customerName: customerName,
+                              rate:rateTr,
                             );
                           },
                         );
