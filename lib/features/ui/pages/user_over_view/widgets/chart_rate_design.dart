@@ -123,25 +123,26 @@
 //     });
 //   }
 // }
-import 'package:alqaysar_rates/core/resource/assets_manager.dart';
-import 'package:alqaysar_rates/core/resource/colors_manager.dart';
-import 'package:alqaysar_rates/core/resource/strings.dart';
-import 'package:alqaysar_rates/features/ui/pages/comments_screen/comments_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/resource/assets_manager.dart';
+import '../../../../../core/resource/colors_manager.dart';
+import '../../../../../core/resource/strings.dart';
+import '../../comments/comments_screen.dart';
+
 
 class RatingChart extends StatelessWidget {
-  List<String> rating = [
+  final List<String> rating = [
     AppStrings.excellent.tr(),
     AppStrings.veryGood.tr(),
     AppStrings.good.tr(),
     AppStrings.weak.tr(),
     AppStrings.bad.tr()
   ];
-  List<double> values;
+  final List<double> values;
   final String customerName;
   final int customerId;
 

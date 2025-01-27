@@ -1,13 +1,12 @@
 import 'package:alqaysar_rates/features/domain/entities/rate_entity.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/get_customer_rate._usecase.dart';
+import 'package:alqaysar_rates/features/domain/usecases/rate/get_customer_rate._usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:logger/logger.dart';
 
 import '../../../core/error.dart';
 import '../../domain/entities/customer_entity.dart';
-import '../../domain/usecases/customer/add_customer_rate_usecase.dart';
+import '../../domain/usecases/rate/add_customer_rate_usecase.dart';
 import '../../domain/usecases/customer/add_customer_usecase.dart';
 import '../../domain/usecases/customer/delete_customer_usecase.dart';
 import '../../domain/usecases/customer/get_customers_usecase.dart';
@@ -140,8 +139,6 @@ class CustomerCubit extends Cubit<CustomerState> {
       emit(CustomerError('Failed to load negative rates: $e'));
     }
   }
-
-
 
   // Future<void> fetchCustomers() async {
   //   emit(CustomerLoading());

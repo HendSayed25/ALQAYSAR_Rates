@@ -49,6 +49,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
     logger.i("Deleting customer with id: $id");
     try {
       await SupabaseClientProvider.client.from('customers').delete().eq('id', id);
+      await SupabaseClientProvider.client.from('rates').delete().eq('customer_id', id);
       return const Right(unit);
     } catch (e) {
       logger.e("Error deleting customer: $e");

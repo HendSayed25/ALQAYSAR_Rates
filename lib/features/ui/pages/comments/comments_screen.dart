@@ -1,9 +1,9 @@
 import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/add_customer_rate_usecase.dart';
+import 'package:alqaysar_rates/features/domain/usecases/rate/add_customer_rate_usecase.dart';
 import 'package:alqaysar_rates/features/domain/usecases/customer/add_customer_usecase.dart';
 import 'package:alqaysar_rates/features/domain/usecases/customer/delete_customer_usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/get_customer_rate._usecase.dart';
+import 'package:alqaysar_rates/features/domain/usecases/rate/get_customer_rate._usecase.dart';
 import 'package:alqaysar_rates/features/domain/usecases/customer/get_customers_usecase.dart';
 import 'package:alqaysar_rates/features/domain/usecases/customer/update_customer_name_usecase.dart';
 import 'package:alqaysar_rates/features/ui/common/comment_item_design.dart';

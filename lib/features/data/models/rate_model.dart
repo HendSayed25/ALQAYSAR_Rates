@@ -21,7 +21,6 @@ class RateModel extends RateEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'customer_id': customerId,
       'phone': phone,
       'rate': rate,

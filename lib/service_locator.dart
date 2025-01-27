@@ -1,5 +1,3 @@
-import 'package:alqaysar_rates/features/domain/usecases/customer/add_customer_rate_usecase.dart';
-import 'package:alqaysar_rates/features/domain/usecases/customer/get_customer_rate._usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +14,8 @@ import 'features/domain/usecases/customer/add_customer_usecase.dart';
 import 'features/domain/usecases/customer/delete_customer_usecase.dart';
 import 'features/domain/usecases/customer/get_customers_usecase.dart';
 import 'features/domain/usecases/customer/update_customer_name_usecase.dart';
+import 'features/domain/usecases/rate/add_customer_rate_usecase.dart';
+import 'features/domain/usecases/rate/get_customer_rate._usecase.dart';
 import 'features/ui/cubit/customer_cubit.dart';
 import 'features/ui/cubit/login_cubit.dart';
 
@@ -35,13 +35,15 @@ Future<void> setupServiceLocator() async {
   // sl.registerLazySingleton(() => OneSignalService());
 
   /// Data Layer
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl());
-  sl.registerLazySingleton<CustomerRemoteDataSource>(() => CustomerRemoteDataSourceImpl());
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl());
+  sl.registerLazySingleton<CustomerRemoteDataSource>(
+      () => CustomerRemoteDataSourceImpl());
 
   /// Domain Layer
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
-  sl.registerLazySingleton<CustomerRepository>(() => CustomerRepositoryImpl(sl()));
-
+  sl.registerLazySingleton<CustomerRepository>(
+      () => CustomerRepositoryImpl(sl()));
 
   /// Use Cases
   sl.registerLazySingleton(() => LoginUsecase(sl()));
@@ -51,9 +53,15 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton(() => AddCustomerRateUsecase(sl()));
   sl.registerLazySingleton(() => UpdateCustomerNameUsecase(sl()));
   sl.registerLazySingleton(() => DeleteCustomerUsecase(sl()));
-  sl.registerLazySingleton(()=>GetCustomerRateUseCase(sl()));
+  sl.registerLazySingleton(() => GetCustomerRateUseCase(sl()));
 
   /// Presentation Layer
   sl.registerFactory(() => AuthCubit(login: sl()));
-  sl.registerFactory(() => CustomerCubit(getCustomersUsecase: sl(),addCustomerUsecase: sl(), deleteCustomerUsecase: sl(), updateCustomerNameUsecase: sl(), addCustomerRateUsecase: sl(), getCustomerRateUseCase: sl()));
+  sl.registerFactory(() => CustomerCubit(
+      getCustomersUsecase: sl(),
+      addCustomerUsecase: sl(),
+      deleteCustomerUsecase: sl(),
+      updateCustomerNameUsecase: sl(),
+      addCustomerRateUsecase: sl(),
+      getCustomerRateUseCase: sl()));
 }

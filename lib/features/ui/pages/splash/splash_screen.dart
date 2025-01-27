@@ -3,7 +3,6 @@ import 'package:alqaysar_rates/core/helper/extensions.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 import 'package:alqaysar_rates/core/resource/strings.dart';
 import 'package:alqaysar_rates/features/data/local/app_prefs.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -107,7 +106,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     TextAnimation(
                       text1Opacity: _text2Opacity,
-                      text: AppStrings.appName.tr(),
+                      text: AppStrings.appName,
                       textSize: 24,
                     ),
                   ],

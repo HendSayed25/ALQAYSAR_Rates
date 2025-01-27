@@ -2,7 +2,6 @@ import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
 
 import '../../../../../core/resource/strings.dart';
 
@@ -77,7 +76,6 @@ class _EmojiDesignWidgetState extends State<EmojiDesignWidget> {
         if (widget.onEmojiSelected != null) {
           widget.onEmojiSelected!(emojis[index]['category']);
         }
-        Logger().i('emoji $emoji');
       },
       child: Column(
         children: [

@@ -1,4 +1,3 @@
-import 'package:alqaysar_rates/features/ui/pages/login_screen/widgets/checkBox_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +15,7 @@ import '../../../data/local/app_prefs.dart';
 import '../../common/custom_button.dart';
 import '../../cubit/login_cubit.dart';
 import '../../states/login_state.dart';
+import 'widgets/checkBox_button.dart';
 import 'widgets/login_header.dart';
 import 'widgets/form.dart';
 

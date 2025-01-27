@@ -4,8 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/helper/data_intent.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
@@ -48,42 +48,37 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 300.h,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: AppColors.primaryContainerColor,
-                      begin: Alignment.topLeft,
-                      end: Alignment.topRight,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(35.r),
-                      bottomRight: Radius.circular(35.r),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 2.r,
-                        blurRadius: 8.r,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Image.asset(
-                      width: 160.w,
-                      height: 176.h,
-                      ImageAssets.person,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300.h,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: AppColors.primaryContainerColor,
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
                 ),
-              ],
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(35.r),
+                  bottomRight: Radius.circular(35.r),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 2.r,
+                    blurRadius: 8.r,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Image.asset(
+                  width: 160.w,
+                  height: 176.h,
+                  ImageAssets.person,
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
-
             Container(
               margin: EdgeInsets.only(top: 40.h),
               child: Text(
@@ -96,17 +91,16 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
               ),
             ),
             SizedBox(height: 25.h),
-
             BlocBuilder<CustomerCubit, CustomerState>(
               builder: (context, state) {
                 if (state is CustomerRateLoaded) {
                   final rates = state.rates;
 
-                  int excellentCount = 0;
-                  int goodCount = 0;
-                  int veryGoodCount = 0;
-                  int badCount = 0;
-                  int weakCount = 0;
+                  double excellentCount = 0;
+                  double goodCount = 0;
+                  double veryGoodCount = 0;
+                  double badCount = 0;
+                  double weakCount = 0;
                   int totalCount = rates.length;
 
                   for (var rate in rates) {
@@ -123,9 +117,11 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                     }
                   }
 
-                  double excellentPercentage = (excellentCount / totalCount) * 100;
+                  double excellentPercentage =
+                      (excellentCount / totalCount) * 100;
                   double goodPercentage = (goodCount / totalCount) * 100;
-                  double veryGoodPercentage = (veryGoodCount / totalCount) * 100;
+                  double veryGoodPercentage =
+                      (veryGoodCount / totalCount) * 100;
                   double weakPercentage = (weakCount / totalCount) * 100;
                   double badPercentage = (badCount / totalCount) * 100;
 
@@ -136,6 +132,11 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                       goodPercentage,
                       weakPercentage,
                       badPercentage,
+                      // excellentCount,
+                      // veryGoodCount,
+                      // goodCount,
+                      // weakCount,
+                      // badCount,
                     ],
                     customerName: customer.name,
                     customerId: customer.id!,
@@ -145,12 +146,21 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                     child: Text("Error: ${state.message}"),
                   );
                 }
-                return const CircularProgressIndicator();
+                return Skeletonizer(
+                  enabled: true,
+                  effect: ShimmerEffect(
+                    baseColor: AppColors.primaryColor[1],
+                    highlightColor: AppColors.primaryColor[0],
+                  ),
+                  child: RatingChart(
+                    values: [100, 100, 100, 100, 100],
+                    customerName: customer.name,
+                    customerId: customer.id!,
+                  ),
+                );
               },
             ),
-
             SizedBox(height: 60.h),
-
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
                 if (state is CustomerAddedSuccessfully) {
@@ -192,8 +202,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                           onPressed: (String name) {
                             if (name.isNotEmpty) {
                               context.read<CustomerCubit>().updateCustomerName(
-                                CustomerEntity(name: name, id: customer.id),
-                              );
+                                    CustomerEntity(name: name, id: customer.id),
+                                  );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -212,9 +222,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                 );
               },
             ),
-
             SizedBox(height: 30.h),
-
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {},
               builder: (context, state) {
@@ -228,7 +236,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                     context
                         .read<CustomerCubit>()
                         .deleteCustomerUsecase(customer.id!);
-                    context.pushNamed(Routes.showAllRoute);
+                    context.pop();
                   },
                 );
               },
