@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:logger/logger.dart';
-import 'package:postgrest/src/types.dart';
 
 import '../../../core/error.dart';
 import '../../domain/entities/customer_entity.dart';
