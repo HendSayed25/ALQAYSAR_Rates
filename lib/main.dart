@@ -3,10 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'app/app.dart';
 import 'core/config/supabase/supabase_client.dart';
 import 'core/helper/language/language_helper.dart';
+import 'features/data/local/app_prefs.dart';
 import 'firebase_options.dart';
 import 'service_locator.dart';
 
@@ -21,12 +23,9 @@ void main() async {
         systemNavigationBarColor: Colors.black,
         statusBarColor: AppColors.backgroundColor[0]),
   );
-//   //Remove this method to stop OneSignal Debugging
-//   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-//
-//   OneSignal.initialize("f6a7e440-16d2-4005-8ba5-4d1642d87573");
+
+  // OneSignal.initialize("f6a7e440-16d2-4005-8ba5-4d1642d87573");
 // // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-//   OneSignal.Notifications.requestPermission(true);
 
   await Future.wait([
     SupabaseClientProvider.initialize(),
@@ -34,6 +33,15 @@ void main() async {
     EasyLocalization.ensureInitialized(),
     setupServiceLocator(),
   ]);
+
+  //Remove this method to stop OneSignal Debugging
+   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+   OneSignal.initialize("5e042f07-a3df-4c5b-b10d-9aee5845dd73");
+   OneSignal.Notifications.requestPermission(true).then((granted){
+     fetchPlayerId();
+   });
+
+
 
   runApp(
     EasyLocalization(
@@ -43,4 +51,15 @@ void main() async {
       child: const MyApp(),
     ),
   );
+}
+//get Token when app run
+void fetchPlayerId() async {
+  String? playerId = await OneSignal.User.pushSubscription.id;
+  print("Fetched Player ID: $playerId");
+
+  if (playerId != null) {
+    sl<AppPrefs>().setString("token", playerId);
+  } else {
+    print("Player ID is still null. Waiting...");
+  }
 }

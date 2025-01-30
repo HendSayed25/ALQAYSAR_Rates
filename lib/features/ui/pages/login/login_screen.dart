@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/helper/data_intent.dart';
@@ -56,19 +57,18 @@ class LoginScreen extends StatelessWidget {
                       CheckBoxWidget(),
                       SizedBox(height: 100.h),
                       BlocConsumer<AuthCubit, AuthState>(
-                        listener: (context, state) {
+                        listener: (context, state) async {
                           if (state is AuthAuthenticated) {
                             sl<AppPrefs>().setString("id", state.userEntity.uid);
                             sl<AppPrefs>().setString("role", state.userEntity.role);
 
-                            Logger().i("${state.userEntity.email} + ${state.userEntity.uid} + ${state.userEntity.role} + token ${state.userEntity.token}}");
-
                             if (state.userEntity.role == "user") {
                               context.pushReplacementNamed(Routes.showAllRoute);
                             } else {
-                              context.pushReplacementNamed(
-                                  Routes.homeScreenAdminRoute);
+                              context.pushReplacementNamed(Routes.homeScreenAdminRoute);
                             }
+                            Logger().i("${state.userEntity.email} + ${state.userEntity.uid} + ${state.userEntity.role} + token ${state.userEntity.token}}");
+
                           } else if (state is AuthError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -108,3 +108,6 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+
+

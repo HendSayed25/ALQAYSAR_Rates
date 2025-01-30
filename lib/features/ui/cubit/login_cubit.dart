@@ -19,4 +19,5 @@ class AuthCubit extends Cubit<AuthState> {
           (userEntity) => emit(AuthAuthenticated(userEntity)),
     );
   }
+
 }

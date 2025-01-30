@@ -52,6 +52,8 @@ dependencies:
   fl_chart:
   intl_phone_number_input:
   rename_app: ^1.6.2
+  onesignal_flutter:
+  http:
 #  charts_flutter:
  # syncfusion_flutter_charts:
 

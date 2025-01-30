@@ -1,20 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/logger.dart';
-
+import '../../../core/config/supabase/supabase_client.dart';
 import '../../../core/error.dart';
 import '../../../service_locator.dart';
 import '../../domain/entities/user_entity.dart';
 import '../local/app_prefs.dart';
 import '../models/user_model.dart';
-import '../../../core/config/supabase/supabase_client.dart';
 
 abstract class AuthRemoteDataSource {
   Future<Either<Failure, UserEntity>> login(String email, String password);
   Future<Either<Failure, Unit>> logout();
   Future<Either<Failure, String>> fetchUserRole(String userId);
   Future<Either<Failure, Unit>> saveToken(String userId, String token);
-  Future<Either<Failure, List<String>>> getAdminTokens();
-  Future<Either<Failure, Unit>> sendNotificationToAdmins(String message);
+ // Future<Either<Failure, List<String>>> getAdminTokens();
+  //Future<Either<Failure, Unit>> sendNotificationToAdmins(String message);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -100,36 +99,54 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
-  @override
-  Future<Either<Failure, List<String>>> getAdminTokens() async {
-    try {
-      final response = await SupabaseClientProvider.client
-          .from('users')
-          .select('token')
-          .eq('role', 'admin');
+  // @override
+  // Future<Either<Failure, List<String>>> getAdminTokens() async {
+  //   try {
+  //     final response = await SupabaseClientProvider.client
+  //         .from('users')
+  //         .select('token')
+  //         .eq('role', 'admin');
+  //
+  //     final List<Map<String, dynamic>> data = response;
+  //     return Right(data.map((user) => user['token'].toString()).toList());
+  //   } catch (e) {
+  //     logger.e("Failed to fetch admin tokens: $e");
+  //     return const Left(ServerFailure("Failed to fetch admin tokens"));
+  //   }
+  // }
 
-      final List<Map<String, dynamic>> data = response;
-      return Right(data.map((user) => user['token'].toString()).toList());
-    } catch (e) {
-      logger.e("Failed to fetch admin tokens: $e");
-      return const Left(ServerFailure("Failed to fetch admin tokens"));
-    }
-  }
-
-  @override
-  Future<Either<Failure, Unit>> sendNotificationToAdmins(String message) async {
-    try {
-      final tokensResult = await getAdminTokens();
-      return tokensResult.fold(
-            (failure) => Left(failure),
-            (tokens) async {
-          ///TODO: Implement logic to send notifications to admins
-          return const Right(unit);
-        },
-      );
-    } catch (e) {
-      logger.e("Failed to send notifications: $e");
-      return const Left(ServerFailure("Failed to send notifications"));
-    }
-  }
+  // @override
+  // Future<Either<Failure, Unit>> sendNotificationToAdmins(String message) async {
+  //   try {
+  //     final tokensResult = await getAdminTokens();
+  //     return tokensResult.fold(
+  //           (failure) => Left(failure),
+  //           (tokens) async {
+  //             // for (String token in tokens) {
+  //             //   try {
+  //             //     var notification = OSCreateNotification(
+  //             //       playerIds: [token], // الـ Player ID (Token) الخاص بالـ Admin
+  //             //       content: message,
+  //             //       heading: "New Review Alert", // العنوان
+  //             //     );
+  //             //
+  //             //     // إرسال الإشعار باستخدام OneSignal
+  //             //     var response = await OneSignal.shared.postNotification(notification);
+  //             //     print("Notification sent: $response");
+  //             //   } catch (e) {
+  //             //     print("Error sending notification to admin: $e");
+  //             //   }
+  //             // }
+  //              return const Right(unit);
+  //       },
+  //     );
+  //   } catch (e) {
+  //     logger.e("Failed to send notifications: $e");
+  //     return const Left(ServerFailure("Failed to send notifications"));
+  //   }
+  // }
 }
+
+
+
+
