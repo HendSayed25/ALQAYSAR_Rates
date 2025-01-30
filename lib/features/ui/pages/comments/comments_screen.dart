@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/resource/assets_manager.dart';
@@ -22,6 +23,7 @@ class CommentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String customerName = data['customerName'];
+    Logger().i(customerName);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

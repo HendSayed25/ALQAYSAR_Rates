@@ -47,8 +47,8 @@ dependencies:
   logger:
   equatable:
   flutter_layout_grid:
-  firebase_core:
-  firebase_messaging:
+#  firebase_core:
+#  firebase_messaging:
   fl_chart:
   intl_phone_number_input:
   rename_app: ^1.6.2

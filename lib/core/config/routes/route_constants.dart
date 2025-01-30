@@ -8,7 +8,6 @@ class Routes {
   static const String searchScreenRoute = "/search";
   static const String userOverviewScreenRoute = "/overview";
   static const String rateScreenUserRoute = "/chartRate";
-  static const String commentScreen="/comments";
-  static const String negativeScreen="/negative";
-
+  static const String commentScreen = "/comments";
+  static const String negativeScreen = "/negative";
 }

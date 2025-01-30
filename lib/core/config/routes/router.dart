@@ -77,7 +77,8 @@ class RouteGenerator {
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (context) => BlocProvider<CustomerCubit>(
-            create: (_) => sl<CustomerCubit>()..fetchCustomerRates(args["customerId"]),
+            create: (_) =>
+                sl<CustomerCubit>()..fetchCustomerRates(args["customerId"]),
             child: CommentsScreen(data: args),
           ),
         );

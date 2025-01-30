@@ -63,7 +63,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     // After the animation finishes, navigate to the LoginScreen
     Future.delayed(const Duration(milliseconds: 2500), () {
-      sl<AppPrefs>().getBool("remember")==true?context.pushNamed(Routes.homeScreenAdminRoute) :context.pushReplacementNamed(Routes.loginScreenRoute);
+      sl<AppPrefs>().getBool("remember") == true
+          ? sl<AppPrefs>().getString("role") == "admin"
+              ? context.pushReplacementNamed(Routes.homeScreenAdminRoute)
+              : context.pushReplacementNamed(Routes.showAllRoute)
+          : context.pushReplacementNamed(Routes.loginScreenRoute);
       //context.pushReplacementNamed(Routes.loginScreenRoute);
     });
   }
@@ -81,10 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              AppColors.backgroundColor[0], // Start color
-              AppColors.backgroundColor[1], // End color
-            ],
+            colors: AppColors.backgroundColor,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -119,5 +120,3 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
-
-
