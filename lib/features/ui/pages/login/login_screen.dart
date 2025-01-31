@@ -53,7 +53,6 @@ class LoginScreen extends StatelessWidget {
                       const LoginHeader(),
                       const AutofillGroup(child: MyForm()),
                       SizedBox(height: 8.h),
-                      //const ForgetPasswordButton(),
                       CheckBoxWidget(),
                       SizedBox(height: 100.h),
                       BlocConsumer<AuthCubit, AuthState>(
@@ -72,6 +71,8 @@ class LoginScreen extends StatelessWidget {
                           } else if (state is AuthError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 2),
                                 content: Text(
                                   AppStrings.emailPasswordError.tr(),
                                   textDirection: AppLanguages.getCurrentTextDirection(context),

@@ -180,9 +180,9 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
       body: jsonEncode(<String, dynamic>{
         'app_id': '5e042f07-a3df-4c5b-b10d-9aee5845dd73',
         'include_player_ids': [adminToken], // أو استخدم player_ids للأدمن
-        'contents': {'en': 'تم استلام تقييم ضعيف من أحد المستخدمين '},
+        'contents': {'en': 'تم استلام تقييم ضعيف من أحد المستخدمين للعامل: $name'},
         'headings': {'en': 'تنبيه: تقييم ضعيف'},
-        'data': {'screen': Routes.commentScreen, 'id': id, 'name': name},
+       // 'data': {'screen': Routes.commentScreen, 'id': id, 'name': name},
       }),
     );
 

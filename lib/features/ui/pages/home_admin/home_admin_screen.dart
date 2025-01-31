@@ -100,6 +100,8 @@ class HomeAdminScreen extends StatelessWidget {
                         if (state is CustomerAddedSuccessfully) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
+                              backgroundColor: Colors.green,
+                              duration: Duration(seconds: 2),
                               content: Text(
                                 AppStrings.customerAddedSuccessfully.tr(),
                                 textDirection:
@@ -114,6 +116,8 @@ class HomeAdminScreen extends StatelessWidget {
                         } else if (state is CustomerError) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
+                              backgroundColor: Colors.red,
+                              duration: Duration(seconds: 2),
                               content: Text(state.message),
                             ),
                           );
@@ -148,6 +152,8 @@ class HomeAdminScreen extends StatelessWidget {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
+                                          backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 2),
                                           content: Text(
                                             AppStrings.nameRequired.tr(),
                                           ),

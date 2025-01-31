@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
     });
 
     // After the animation finishes, navigate to the LoginScreen
-    Future.delayed(const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(milliseconds: 2300), () {
       sl<AppPrefs>().getBool("remember") == true
           ? sl<AppPrefs>().getString("role") == "admin"
               ? context.pushReplacementNamed(Routes.homeScreenAdminRoute)
@@ -108,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
                     TextAnimation(
                       text1Opacity: _text2Opacity,
                       text: AppStrings.appName,
-                      textSize: 24,
+                      textSize: 24.sp,
                     ),
                   ],
                 ),

@@ -7,7 +7,6 @@ class AppStrings {
   static String email = 'email';
   static String password = 'password';
   static String enterEmailPassword = 'enterEmailPassword';
-  static String forgetPassword = 'forgetPassword';
   static String loginButtonText = 'loginButtonText';
   static String emailPasswordError = 'emailPasswordError';
   static String rememberMe = 'Remember Me';
@@ -29,6 +28,7 @@ class AppStrings {
   static String delete = 'delete';
   static String search = 'search';
   static String name = 'name';
+  static String deleteSuccess='success delete';
   static String enterName = 'enterName';
   static String nameRequired = 'nameRequired';
   static String showNegativeRates="Show negative rate";

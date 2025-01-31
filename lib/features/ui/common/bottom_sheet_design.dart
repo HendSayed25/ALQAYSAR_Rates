@@ -96,6 +96,8 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
                       if (_nameController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                            SnackBar(
+                            backgroundColor: Colors.red,
+                            duration: Duration(seconds: 2),
                             content: Text(AppStrings.nameRequired.tr(),
                            textDirection:AppLanguages.getCurrentTextDirection(context),
                           )

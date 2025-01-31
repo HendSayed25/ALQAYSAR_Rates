@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/resource/assets_manager.dart';
@@ -88,7 +89,8 @@ class _NegativeScreenState extends State<NegativeScreen> {
               );
             }
 
-            return Center(child: Text(AppStrings.noRateAvailable.tr()));
+            return Center(child: Text(AppStrings.noRateAvailable.tr(),
+                style:TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp)));
           },
         ),
       ),

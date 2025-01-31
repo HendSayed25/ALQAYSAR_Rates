@@ -133,11 +133,6 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                       goodPercentage,
                       weakPercentage,
                       badPercentage,
-                      // excellentCount,
-                      // veryGoodCount,
-                      // goodCount,
-                      // weakCount,
-                      // badCount,
                     ],
                     customerName: customer.name,
                     customerId: customer.id!,
@@ -164,9 +159,11 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
-                if (state is CustomerAddedSuccessfully) {
+                if (state is CustomerEditedSuccessfully) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 2),
                       content: Text(
                         AppStrings.customerEditedSuccessfully.tr(),
                       ),
@@ -175,6 +172,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                 } else if (state is CustomerError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 2),
                       content: Text(state.message),
                     ),
                   );
@@ -208,6 +207,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
+                                  backgroundColor: Colors.red,
+                                  duration: Duration(seconds: 2),
                                   content: Text(
                                     AppStrings.nameRequired.tr(),
                                   ),
@@ -228,13 +229,15 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
               listener: (context, state) {
                 if (state is CustomerDeletedSuccessfully) {
                   context.pushNamedAndRemoveUntil(
-                    Routes.homeScreenAdminRoute,
+                    Routes.showAllRoute,
                     predicate: (route) => false,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 2),
                       content: Text(
-                        "success delete",
+                        AppStrings.deleteSuccess.tr(),
                       ),
                     ),
                   );

@@ -4,7 +4,6 @@
   "email": "البريد الالكترونى",
   "password": "كلمه المرور",
   "enterEmailPassword": "أدخل بريدك الإلكتروني وكلمة المرور",
-  "forgetPassword": "نسيت كلمة المرور؟",
   "loginButtonText": "تسجيل الدخول",
   "emailPasswordError": "البريد الإلكتروني أو كلمة المرور غير صحيح",
   "errorOccurred": "حدث خطأ. يرجى المحاولة مرة أخرى.",
@@ -43,5 +42,6 @@
   "No rate available": "لا يوجد تقييم حتى الان",
   "No comment": "لا تعليق",
   "No phone": "لا يوجد رقم هاتف",
-  "Show negative rate": "عرض التقييمات السيئة"
+  "Show negative rate": "عرض التقييمات السيئة",
+  "success delete": "تم الحذف بنجاح"
 }

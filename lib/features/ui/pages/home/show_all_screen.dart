@@ -76,7 +76,6 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
                       color: AppColors.secondaryColor,
                       backgroundColor: AppColors.primaryColor[0],
                       displacement: 40.h,
-                      ///TODO: add average rate
                       child: CustomerGrid(customers: state.customers, averageRate: null,),
                     );
                   } else if (state is CustomerError) {

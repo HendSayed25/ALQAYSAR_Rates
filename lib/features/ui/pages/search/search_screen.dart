@@ -101,7 +101,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     return UserCardInSearch(
                       userName: "userName",
                       rating: 0.0,
-                      showRating: sl<AppPrefs>().getString("role") == "admin",
                     );
                   },
                 ),
@@ -146,9 +145,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: UserCardInSearch(
                         userName: customer.name,
                         rating: 5,
-
-                        /// TODO: add average rate
-                        showRating: sl<AppPrefs>().getString("role") == "admin",
                       ),
                     );
                   },

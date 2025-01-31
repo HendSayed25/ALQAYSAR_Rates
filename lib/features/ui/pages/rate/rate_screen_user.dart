@@ -37,6 +37,7 @@ class RateScreenUser extends StatelessWidget {
           if (state is CustomerRateUpdatedSuccessfully) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                duration: Duration(seconds: 2),
                 content: Text(
                   AppStrings.thanksForRating.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
@@ -50,6 +51,8 @@ class RateScreenUser extends StatelessWidget {
           } else if (state is CustomerError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                backgroundColor: Colors.red,
+                duration: Duration(seconds: 2),
                 content: Text(
                   AppStrings.errorRating.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
@@ -176,6 +179,8 @@ class RateScreenUser extends StatelessWidget {
         if (selectedRatingCategory == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 2),
               content: Text(
                 AppStrings.pleaseRate.tr(),
                 textDirection: AppLanguages.getCurrentTextDirection(context),

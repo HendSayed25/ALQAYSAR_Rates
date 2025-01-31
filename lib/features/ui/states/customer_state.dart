@@ -44,6 +44,8 @@ class CustomerRateLoaded extends CustomerState {
 
 class CustomerAddedSuccessfully extends CustomerState {}
 
+class CustomerEditedSuccessfully extends CustomerState {}
+
 class CustomerDeletedSuccessfully extends CustomerState {}
 
 class CustomerNameUpdatedSuccessfully extends CustomerState {}

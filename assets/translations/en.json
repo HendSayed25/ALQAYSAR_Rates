@@ -4,7 +4,6 @@
   "email": "Email",
   "password": "Password",
   "enterEmailPassword": "Enter your email & password",
-  "forgetPassword": "Forget Password?",
   "loginButtonText": "Login",
   "emailPasswordError": "Email OR Password is wrong",
   "errorOccurred": "An error occurred. Please try again.",
@@ -43,6 +42,7 @@
   "No rate available": "No rate available",
   "No comment": "No comment",
   "No phone": "No phone",
-  "Show negative rate": "Show negative rate"
+  "Show negative rate": "Show negative rate",
+  "success delete": "success delete"
 
 }
