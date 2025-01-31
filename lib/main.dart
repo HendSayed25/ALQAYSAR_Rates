@@ -1,7 +1,6 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
 
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,14 +12,13 @@ import 'core/config/supabase/supabase_client.dart';
 import 'core/helper/language/language_helper.dart';
 import 'features/data/local/app_prefs.dart';
 
-// import 'firebase_options.dart';
 import 'service_locator.dart';
 
 late final WidgetsBinding engine;
 
 void main() async {
   engine = WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
@@ -28,12 +26,8 @@ void main() async {
         statusBarColor: AppColors.backgroundColor[0]),
   );
 
-  // OneSignal.initialize("f6a7e440-16d2-4005-8ba5-4d1642d87573");
-// // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-
   await Future.wait([
     SupabaseClientProvider.initialize(),
-    // LocalNotificationService.init(),
     EasyLocalization.ensureInitialized(),
     setupServiceLocator(),
   ]);

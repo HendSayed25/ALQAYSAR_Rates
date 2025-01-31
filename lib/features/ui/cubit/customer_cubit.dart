@@ -72,12 +72,12 @@ class CustomerCubit extends Cubit<CustomerState> {
 
   Future<void> updateCustomerName(CustomerEntity customer) async {
     emit(CustomerLoading());
-    final Either<Failure, Unit> result =
+    final Either<Failure, CustomerEntity> result =
         await updateCustomerNameUsecase(customer);
     result.fold(
       (failure) => emit(CustomerError(failure.message)),
-      (_) {
-        emit(CustomerNameUpdatedSuccessfully());
+      (c) {
+        emit(CustomerNameUpdatedSuccessfully(c));
         fetchCustomers();
       },
     );

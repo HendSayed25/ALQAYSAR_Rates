@@ -9,7 +9,7 @@ class UpdateCustomerNameUsecase {
 
   UpdateCustomerNameUsecase(this.repository);
 
-  Future<Either<Failure, Unit>> call(CustomerEntity customer) async {
+  Future<Either<Failure, CustomerEntity>> call(CustomerEntity customer) async {
     return await repository.updateCustomerName(customer);
   }
 }

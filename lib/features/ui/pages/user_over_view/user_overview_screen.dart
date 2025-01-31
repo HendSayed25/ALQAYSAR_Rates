@@ -1,5 +1,6 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/helper/extensions.dart';
+import 'package:alqaysar_rates/features/domain/entities/rate_entity.dart';
 import 'package:alqaysar_rates/features/ui/pages/user_over_view/widgets/chart_rate_design.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class UserOverViewScreen extends StatefulWidget {
 
 class _UserOverViewScreenState extends State<UserOverViewScreen> {
   late CustomerEntity customer;
+  late List<RateEntity> customerRate;
 
   @override
   void initState() {
@@ -50,7 +52,10 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               height: 300.h,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -82,29 +87,33 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
             ),
             Container(
               margin: EdgeInsets.only(top: 40.h),
-              child: Text(
-                customer.name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 35.sp,
-                ),
+              child: BlocBuilder<CustomerCubit, CustomerState>(
+                builder: (context, state) {
+                  return Text(
+                    customer.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35.sp,
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(height: 25.h),
             BlocBuilder<CustomerCubit, CustomerState>(
               builder: (context, state) {
                 if (state is CustomerRateLoaded) {
-                  final rates = state.rates;
+                  customerRate = state.rates;
 
                   double excellentCount = 0;
                   double goodCount = 0;
                   double veryGoodCount = 0;
                   double badCount = 0;
                   double weakCount = 0;
-                  int totalCount = rates.length == 0 ? 1 : rates.length;
+                  int totalCount = customerRate.length == 0 ? 1 : customerRate.length;
 
-                  for (var rate in rates) {
+                  for (var rate in customerRate) {
                     if (rate.rate == 'excellent') {
                       excellentCount++;
                     } else if (rate.rate == 'good') {
@@ -118,21 +127,26 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                     }
                   }
 
-                  double excellentPercentage =
-                      (excellentCount / totalCount) * 100;
-                  double goodPercentage = (goodCount / totalCount) * 100;
-                  double veryGoodPercentage =
-                      (veryGoodCount / totalCount) * 100;
-                  double weakPercentage = (weakCount / totalCount) * 100;
-                  double badPercentage = (badCount / totalCount) * 100;
+                  // double excellentPercentage =
+                  //     (excellentCount / totalCount) * 100;
+                  // double goodPercentage = (goodCount / totalCount) * 100;
+                  // double veryGoodPercentage =
+                  //     (veryGoodCount / totalCount) * 100;
+                  // double weakPercentage = (weakCount / totalCount) * 100;
+                  // double badPercentage = (badCount / totalCount) * 100;
 
                   return RatingChart(
                     values: [
-                      excellentPercentage,
-                      veryGoodPercentage,
-                      goodPercentage,
-                      weakPercentage,
-                      badPercentage,
+                      // excellentPercentage,
+                      // veryGoodPercentage,
+                      // goodPercentage,
+                      // weakPercentage,
+                      // badPercentage,
+                      excellentCount,
+                      veryGoodCount,
+                      goodCount,
+                      weakCount,
+                      badCount,
                     ],
                     customerName: customer.name,
                     customerId: customer.id!,
@@ -159,7 +173,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
-                if (state is CustomerEditedSuccessfully) {
+                if (state is CustomerNameUpdatedSuccessfully) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green,
@@ -169,6 +183,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                       ),
                     ),
                   );
+                  customer = state.customer;
                 } else if (state is CustomerError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -202,8 +217,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                           onPressed: (String name) {
                             if (name.isNotEmpty) {
                               context.read<CustomerCubit>().updateCustomerName(
-                                    CustomerEntity(name: name, id: customer.id),
-                                  );
+                                CustomerEntity(name: name, id: customer.id),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

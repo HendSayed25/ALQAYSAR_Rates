@@ -16,7 +16,7 @@ abstract class CustomerRemoteDataSource {
 
   Future<Either<Failure, Unit>> addCustomer(CustomerEntity customer);
 
-  Future<Either<Failure, Unit>> updateCustomerName(CustomerEntity customer);
+  Future<Either<Failure, CustomerEntity>> updateCustomerName(CustomerEntity customer);
 
   Future<Either<Failure, Unit>> addCustomerRate(RateEntity customerRate);
 
@@ -78,7 +78,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateCustomerName(
+  Future<Either<Failure, CustomerEntity>> updateCustomerName(
       CustomerEntity customer) async {
     logger.i("Updating customer with name: ${customer.name}");
     final newCustomer = CustomerModel.fromEntity(customer);
@@ -87,7 +87,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
           .from('customers')
           .update(newCustomer.toJson())
           .eq('id', customer.id!);
-      return const Right(unit);
+      return Right(newCustomer.toEntity());
     } catch (e) {
       logger.e("Error updating customer name : $e");
       return const Left(ServerFailure("Failed to update customer name"));

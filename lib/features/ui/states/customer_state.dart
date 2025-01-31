@@ -32,6 +32,7 @@ class CustomerLoaded extends CustomerState {
   @override
   List<Object?> get props => [customers];
 }
+
 class CustomerRateLoaded extends CustomerState {
   final List<RateEntity> rates;
 
@@ -41,14 +42,20 @@ class CustomerRateLoaded extends CustomerState {
   List<Object?> get props => [rates];
 }
 
-
 class CustomerAddedSuccessfully extends CustomerState {}
 
 class CustomerEditedSuccessfully extends CustomerState {}
 
 class CustomerDeletedSuccessfully extends CustomerState {}
 
-class CustomerNameUpdatedSuccessfully extends CustomerState {}
+class CustomerNameUpdatedSuccessfully extends CustomerState {
+  final CustomerEntity customer;
+
+  const CustomerNameUpdatedSuccessfully(this.customer);
+
+  @override
+  List<Object?> get props => [customer];
+}
 
 class CustomerRateUpdatedSuccessfully extends CustomerState {}
 

@@ -32,7 +32,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateCustomerName(CustomerEntity customer) async{
+  Future<Either<Failure, CustomerEntity>> updateCustomerName(CustomerEntity customer) async{
     return await remoteDataSource.updateCustomerName(customer);
   }
 
