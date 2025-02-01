@@ -26,9 +26,6 @@ class RateCommentInput extends StatelessWidget {
         controller: controller,
         textAlign: TextAlign.center,
         textDirection: AppLanguages.getCurrentTextDirection(context),
-        style: TextStyle(
-          fontFamily: AppLanguages.getPrimaryFont(context),
-        ),
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.done,
         maxLines: 7,

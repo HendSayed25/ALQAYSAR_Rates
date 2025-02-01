@@ -52,8 +52,7 @@ class HomeAdminScreen extends StatelessWidget {
                             AppLanguages.getCurrentTextDirection(context),
                         style: TextStyle(
                             fontSize: 15.sp,
-                            color: Colors.black,
-                            fontFamily: AppLanguages.getPrimaryFont(context)),
+                            color: Colors.black,),
                       ),
                     ),
                     SizedBox(height: 90.h),
@@ -107,12 +106,9 @@ class HomeAdminScreen extends StatelessWidget {
                                 textDirection:
                                     AppLanguages.getCurrentTextDirection(
                                         context),
-                                style: TextStyle(
-                                    fontFamily:
-                                        AppLanguages.getPrimaryFont(context)),
-                              ),
+
                             ),
-                          );
+                          ));
                         } else if (state is CustomerError) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

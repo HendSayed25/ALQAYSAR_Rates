@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-
 import '../../../../core/config/routes/route_constants.dart';
 import '../../../../core/helper/data_intent.dart';
 import '../../../../core/helper/extensions.dart';
@@ -76,7 +74,6 @@ class LoginScreen extends StatelessWidget {
                                 content: Text(
                                   AppStrings.emailPasswordError.tr(),
                                   textDirection: AppLanguages.getCurrentTextDirection(context),
-                                  style: TextStyle(fontFamily: AppLanguages.getPrimaryFont(context)),
                                 ),
                               ),
                             );

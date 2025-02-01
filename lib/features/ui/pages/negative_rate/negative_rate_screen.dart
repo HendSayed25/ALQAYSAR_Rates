@@ -55,42 +55,48 @@ class _NegativeScreenState extends State<NegativeScreen> {
                   ),
                 ),
               );
-            }
-            if (state is CustomerError) {
+            } else if (state is CustomerRateLoaded) {
+              final rates = state.rates;
+              if (rates.isNotEmpty) {
+                return ListView.builder(
+                  itemCount: rates.length,
+                  itemBuilder: (context, index) {
+                    final rate = rates[index];
+                    String emojiPath;
+                    String rateTr;
+                    if (rate.rate == 'excellent') {
+                      emojiPath = ImageAssets.emojiExcellent;
+                      rateTr = AppStrings.excellent.tr();
+                    } else if (rate.rate == 'good') {
+                      emojiPath = ImageAssets.emojiGood;
+                      rateTr = AppStrings.good.tr();
+                    } else if (rate.rate == 'poor') {
+                      emojiPath = ImageAssets.emojiWeek;
+                      rateTr = AppStrings.weak.tr();
+                    } else if (rate.rate == 'veryGood') {
+                      emojiPath = ImageAssets.emojiVeryGood;
+                      rateTr = AppStrings.veryGood.tr();
+                    } else {
+                      emojiPath = ImageAssets.emojiBad;
+                      rateTr = AppStrings.bad.tr();
+                    }
+                    return CommentItemDesign(
+                      phone: rate.phone ?? AppStrings.noPhone.tr(),
+                      comment:
+                      rate.comment ?? AppStrings.noComment.tr(),
+                      imagePath: emojiPath,
+                      screenType: "negative",
+                      customerName: rate.customerName??"not found",
+                      rate: rateTr,
+                    );
+                  },
+                );
+              }
+
+            } else if (state is CustomerError) {
               return Center(child: Text(state.message));
             }
-
-            if (state is CustomerRateLoaded) {
-              final negativeRates = state.rates;
-
-              return ListView.builder(
-                itemCount: negativeRates.length,
-                itemBuilder: (context, index) {
-                  final rate = negativeRates[index];
-                  String emojiPath;
-                  String rateTr;
-                  if (rate.rate == 'poor') {
-                    emojiPath = ImageAssets.emojiWeek;
-                    rateTr = AppStrings.weak.tr();
-                  } else {
-                    emojiPath = ImageAssets.emojiBad;
-                    rateTr = AppStrings.bad.tr();
-                  }
-
-                  return CommentItemDesign(
-                    phone: rate.phone ?? AppStrings.noPhone.tr(),
-                    comment: rate.comment ?? "",
-                    imagePath: emojiPath,
-                    screenType: "negative",
-                    customerName: rate.customerName ?? 'not found',
-                    rate: rateTr,
-                  );
-                },
-              );
-            }
-
-            return Center(child: Text(AppStrings.noRateAvailable.tr(),
-                style:TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp)));
+            return Center(child: Text(AppStrings.noRateAvailable.tr(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),));
           },
         ),
       ),

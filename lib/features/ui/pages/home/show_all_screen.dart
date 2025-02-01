@@ -85,7 +85,6 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
                         style: TextStyle(
                           fontSize: 18.sp,
                           color: Colors.red,
-                          fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
@@ -97,9 +96,7 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
                         AppStrings.noCustomersFound.tr(),
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
-                        style: TextStyle(
-                          fontFamily: AppLanguages.getPrimaryFont(context),
-                        ),
+
                       ),
                     );
                   }

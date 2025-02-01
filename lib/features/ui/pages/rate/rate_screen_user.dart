@@ -41,9 +41,6 @@ class RateScreenUser extends StatelessWidget {
                 content: Text(
                   AppStrings.thanksForRating.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
-                  style: TextStyle(
-                    fontFamily: AppLanguages.getPrimaryFont(context),
-                  ),
                 ),
               ),
             );
@@ -56,9 +53,6 @@ class RateScreenUser extends StatelessWidget {
                 content: Text(
                   AppStrings.errorRating.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
-                  style: TextStyle(
-                    fontFamily: AppLanguages.getPrimaryFont(context),
-                  ),
                 ),
               ),
             );
@@ -144,7 +138,6 @@ class RateScreenUser extends StatelessWidget {
             border: InputBorder.none,
             contentPadding: EdgeInsets.only(right: 10.w, bottom: 14.h),
             hintStyle: TextStyle(
-              fontFamily: AppLanguages.getPrimaryFont(context),
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
@@ -156,7 +149,6 @@ class RateScreenUser extends StatelessWidget {
           ),
           initialValue: phoneNumber,
           textStyle: TextStyle(
-            fontFamily: AppLanguages.getPrimaryFont(context),
             color: Colors.black,
             fontSize: 16.sp,
           ),
@@ -184,9 +176,7 @@ class RateScreenUser extends StatelessWidget {
               content: Text(
                 AppStrings.pleaseRate.tr(),
                 textDirection: AppLanguages.getCurrentTextDirection(context),
-                style: TextStyle(
-                  fontFamily: AppLanguages.getPrimaryFont(context),
-                ),
+
               ),
             ),
           );

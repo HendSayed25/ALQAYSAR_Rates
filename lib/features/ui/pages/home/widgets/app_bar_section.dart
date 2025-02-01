@@ -39,7 +39,6 @@ class AppBarSection extends StatelessWidget {
               color: Colors.black,
               fontSize: 25.sp,
               fontWeight: FontWeight.bold,
-              fontFamily: AppLanguages.getPrimaryFont(context),
             ),
             textDirection: AppLanguages.getCurrentTextDirection(context),
           ),

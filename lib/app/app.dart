@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,
-        theme: ThemeData(fontFamily: AppLanguages.getPrimaryFont(context)),
+
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashScreenRoute,
       ),

@@ -126,22 +126,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                       badCount++;
                     }
                   }
-
-                  // double excellentPercentage =
-                  //     (excellentCount / totalCount) * 100;
-                  // double goodPercentage = (goodCount / totalCount) * 100;
-                  // double veryGoodPercentage =
-                  //     (veryGoodCount / totalCount) * 100;
-                  // double weakPercentage = (weakCount / totalCount) * 100;
-                  // double badPercentage = (badCount / totalCount) * 100;
-
                   return RatingChart(
                     values: [
-                      // excellentPercentage,
-                      // veryGoodPercentage,
-                      // goodPercentage,
-                      // weakPercentage,
-                      // badPercentage,
                       excellentCount,
                       veryGoodCount,
                       goodCount,
@@ -156,24 +142,25 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                     child: Text("Error: ${state.message}"),
                   );
                 }
-                return Skeletonizer(
-                  enabled: true,
-                  effect: ShimmerEffect(
-                    baseColor: AppColors.primaryColor[1],
-                    highlightColor: AppColors.primaryColor[0],
-                  ),
-                  child: RatingChart(
-                    values: [100, 100, 100, 100, 100],
-                    customerName: customer.name,
-                    customerId: customer.id!,
-                  ),
-                );
+                  return Skeletonizer(
+                    enabled: true,
+                    effect: ShimmerEffect(
+                      baseColor: AppColors.primaryColor[1],
+                      highlightColor: AppColors.primaryColor[0],
+                    ),
+                    child: RatingChart(
+                      values: [100, 100, 100, 100, 100],
+                      customerName: customer.name,
+                      customerId: customer.id!,
+                    ),
+                  );
               },
             ),
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
                 if (state is CustomerNameUpdatedSuccessfully) {
+                  context.pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green,
