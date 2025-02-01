@@ -28,11 +28,6 @@ class UserOverViewScreen extends StatefulWidget {
 class _UserOverViewScreenState extends State<UserOverViewScreen> {
   late CustomerEntity customer;
   late List<RateEntity> customerRate;
-  double excellentCount = 0;
-  double goodCount = 0;
-  double veryGoodCount = 0;
-  double badCount = 0;
-  double weakCount = 0;
 
   @override
   void initState() {
@@ -57,7 +52,10 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               height: 300.h,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -108,8 +106,12 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                 if (state is CustomerRateLoaded) {
                   customerRate = state.rates;
 
-                  int totalCount =
-                      customerRate.length == 0 ? 1 : customerRate.length;
+                  double excellentCount = 0;
+                  double goodCount = 0;
+                  double veryGoodCount = 0;
+                  double badCount = 0;
+                  double weakCount = 0;
+                  int totalCount = customerRate.length == 0 ? 1 : customerRate.length;
 
                   for (var rate in customerRate) {
                     if (rate.rate == 'excellent') {
@@ -124,22 +126,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                       badCount++;
                     }
                   }
-
-                  // double excellentPercentage =
-                  //     (excellentCount / totalCount) * 100;
-                  // double goodPercentage = (goodCount / totalCount) * 100;
-                  // double veryGoodPercentage =
-                  //     (veryGoodCount / totalCount) * 100;
-                  // double weakPercentage = (weakCount / totalCount) * 100;
-                  // double badPercentage = (badCount / totalCount) * 100;
-
                   return RatingChart(
                     values: [
-                      // excellentPercentage,
-                      // veryGoodPercentage,
-                      // goodPercentage,
-                      // weakPercentage,
-                      // badPercentage,
                       excellentCount,
                       veryGoodCount,
                       goodCount,
@@ -153,37 +141,26 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                   return Center(
                     child: Text("Error: ${state.message}"),
                   );
-                } else {
+                }
                   return Skeletonizer(
-                    enabled: state is CustomerLoading,
+                    enabled: true,
                     effect: ShimmerEffect(
                       baseColor: AppColors.primaryColor[1],
                       highlightColor: AppColors.primaryColor[0],
                     ),
                     child: RatingChart(
-                      values: [
-                        // excellentPercentage,
-                        // veryGoodPercentage,
-                        // goodPercentage,
-                        // weakPercentage,
-                        // badPercentage,
-                        excellentCount,
-                        veryGoodCount,
-                        goodCount,
-                        weakCount,
-                        badCount,
-                      ],
+                      values: [100, 100, 100, 100, 100],
                       customerName: customer.name,
                       customerId: customer.id!,
                     ),
                   );
-                }
               },
             ),
             SizedBox(height: 60.h),
             BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
                 if (state is CustomerNameUpdatedSuccessfully) {
+                  context.pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green,
@@ -227,8 +204,8 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                           onPressed: (String name) {
                             if (name.isNotEmpty) {
                               context.read<CustomerCubit>().updateCustomerName(
-                                    CustomerEntity(name: name, id: customer.id),
-                                  );
+                                CustomerEntity(name: name, id: customer.id),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

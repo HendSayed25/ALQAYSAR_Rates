@@ -81,7 +81,7 @@ class CommentsScreen extends StatelessWidget {
                       );
                     } else if (state is CustomerRateLoaded) {
                       final rates = state.rates;
-                      if (rates.length > 0)
+                      if (rates.isNotEmpty) {
                         return ListView.builder(
                           itemCount: rates.length,
                           itemBuilder: (context, index) {
@@ -107,7 +107,7 @@ class CommentsScreen extends StatelessWidget {
                             return CommentItemDesign(
                               phone: rate.phone ?? AppStrings.noPhone.tr(),
                               comment:
-                                  rate.comment ?? AppStrings.noComment.tr(),
+                              rate.comment ?? AppStrings.noComment.tr(),
                               imagePath: emojiPath,
                               screenType: "comment",
                               customerName: customerName,
@@ -115,13 +115,12 @@ class CommentsScreen extends StatelessWidget {
                             );
                           },
                         );
-                      else
-                        return Center(
-                            child: Text(AppStrings.noRateAvailable.tr()));
+                      }
+
                     } else if (state is CustomerError) {
                       return Center(child: Text(state.message));
                     }
-                    return Center(child: Text(AppStrings.noRateAvailable.tr()));
+                     return Center(child: Text(AppStrings.noRateAvailable.tr(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),));
                   },
                 ),
               ),

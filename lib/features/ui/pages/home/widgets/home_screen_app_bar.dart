@@ -49,7 +49,7 @@ class HomeScreenAppBarWidget extends StatelessWidget{
                     color: Colors.black,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    fontFamily: AppLanguages.getPrimaryFont(context)),
+                   ),
               ),
             ),
             const Spacer(), // to handle spaces between appBar elements

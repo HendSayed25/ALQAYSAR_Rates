@@ -63,8 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
             border: InputBorder.none,
           ),
           style: TextStyle(
-              color: Colors.white,
-              fontFamily: AppLanguages.getPrimaryFont(context)),
+              color: Colors.white,),
           textDirection: AppLanguages.getCurrentTextDirection(context),
           onChanged: _onSearchChanged,
         ),
@@ -122,7 +121,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
-                          fontFamily: AppLanguages.getPrimaryFont(context),
                         ),
                         textDirection:
                             AppLanguages.getCurrentTextDirection(context),
@@ -157,9 +155,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Text(
                   AppStrings.startTypingToSearch.tr(),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
-                  style: TextStyle(
-                    fontFamily: AppLanguages.getPrimaryFont(context),
-                  ),
                 ),
               );
             }

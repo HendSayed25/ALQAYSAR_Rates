@@ -68,7 +68,6 @@ class UserCard extends StatelessWidget {
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primaryTextColor,
-                    fontFamily: AppLanguages.getPrimaryFont(context),
                   ),
                   textDirection: AppLanguages.getCurrentTextDirection(context),
                 ),

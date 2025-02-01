@@ -38,31 +38,7 @@ void main() async {
   OneSignal.Notifications.requestPermission(true).then((granted) {
     fetchPlayerId();
   });
-  //
-  // OneSignal.Notifications.addClickListener((event) {
-  //   var data = event.notification.additionalData;
-  //
-  //   if (data != null) {
-  //     Logger().i("Notification Clicked: $data");
-  //
-  //     String? screen = data["screen"];
-  //     int? customerId = data["id"];
-  //     String? customerName = data["name"];
-  //     if (screen != null && screen.isNotEmpty) {
-  //       navigatorKey.currentState?.pushNamed(Routes.commentScreen, arguments: {
-  //         "customerName": customerName,
-  //         "customerId": customerId,
-  //       });
-  //     } else {
-  //       navigatorKey.currentState?.pushNamed(Routes.homeScreenAdminRoute);
-  //     }
-  //   } else {
-  //     Logger().w("No additional data found in notification");
-  //   }
-  // });
-  // OneSignal.Notifications.addClickListener((event){
-  //   handleNotificationClick(event.notification.additionalData);
-  // });
+
 
   runApp(
     EasyLocalization(
@@ -88,38 +64,3 @@ void fetchPlayerId() async {
     Logger().i("Player ID is still null. Waiting...");
   }
 }
-// void handleNotificationClick(Map<String, dynamic>? data) {
-//   if (data != null) {
-//     Logger().i("Notification Clicked: $data");
-//
-//     String? screen = data["screen"];
-//     int? customerId = data["id"];
-//     String? customerName = data["name"];
-//
-//     if (screen != null && screen.isNotEmpty) {
-//       //save data
-//       sl<AppPrefs>().setString("pending_screen", screen);
-//       sl<AppPrefs>().setInt("pending_customerId", customerId ?? 0);
-//       sl<AppPrefs>().setString("pending_customerName", customerName ?? "");
-//
-//     }
-//   }
-// }
-// void checkForPendingNotification() {
-//   Future.delayed(Duration(seconds: 1), () {
-//     String? screen = sl<AppPrefs>().getString("pending_screen");
-//     int customerId = sl<AppPrefs>().getInt("pending_customerId") ?? 0;
-//     String? customerName = sl<AppPrefs>().getString("pending_customerName");
-//
-//     if (screen != null && screen.isNotEmpty) {
-//       WidgetsBinding.instance.addPostFrameCallback((_) {
-//         navigatorKey.currentState?.pushNamed(screen, arguments: {
-//           "customerName": customerName,
-//           "customerId": customerId,
-//         });
-//         //delete the data after going to it
-//         sl<AppPrefs>().setString("pending_screen", "");
-//       });
-//     }
-//   });
-// }

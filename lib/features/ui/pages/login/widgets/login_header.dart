@@ -19,7 +19,6 @@ class LoginHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: 32.sp,
             fontWeight: FontWeight.bold,
-            fontFamily: AppLanguages.getPrimaryFont(context),
             color: Colors.black,
           ),
           textDirection: AppLanguages.getCurrentTextDirection(context),
@@ -29,7 +28,6 @@ class LoginHeader extends StatelessWidget {
           AppStrings.enterEmailPassword.tr(),
           style: TextStyle(
             fontSize: 18.sp,
-            fontFamily: AppLanguages.getPrimaryFont(context),
             color: AppColors.primaryTextColor,
           ),
           textDirection: AppLanguages.getCurrentTextDirection(context),

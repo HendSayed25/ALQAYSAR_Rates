@@ -54,8 +54,6 @@ class CustomerGrid extends StatelessWidget {
                     child: UserCard(
                       userName: customer.name,
                       showRating: false,
-                      // showRating: sl<AppPrefs>().getString("role") == "admin",
-                      // rating: double.parse(customer.rating.toStringAsFixed(1)),
                       rating: averageRate ?? 5,
                     ),
                   ),
