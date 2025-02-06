@@ -1,6 +1,5 @@
-
-# "Qaysar Rates" is a Flutter-based application designed to allow users to rate employees and provide feedback. The app is divided into two parts:
-
+# "Qaysar Rates"
+is a Flutter-based application designed to allow users to rate employees and provide feedback. The app is divided into two parts:
 User Section: Users can search for the employee they want to rate and submit their feedback.
 Admin Section: Admins have the ability to add, edit, or delete employee profiles for rating purposes. Additionally, the app sends notifications to the admin if a negative review is submitted for any employee.
 
