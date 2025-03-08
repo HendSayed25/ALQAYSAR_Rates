@@ -10,4 +10,5 @@ class Routes {
   static const String rateScreenUserRoute = "/chartRate";
   static const String commentScreen = "/comments";
   static const String negativeScreen = "/negative";
+  static const String selectionScreen="/selection";
 }

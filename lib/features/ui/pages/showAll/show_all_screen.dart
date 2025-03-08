@@ -14,7 +14,8 @@ import '../../common/customer_grid.dart';
 import 'widgets/home_screen_app_bar.dart';
 
 class ShowAllScreen extends StatefulWidget {
-  const ShowAllScreen({super.key});
+  final int branch;
+  const ShowAllScreen({super.key, required this.branch});
 
   @override
   State<ShowAllScreen> createState() => _HomeAdminScreenState();
@@ -22,7 +23,7 @@ class ShowAllScreen extends StatefulWidget {
 
 class _HomeAdminScreenState extends State<ShowAllScreen> {
   Future<void> _onRefresh() async {
-    context.read<CustomerCubit>().fetchCustomers();
+    context.read<CustomerCubit>().fetchCustomers(widget.branch);
   }
 
   @override
@@ -30,7 +31,7 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(95.h),
-        child: const HomeScreenAppBarWidget(),
+        child:HomeScreenAppBarWidget(branch: widget.branch),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -64,6 +65,7 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
                             (index) => CustomerEntity(
                               id: index,
                               name: 'Loading...',
+                              branch: 1
                             ),
                           ),
                           averageRate: null,
@@ -76,7 +78,21 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
                       color: AppColors.secondaryColor,
                       backgroundColor: AppColors.primaryColor[0],
                       displacement: 40.h,
-                      child: CustomerGrid(customers: state.customers, averageRate: null,),
+                      child: state.customers.isNotEmpty
+                          ? CustomerGrid(
+                        customers: state.customers,
+                        averageRate: null,
+                      )
+                          : Center(
+                        child: Text(
+                          AppStrings.noCustomersFound.tr(),
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                     );
                   } else if (state is CustomerError) {
                     return Center(

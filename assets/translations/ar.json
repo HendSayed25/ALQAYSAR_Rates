@@ -19,7 +19,7 @@
   "search": "بحث",
   "name": "الاسم",
   "enterName": "أدخل اسمك",
-  "nameRequired": "الاسم مطلوب",
+  "name Required and Branch": "الاسم مطلوب والفرع",
   "customerAddedSuccessfully": "تم إضافة العميل بنجاح",
   "customerEditedSuccessfully": "تم تعديل العميل بنجاح",
   "submit": "إرسال",
@@ -43,5 +43,8 @@
   "No comment": "لا تعليق",
   "No phone": "لا يوجد رقم هاتف",
   "Show negative rate": "عرض التقييمات السيئة",
-  "success delete": "تم الحذف بنجاح"
+  "success delete": "تم الحذف بنجاح",
+  "first branch": "الفرع الاول",
+  "second branch": "الفرع التانى",
+  "choose the branch": "اختار الفرع"
 }

@@ -27,8 +27,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
   }
 
   @override
-  Future<Either<Failure, List<CustomerEntity>>> getCustomers() async{
-    return await remoteDataSource.getCustomers();
+  Future<Either<Failure, List<CustomerEntity>>> getCustomers(branch) async{
+    return await remoteDataSource.getCustomers(branch);
   }
 
   @override
@@ -42,8 +42,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
   }
 
   @override
-  Future<Either<Failure, List<RateEntity>>> getAllRates() async {
-    return await remoteDataSource.getAllRates();
+  Future<Either<Failure, List<RateEntity>>> getAllRates(int branch) async {
+    return await remoteDataSource.getAllRates(branch);
   }
 
 

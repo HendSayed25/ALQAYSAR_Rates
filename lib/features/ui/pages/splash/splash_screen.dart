@@ -63,12 +63,32 @@ class _SplashScreenState extends State<SplashScreen>
 
     // After the animation finishes, navigate to the LoginScreen
     Future.delayed(const Duration(milliseconds: 2300), () {
-      sl<AppPrefs>().getBool("remember") == true
-          ? sl<AppPrefs>().getString("role") == "admin"
-              ? context.pushReplacementNamed(Routes.homeScreenAdminRoute)
-              : context.pushReplacementNamed(Routes.showAllRoute)
-          : context.pushReplacementNamed(Routes.loginScreenRoute);
-      //context.pushReplacementNamed(Routes.loginScreenRoute);
+      int? selectedBranch = (sl<AppPrefs>().getInt("branch")!=null)?sl<AppPrefs>().getInt("branch"):0;
+
+      if (sl<AppPrefs>().getBool("remember") == true) {
+        if (sl<AppPrefs>().getString("role") == "admin") {
+          context.pushReplacementNamed(Routes.homeScreenAdminRoute);
+        } else {
+          if (selectedBranch != 0) {
+             if(selectedBranch==1){
+               context.pushReplacementNamed(Routes.showAllRoute,arguments:1);
+             }else{
+               context.pushReplacementNamed(Routes.showAllRoute,arguments:2);
+             }
+          } else{
+            context.pushReplacementNamed(Routes.selectionScreen,arguments: {Routes.showAllRoute,"user"});
+          }
+        }
+      } else {
+        context.pushReplacementNamed(Routes.loginScreenRoute);
+      }
+
+      // sl<AppPrefs>().getBool("remember") == true
+      //     ? sl<AppPrefs>().getString("role") == "admin"
+      //         ? context.pushReplacementNamed(Routes.homeScreenAdminRoute)
+      //         : context.pushReplacementNamed(Routes.showAllRoute)
+      //     : context.pushReplacementNamed(Routes.loginScreenRoute);
+      // //context.pushReplacementNamed(Routes.loginScreenRoute);
     });
   }
 

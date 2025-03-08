@@ -18,7 +18,8 @@ import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final int branch;
+  const SearchScreen({super.key,required this.branch});
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -28,11 +29,12 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
 
+
   @override
   void initState() {
     super.initState();
     // Fetch customers when the screen loads
-    context.read<CustomerCubit>().fetchCustomers();
+    context.read<CustomerCubit>().fetchCustomers(widget.branch);
   }
 
   @override
@@ -99,6 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemBuilder: (context, index) {
                     return UserCardInSearch(
                       userName: "userName",
+                      branch: "first branch",
                       rating: 0.0,
                     );
                   },
@@ -133,6 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemCount: state.customers.length,
                   itemBuilder: (context, index) {
                     final customer = state.customers[index];
+                    String branch=(customer.branch==1)?AppStrings.firstBranch.tr():AppStrings.secondBranch.tr();
                     return GestureDetector(
                       onTap: () {
                         DataIntent.pushCustomer(customer);
@@ -142,6 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                       child: UserCardInSearch(
                         userName: customer.name,
+                        branch: branch,
                         rating: 5,
                       ),
                     );

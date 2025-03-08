@@ -3,7 +3,7 @@ import 'package:alqaysar_rates/features/domain/entities/customer_entity.dart';
 class DataIntent {
   DataIntent._();
 
-  static CustomerEntity _customer = CustomerEntity(name: "");
+  static CustomerEntity _customer = CustomerEntity(name: "",branch: 1);
   static String? _email;
   static String? _password;
 

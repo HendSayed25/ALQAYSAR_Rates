@@ -4,14 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../features/ui/cubit/customer_cubit.dart';
 import '../../../features/ui/cubit/login_cubit.dart';
 import '../../../features/ui/pages/comments/comments_screen.dart';
-import '../../../features/ui/pages/home/show_all_screen.dart';
 import '../../../features/ui/pages/home_admin/home_admin_screen.dart';
 import '../../../features/ui/pages/login/login_screen.dart';
 import '../../../features/ui/pages/negative_rate/negative_rate_screen.dart';
 import '../../../features/ui/pages/rate/rate_screen_user.dart';
 import '../../../features/ui/pages/search/search_screen.dart';
+import '../../../features/ui/pages/selection/select_branch.dart';
+import '../../../features/ui/pages/showAll/show_all_screen.dart';
 import '../../../features/ui/pages/splash/splash_screen.dart';
-import '../../../features/ui/pages/user_over_view/user_overView_screen.dart';
+import '../../../features/ui/pages/user_over_view/user_overview_screen.dart';
 import '../../../service_locator.dart';
 import 'route_constants.dart';
 
@@ -42,18 +43,21 @@ class RouteGenerator {
         );
 
       case Routes.showAllRoute:
+        final int args=settings.arguments as int;
         return MaterialPageRoute(
           builder: (context) => BlocProvider<CustomerCubit>(
-            create: (_) => sl<CustomerCubit>()..fetchCustomers(),
-            child: const ShowAllScreen(),
+            create: (_) => sl<CustomerCubit>()..fetchCustomers(args),
+            child: ShowAllScreen(branch: args,),
           ),
         );
 
       case Routes.searchScreenRoute:
+        final int args=settings.arguments as int;
+
         return MaterialPageRoute(
           builder: (context) => BlocProvider<CustomerCubit>(
-            create: (_) => sl<CustomerCubit>()..fetchCustomers(),
-            child: const SearchScreen(),
+            create: (_) => sl<CustomerCubit>()..fetchCustomers(args),
+            child: SearchScreen(branch: args,),
           ),
         );
 
@@ -83,12 +87,20 @@ class RouteGenerator {
           ),
         );
 
+      case Routes.selectionScreen:
+        final args = settings.arguments as Map<String,dynamic>;
+        return MaterialPageRoute(
+            builder:(context)=>SelectionScreen(screenType: args['screenType'],userType: args['userType'],),
+        );
+
       case Routes.negativeScreen:
+        final args = settings.arguments as int;
         return MaterialPageRoute(
             builder: (context) => BlocProvider<CustomerCubit>(
                   create: (_) => sl<CustomerCubit>(),
-                  child: NegativeScreen(),
+                  child: NegativeScreen(branch: args,),
                 ));
+
       default:
         return unDefinedRoute();
     }
