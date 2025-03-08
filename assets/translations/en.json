@@ -19,7 +19,7 @@
   "search": "Search",
   "name": "Name",
   "enterName": "Enter your name",
-  "nameRequired": "Name is required",
+  "name Required and Branch": "name Required and Branch",
   "customerAddedSuccessfully": "Customer added successfully!",
   "customerEditedSuccessfully": "Customer edited successfully!",
   "submit": "Submit",
@@ -43,6 +43,9 @@
   "No comment": "No comment",
   "No phone": "No phone",
   "Show negative rate": "Show negative rate",
-  "success delete": "success delete"
+  "success delete": "success delete",
+  "first branch": "first branch",
+  "second branch": "second branch",
+  "choose the branch": "choose the branch"
 
 }

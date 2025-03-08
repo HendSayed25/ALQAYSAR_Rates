@@ -28,9 +28,10 @@ class AppStrings {
   static String delete = 'delete';
   static String search = 'search';
   static String name = 'name';
+  static String chooseBranch='choose the branch';
   static String deleteSuccess='success delete';
   static String enterName = 'enterName';
-  static String nameRequired = 'nameRequired';
+  static String nameRequiredAndBranch = 'name Required and Branch';
   static String showNegativeRates="Show negative rate";
   static String customerAddedSuccessfully = 'customerAddedSuccessfully';
   static String customerEditedSuccessfully = 'customerEditedSuccessfully';
@@ -64,4 +65,9 @@ class AppStrings {
   // Additional New Strings
   static String enterPhoneNumber = 'enterYourPhoneNumber';
   static String Phone="Phone: ";
+
+  //selection screen
+  static String firstBranch="first branch";
+  static String secondBranch="second branch";
+
 }

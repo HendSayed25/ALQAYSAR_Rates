@@ -24,7 +24,7 @@ class RateScreenUser extends StatelessWidget {
   final TextEditingController commentController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  PhoneNumber phoneNumber = PhoneNumber(isoCode: 'EG');
+  PhoneNumber phoneNumber = PhoneNumber(isoCode: 'SA');
   String? selectedRatingCategory;
 
   @override

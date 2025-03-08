@@ -1,3 +1,5 @@
+import 'package:logger/logger.dart';
+
 import '../../domain/entities/rate_entity.dart';
 
 class RateModel extends RateEntity {
@@ -29,6 +31,8 @@ class RateModel extends RateEntity {
   }
 
   RateEntity toEntity() {
+    print("Converting to RateEntity: id=$id, customerId=$customerId, rate=$rate");
+
     return RateEntity(
       id: id,
       customerId: customerId,

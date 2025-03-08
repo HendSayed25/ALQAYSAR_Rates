@@ -12,6 +12,9 @@ import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
 
 class NegativeScreen extends StatefulWidget {
+  final int branch;
+  const NegativeScreen({super.key, required this.branch});
+
   @override
   _NegativeScreenState createState() => _NegativeScreenState();
 }
@@ -20,7 +23,7 @@ class _NegativeScreenState extends State<NegativeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<CustomerCubit>().fetchNegativeRates();
+    context.read<CustomerCubit>().fetchNegativeRates(widget.branch);
   }
 
   @override

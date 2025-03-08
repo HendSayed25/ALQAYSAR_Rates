@@ -8,11 +8,13 @@ import '../../../core/resource/assets_manager.dart';
 class UserCardInSearch extends StatelessWidget {
   final String userName;
   final double rating;
+  final String branch;
 
   const UserCardInSearch({
     super.key,
     required this.userName,
     required this.rating,
+    required this.branch
   });
 
   @override
@@ -55,6 +57,13 @@ class UserCardInSearch extends StatelessWidget {
                       textDirection: AppLanguages.getCurrentTextDirection(context),
                     ),
                     SizedBox(height: 6.h),
+                    Text(branch,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      textDirection: AppLanguages.getCurrentTextDirection(context),
+                    )
                   ],
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
 import 'package:alqaysar_rates/core/resource/colors_manager.dart';
+import 'package:alqaysar_rates/features/ui/pages/login/login_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +46,7 @@ void main() async {
       supportedLocales: AppLanguages.locals,
       path: AppLanguages.translationsPath,
       fallbackLocale: AppLanguages.fallBackLocal,
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 

@@ -12,8 +12,10 @@ Future <Either<Failure,List<RateEntity>>> call(int customerId) async{
   return await repository.getAllRateForCustomer(customerId);
 }
 
-Future <Either<Failure,List<RateEntity>>> call2()async{
-  return await repository.getAllRates();
+Future<Either<Failure, List<RateEntity>>> call2(int branch) async {
+  return await repository.getAllRates(branch);
+
 }
+
 
 }

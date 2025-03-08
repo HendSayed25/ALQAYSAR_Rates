@@ -11,7 +11,8 @@ import '../../../../../core/resource/colors_manager.dart';
 
 class HomeScreenAppBarWidget extends StatelessWidget{
 
-  const HomeScreenAppBarWidget({super.key});
+  final int branch;
+  const HomeScreenAppBarWidget({super.key,required this.branch});
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -59,7 +60,7 @@ class HomeScreenAppBarWidget extends StatelessWidget{
               child: IconButton(
                 icon: const Icon(Icons.search,color: Colors.white),
                 onPressed: () {
-                  context.pushNamed(Routes.searchScreenRoute);
+                  context.pushNamed(Routes.searchScreenRoute,arguments: branch);
                 },
               ),
             ),

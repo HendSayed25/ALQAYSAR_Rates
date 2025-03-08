@@ -3,14 +3,15 @@ import 'package:alqaysar_rates/features/domain/usecases/rate/get_customer_rate._
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:logger/logger.dart';
 
 import '../../../core/error.dart';
 import '../../domain/entities/customer_entity.dart';
-import '../../domain/usecases/rate/add_customer_rate_usecase.dart';
 import '../../domain/usecases/customer/add_customer_usecase.dart';
 import '../../domain/usecases/customer/delete_customer_usecase.dart';
 import '../../domain/usecases/customer/get_customers_usecase.dart';
 import '../../domain/usecases/customer/update_customer_name_usecase.dart';
+import '../../domain/usecases/rate/add_customer_rate_usecase.dart';
 import '../states/customer_state.dart';
 
 class CustomerCubit extends Cubit<CustomerState> {
@@ -21,7 +22,7 @@ class CustomerCubit extends Cubit<CustomerState> {
   final UpdateCustomerNameUsecase updateCustomerNameUsecase;
   final GetCustomerRateUseCase getCustomerRateUseCase;
   List<CustomerEntity> _allCustomers = [];
-  List<RateEntity> _allRates=[];
+  List<RateEntity> _allRates = [];
 
   CustomerCubit({
     required this.deleteCustomerUsecase,
@@ -32,10 +33,10 @@ class CustomerCubit extends Cubit<CustomerState> {
     required this.getCustomerRateUseCase,
   }) : super(CustomerInitial());
 
-  Future<void> fetchCustomers() async {
+  Future<void> fetchCustomers(int branch) async {
     emit(CustomerLoading());
     final Either<Failure, List<CustomerEntity>> result =
-        await getCustomersUsecase();
+        await getCustomersUsecase(branch);
     result.fold(
       (failure) => emit(CustomerError(failure.message)),
       (customers) {
@@ -52,7 +53,7 @@ class CustomerCubit extends Cubit<CustomerState> {
       (failure) => emit(CustomerError(failure.message)),
       (_) async {
         emit(CustomerAddedSuccessfully());
-        fetchCustomers();
+        fetchCustomers(customer.branch!);
       },
     );
   }
@@ -65,7 +66,6 @@ class CustomerCubit extends Cubit<CustomerState> {
       (failure) => emit(CustomerError(failure.message)),
       (_) {
         emit(CustomerDeletedSuccessfully());
-        fetchCustomers();
       },
     );
   }
@@ -78,7 +78,7 @@ class CustomerCubit extends Cubit<CustomerState> {
       (failure) => emit(CustomerError(failure.message)),
       (c) {
         emit(CustomerNameUpdatedSuccessfully(c));
-        fetchCustomers();
+        // fetchCustomers();
       },
     );
   }
@@ -91,7 +91,7 @@ class CustomerCubit extends Cubit<CustomerState> {
       (failure) => emit(CustomerError(failure.message)),
       (_) {
         emit(CustomerRateUpdatedSuccessfully());
-        fetchCustomers();
+        //  fetchCustomers();
       },
     );
   }
@@ -101,9 +101,8 @@ class CustomerCubit extends Cubit<CustomerState> {
       emit(CustomerLoaded(_allCustomers));
     } else {
       final filteredCustomers = _allCustomers
-          .where((customer) => (customer.name)
-              .toLowerCase()
-              .contains(query.toLowerCase()))
+          .where((customer) =>
+              (customer.name).toLowerCase().contains(query.toLowerCase()))
           .toList();
       emit(CustomerLoaded(filteredCustomers));
     }
@@ -111,56 +110,54 @@ class CustomerCubit extends Cubit<CustomerState> {
 
   Future<void> fetchCustomerRates(int customerId) async {
     emit(CustomerLoading());
-    final Either<Failure, List<RateEntity>> result = await getCustomerRateUseCase.call(customerId);
+    final Either<Failure, List<RateEntity>> result =
+        await getCustomerRateUseCase.call(customerId);
 
     result.fold(
-          (failure) => emit(CustomerError(failure.message)),
-          (rates) {
+      (failure) => emit(CustomerError(failure.message)),
+      (rates) {
         _allRates = rates;
         emit(CustomerRateLoaded(rates));
       },
     );
   }
-  void fetchNegativeRates() async {
+
+  void fetchNegativeRates(int branch) async {
     try {
       emit(CustomerLoading());
-      final Either<Failure, List<RateEntity>> result = await getCustomerRateUseCase.call2();
 
-      result.fold(
-            (failure) => emit(CustomerError('Failed to load negative rates: ${failure.message}')),
+      // final Either<Failure, List<CustomerEntity>> customerResult =
+      //     await getCustomersUsecase.call(branch);
+      //
+      // customerResult.fold(
+      //   (failure) =>
+      //       emit(CustomerError('Failed to load customers: ${failure.message}')),
+      //   (customers) async {
+          final Either<Failure, List<RateEntity>> rateResult =
+              await getCustomerRateUseCase.call2(branch);
+
+          rateResult.fold(
+            (failure) => emit(CustomerError(
+                'Failed to load negative rates: ${failure.message}')),
             (rates) {
-          final negativeRates = rates.where((rate) =>
-          rate.rate == 'poor' || rate.rate == 'uncooperative').toList();
-
-          emit(CustomerRateLoaded(negativeRates));
-        },
-      );
+              emit(CustomerRateLoaded(rates));
+            },
+          );
+      //  },
+    //  );
     } catch (e) {
       emit(CustomerError('Failed to load negative rates: $e'));
     }
   }
 
-  // Future<void> fetchCustomers() async {
-  //   emit(CustomerLoading());
-  //   final Either<Failure, List<CustomerEntity>> result =
-  //   await getCustomersUsecase();
-  //   result.fold(
-  //         (failure) => emit(CustomerError(failure.message)),
-  //         (customers) {
-  //       _allCustomers = customers;
-  //       emit(CustomerLoaded(customers));
-  //     },
-  //   );
-  // }
 
-void selectRatingCategory(String category) {
-  emit(RatingCategorySelected(category));
-}
+  void selectRatingCategory(String category) {
+    emit(RatingCategorySelected(category));
+  }
 
-void updatePhoneNumber(PhoneNumber phoneNumber) {
-  emit(RatingPhoneNumberUpdated(phoneNumber));
-}
-
+  void updatePhoneNumber(PhoneNumber phoneNumber) {
+    emit(RatingPhoneNumberUpdated(phoneNumber));
+  }
 
 // Future<void> getCustomerById(int customerId) async {
 //   emit(CustomerLoading());

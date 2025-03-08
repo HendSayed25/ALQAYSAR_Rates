@@ -9,7 +9,7 @@ class GetCustomersUsecase {
 
   GetCustomersUsecase(this.repository);
 
-  Future<Either<Failure, List<CustomerEntity>>> call() async {
-    return await repository.getCustomers();
+  Future<Either<Failure, List<CustomerEntity>>> call(int branch) async {
+    return await repository.getCustomers(branch);
   }
 }

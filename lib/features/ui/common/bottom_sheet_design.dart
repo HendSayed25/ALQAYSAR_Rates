@@ -3,6 +3,7 @@ import 'package:alqaysar_rates/core/helper/language/language_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 import '../../../core/resource/assets_manager.dart';
 import '../../../core/resource/colors_manager.dart';
 import '../../../core/resource/strings.dart';
@@ -11,15 +12,17 @@ import 'custom_button.dart';
 class BottomSheetDesign extends StatefulWidget {
   final String textBtn;
   final bool? isLoading;
-  final String? inputTextValue;
-  final Function(String) onPressed;
+  final String? name;
+  final int? branch;
+  final Function(String, int) onPressed;
 
   const BottomSheetDesign({
     super.key,
     required this.textBtn,
     required this.onPressed,
     this.isLoading,
-    this.inputTextValue
+    this.name,this.branch
+   // this.branch,
   });
 
   @override
@@ -27,17 +30,24 @@ class BottomSheetDesign extends StatefulWidget {
 }
 
 class _BottomSheetDesignState extends State<BottomSheetDesign> {
- late TextEditingController _nameController;
+  late TextEditingController _nameController;
+  String? selectedBranch;
+
+  final List<String> branches = [AppStrings.firstBranch.tr(), AppStrings.secondBranch.tr()];
 
   @override
   void dispose() {
     _nameController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
-    _nameController=TextEditingController(text:widget.inputTextValue??'',);
+    _nameController = TextEditingController(text: widget.name ?? '');
+    if(widget.branch!=null){
+      selectedBranch=(widget.branch==1)?AppStrings.firstBranch.tr():AppStrings.secondBranch.tr();
+    }
   }
 
   @override
@@ -73,7 +83,7 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
                       height: 200.h,
                     ),
                   ),
-                  SizedBox(height: 55.h),
+                  SizedBox(height: 30.h),
 
                   InputField(
                     controller: _nameController,
@@ -81,7 +91,41 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
                     hintText: AppStrings.enterName.tr(),
                     keyboardType: TextInputType.text,
                   ),
-                  SizedBox(height: 80.h),
+                  SizedBox(height: 20.h),
+
+                  Container(
+                    width: 380.w,
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryContainerColor,
+                      borderRadius: BorderRadius.circular(16.r),
+                      border: Border.all(color: AppColors.enableBorderColor),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selectedBranch,
+                        dropdownColor: AppColors.secondaryContainerColor,
+                        hint: Text(
+                          AppStrings.chooseBranch.tr(),
+                          style: TextStyle(color: Colors.black, fontSize: 16.sp),
+                        ),
+                        items: branches.map((branch) {
+                          return DropdownMenuItem<String>(
+                            value: branch,
+                            child: Text(branch, style: TextStyle(fontSize: 18.sp,color: Colors.black,fontWeight: FontWeight.bold),),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedBranch = value;
+
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 40.h),
 
                   CustomButton(
                     gradient: const LinearGradient(
@@ -91,20 +135,21 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
                     ),
                     colorOfBorder: AppColors.successColor,
                     text: widget.textBtn.tr(),
-                    isLoading: widget.isLoading??false,
+                    isLoading: widget.isLoading ?? false,
                     onPressed: () {
-                      if (_nameController.text.isEmpty) {
+                      if (_nameController.text.isEmpty || selectedBranch!.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                           SnackBar(
+                          SnackBar(
                             backgroundColor: Colors.red,
                             duration: Duration(seconds: 2),
-                            content: Text(AppStrings.nameRequired.tr(),
-                           textDirection:AppLanguages.getCurrentTextDirection(context),
-                          )
-                           ),
+                            content: Text(AppStrings.nameRequiredAndBranch.tr(),
+                              textDirection: AppLanguages.getCurrentTextDirection(context),
+                            ),
+                          ),
                         );
                       } else {
-                        widget.onPressed(_nameController.text);
+                        int branch=(selectedBranch==AppStrings.firstBranch.tr())?1:2;
+                        widget.onPressed(_nameController.text, branch);
                         context.pop();
                       }
                     },
@@ -118,6 +163,7 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
     );
   }
 }
+
 
 class InputField extends StatelessWidget {
   final TextEditingController controller;

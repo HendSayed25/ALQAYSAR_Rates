@@ -15,7 +15,7 @@ class SearchBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(Routes.searchScreenRoute);
+        context.pushNamed(Routes.searchScreenRoute,arguments: 0);
       },
       child: Padding(
         padding: EdgeInsets.all(5.w),

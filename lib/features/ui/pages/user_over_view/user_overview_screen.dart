@@ -199,12 +199,13 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                       ),
                       builder: (_) {
                         return BottomSheetDesign(
+                          branch: customer.branch,
                           textBtn: AppStrings.edit.tr(),
-                          inputTextValue: customer.name,
-                          onPressed: (String name) {
-                            if (name.isNotEmpty) {
+                          name: customer.name,
+                          onPressed: (String name,int branch) {
+                            if (name.isNotEmpty && branch!=0) {
                               context.read<CustomerCubit>().updateCustomerName(
-                                CustomerEntity(name: name, id: customer.id),
+                                CustomerEntity(name: name, id: customer.id, branch: branch),
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -212,7 +213,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                                   backgroundColor: Colors.red,
                                   duration: Duration(seconds: 2),
                                   content: Text(
-                                    AppStrings.nameRequired.tr(),
+                                    AppStrings.nameRequiredAndBranch.tr(),
                                   ),
                                 ),
                               );
@@ -254,6 +255,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                   text: AppStrings.delete.tr(),
                   onPressed: () {
                     context.read<CustomerCubit>().deleteCustomer(customer.id!);
+                    context.pop();
                   },
                 );
               },

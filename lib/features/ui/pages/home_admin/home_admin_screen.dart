@@ -66,7 +66,7 @@ class HomeAdminScreen extends StatelessWidget {
                     SizedBox(height: 100.h),
                     GestureDetector(
                         onTap: () {
-                          context.pushNamed(Routes.searchScreenRoute);
+                          context.pushNamed(Routes.searchScreenRoute,arguments: {0});//branch=0 => means show all in two branches
                         },
                         child: const SearchBarWidget()),
                     SizedBox(height: 100.h),
@@ -77,13 +77,20 @@ class HomeAdminScreen extends StatelessWidget {
                       colorOfBorder: Colors.transparent,
                       text: AppStrings.showAll.tr(),
                       onPressed: () {
-                        context.pushNamed(Routes.showAllRoute);
+                        context.pushNamed(Routes.selectionScreen,arguments: {
+                          "screenType": Routes.showAllRoute,
+                          "userType":"admin"});
                       },
                     ),
                     SizedBox(height: 30.h),
                     CustomButton(
                       onPressed: () {
-                        context.pushNamed(Routes.negativeScreen);
+                       // context.pushNamed(Routes.negativeScreen);
+                        context.pushNamed(Routes.selectionScreen,
+                            arguments: {
+                            "screenType": Routes.negativeScreen,
+                            "userType":"admin"});
+
                       },
                       gradient: const LinearGradient(
                           colors: AppColors.primaryContainerColor),
@@ -137,12 +144,12 @@ class HomeAdminScreen extends StatelessWidget {
                               builder: (_) {
                                 return BottomSheetDesign(
                                   textBtn: AppStrings.add.tr(),
-                                  onPressed: (String name) {
-                                    if (name.isNotEmpty) {
+                                  onPressed: (String name,int branch) {
+                                    if (name.isNotEmpty&& branch!=0) {
                                       context
                                           .read<CustomerCubit>()
                                           .addNewCustomer(
-                                            CustomerEntity(name: name),
+                                            CustomerEntity(name: name,branch: branch),
                                           );
                                     } else {
                                       ScaffoldMessenger.of(context)
@@ -151,7 +158,7 @@ class HomeAdminScreen extends StatelessWidget {
                                           backgroundColor: Colors.red,
                                           duration: Duration(seconds: 2),
                                           content: Text(
-                                            AppStrings.nameRequired.tr(),
+                                            AppStrings.nameRequiredAndBranch.tr(),
                                           ),
                                         ),
                                       );

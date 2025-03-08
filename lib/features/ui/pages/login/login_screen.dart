@@ -60,7 +60,11 @@ class LoginScreen extends StatelessWidget {
                             sl<AppPrefs>().setString("role", state.userEntity.role);
 
                             if (state.userEntity.role == "user") {
-                              context.pushReplacementNamed(Routes.showAllRoute);
+                              context.pushReplacementNamed(Routes.selectionScreen,
+                                  arguments: {
+                                  "screenType": Routes.showAllRoute,
+                                  "userType":"user"
+                              });
                             } else {
                               context.pushReplacementNamed(Routes.homeScreenAdminRoute);
                             }
