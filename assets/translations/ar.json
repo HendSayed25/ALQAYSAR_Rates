@@ -46,5 +46,6 @@
   "success delete": "تم الحذف بنجاح",
   "first branch": "الفرع الاول",
   "second branch": "الفرع التانى",
-  "choose the branch": "اختار الفرع"
+  "choose the branch": "اختار الفرع",
+  "noDate": "لم يتم تسجيل الوقت"
 }

@@ -23,48 +23,45 @@ class HomeScreenAppBarWidget extends StatelessWidget{
             end: Alignment.bottomRight,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            GestureDetector(
-              child: Container(
-                margin: const EdgeInsets.only(
-                    left: 40, top: 35, bottom: 10, right: 20),
-                child: Image.asset(
-                  ImageAssets.languageIcon,
-                  width: 30.w,
-                  height: 30.h,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                child: Container(
+                  child: Image.asset(
+                    ImageAssets.languageIcon,
+                    width: 30.w,
+                    height: 30.h,
+                  ),
+                ),
+                onTap: (){
+                  AppLanguages.toggleLocal(context);
+                }
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                child: Text(
+                  AppStrings.appName.tr(),
+                  textDirection: AppLanguages.getCurrentTextDirection(context),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.bold,
+                     ),
                 ),
               ),
-              onTap: (){
-                AppLanguages.toggleLocal(context);
-              }
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                  left: 50, top: 35, bottom: 10, right: 65),
-              child: Text(
-                AppStrings.appName.tr(),
-                textDirection: AppLanguages.getCurrentTextDirection(context),
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                   ),
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.search,color: Colors.white,size: 35.r),
+                  onPressed: () {
+                    context.pushNamed(Routes.searchScreenRoute,arguments: branch);
+                  },
+                ),
               ),
-            ),
-            const Spacer(), // to handle spaces between appBar elements
-            Container(
-              margin: const EdgeInsets.only(
-                top: 35, bottom: 10,),
-              child: IconButton(
-                icon: const Icon(Icons.search,color: Colors.white),
-                onPressed: () {
-                  context.pushNamed(Routes.searchScreenRoute,arguments: branch);
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
   }

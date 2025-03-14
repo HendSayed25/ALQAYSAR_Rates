@@ -34,6 +34,11 @@ Future<void> setupServiceLocator() async {
   /// one signal
   // sl.registerLazySingleton(() => OneSignalService());
 
+  /// Time Service
+
+  // sl.registerLazySingleton<LocationTimeService>(
+  //         () => LocationTimeService());
+
   /// Data Layer
   sl.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl());

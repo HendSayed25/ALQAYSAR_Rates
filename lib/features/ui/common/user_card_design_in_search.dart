@@ -10,12 +10,11 @@ class UserCardInSearch extends StatelessWidget {
   final double rating;
   final String branch;
 
-  const UserCardInSearch({
-    super.key,
-    required this.userName,
-    required this.rating,
-    required this.branch
-  });
+  const UserCardInSearch(
+      {super.key,
+      required this.userName,
+      required this.rating,
+      required this.branch});
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +53,18 @@ class UserCardInSearch extends StatelessWidget {
                         fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
                       ),
-                      textDirection: AppLanguages.getCurrentTextDirection(context),
+                      textDirection:
+                          AppLanguages.getCurrentTextDirection(context),
                     ),
                     SizedBox(height: 6.h),
-                    Text(branch,
+                    Text(
+                      branch,
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.normal,
                       ),
-                      textDirection: AppLanguages.getCurrentTextDirection(context),
+                      textDirection:
+                          AppLanguages.getCurrentTextDirection(context),
                     )
                   ],
                 ),

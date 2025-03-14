@@ -1,5 +1,3 @@
-import 'package:logger/logger.dart';
-
 import '../../domain/entities/rate_entity.dart';
 
 class RateModel extends RateEntity {
@@ -9,6 +7,7 @@ class RateModel extends RateEntity {
     super.phone,
     required super.rate,
     super.comment,
+    required super.timestamp,
   });
 
   factory RateModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +17,7 @@ class RateModel extends RateEntity {
       phone: json['phone'],
       rate: json['rate'],
       comment: json['comment'],
+      timestamp: json['timestamp'] != null ? DateTime.parse(json['timestamp']) : null,
     );
   }
 
@@ -27,6 +27,7 @@ class RateModel extends RateEntity {
       'phone': phone,
       'rate': rate,
       'comment': comment,
+      'timestamp': timestamp?.toIso8601String(),
     };
   }
 
@@ -39,6 +40,7 @@ class RateModel extends RateEntity {
       phone: phone,
       rate: rate,
       comment: comment,
+      timestamp: timestamp,
     );
   }
 
@@ -49,6 +51,7 @@ class RateModel extends RateEntity {
       phone: entity.phone,
       rate: entity.rate,
       comment: entity.comment,
+      timestamp: entity.timestamp,
     );
   }
 }

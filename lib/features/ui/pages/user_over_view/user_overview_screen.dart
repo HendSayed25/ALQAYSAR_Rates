@@ -111,7 +111,7 @@ class _UserOverViewScreenState extends State<UserOverViewScreen> {
                   double veryGoodCount = 0;
                   double badCount = 0;
                   double weakCount = 0;
-                  int totalCount = customerRate.length == 0 ? 1 : customerRate.length;
+                  // int totalCount = customerRate.length == 0 ? 1 : customerRate.length;
 
                   for (var rate in customerRate) {
                     if (rate.rate == 'excellent') {

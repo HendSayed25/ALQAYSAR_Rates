@@ -1,7 +1,3 @@
-import 'package:alqaysar_rates/core/config/routes/route_constants.dart';
-import 'package:alqaysar_rates/core/resource/colors_manager.dart';
-import 'package:alqaysar_rates/features/ui/pages/login/login_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,6 +7,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'app/app.dart';
 import 'core/config/supabase/supabase_client.dart';
 import 'core/helper/language/language_helper.dart';
+import 'core/resource/colors_manager.dart';
 import 'features/data/local/app_prefs.dart';
 
 import 'service_locator.dart';

@@ -1,29 +1,20 @@
+import 'package:alqaysar_rates/core/resource/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageAnimation extends StatelessWidget {
-  const ImageAnimation({
-    super.key,
-    required Animation<Offset> imageAnimation,
-  }) : _imageAnimation = imageAnimation;
-
-  final Animation<Offset> _imageAnimation;
+  const ImageAnimation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _imageAnimation,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: EdgeInsets.only(left: 30.w),
-          child: Image.asset(
-            'assets/images/logo.png',
-            width: 200.w,
-            height: 243.h,
-          ),
-        ),
-      ),
-    );
+    return Image.asset(
+      ImageAssets.logo,
+      width: 200.w,
+      height: 243.h,
+    )
+        .animate()
+        .slideX(begin: 1, end: -0.5, duration: 2.seconds)
+        .fadeIn(duration: 1.seconds);
   }
 }

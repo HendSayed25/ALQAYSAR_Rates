@@ -5,6 +5,7 @@ class RateEntity {
   final String rate;
   final String? comment;
   final String? customerName;
+  final DateTime? timestamp;
 
   const RateEntity({
     this.id,
@@ -12,6 +13,7 @@ class RateEntity {
     this.phone,
     required this.rate,
     this.comment,
-    this.customerName
+    this.customerName,
+    this.timestamp,
   });
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
+
 import '../../../../core/helper/data_intent.dart';
 import '../../../../core/helper/language/language_helper.dart';
 import '../../../../core/resource/colors_manager.dart';
@@ -167,7 +168,7 @@ class RateScreenUser extends StatelessWidget {
       gradient: const LinearGradient(colors: AppColors.primaryContainerColor),
       colorOfBorder: AppColors.enableBorderColor,
       text: AppStrings.submit.tr(),
-      onPressed: () {
+      onPressed: () async {
         if (selectedRatingCategory == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -176,18 +177,19 @@ class RateScreenUser extends StatelessWidget {
               content: Text(
                 AppStrings.pleaseRate.tr(),
                 textDirection: AppLanguages.getCurrentTextDirection(context),
-
               ),
             ),
           );
           return;
         }
-
+        // final time = await sl<LocationTimeService>().getTimeBasedOnLocation().toString();
+        // Logger().i("time is $time");
         final customerRating = RateEntity(
           customerId: customerId,
           comment: commentController.text,
           phone: phone,
           rate: selectedRatingCategory ?? AppStrings.excellent.tr(),
+          timestamp: DateTime.now().toUtc(),
         );
 
         context.read<CustomerCubit>().updateCustomerRating(customerRating);

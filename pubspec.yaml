@@ -41,22 +41,24 @@ dependencies:
   shared_preferences:
   flutter_bloc:
   skeletonizer:
-  flutter_svg:
-  lottie:
   dartz:
   logger:
   equatable:
   flutter_layout_grid:
-#  firebase_core:
-#  firebase_messaging:
   fl_chart:
   intl_phone_number_input:
   rename_app: ^1.6.2
   onesignal_flutter:
-  http:
+  flutter_animate:
+  intl:
+#  flutter_svg:
+#  lottie:
+#  firebase_core:
+#  firebase_messaging:
+#  flutter_native_timezone:
+#  http:
 #  charts_flutter:
- # syncfusion_flutter_charts:
-
+# syncfusion_flutter_charts:
 #  flutter_local_notifications:
 #  http:
 #  googleapis_auth:

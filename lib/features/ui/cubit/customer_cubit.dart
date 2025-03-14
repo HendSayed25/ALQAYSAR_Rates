@@ -3,7 +3,6 @@ import 'package:alqaysar_rates/features/domain/usecases/rate/get_customer_rate._
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:logger/logger.dart';
 
 import '../../../core/error.dart';
 import '../../domain/entities/customer_entity.dart';

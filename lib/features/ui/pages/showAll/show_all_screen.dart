@@ -28,98 +28,100 @@ class _HomeAdminScreenState extends State<ShowAllScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(95.h),
-        child:HomeScreenAppBarWidget(branch: widget.branch),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.backgroundColor,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120.h),
+          child:  HomeScreenAppBarWidget(branch: widget.branch),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: BlocBuilder<CustomerCubit, CustomerState>(
-                builder: (context, state) {
-                  if (state is CustomerLoading) {
-                    return Skeletonizer(
-                      enabled: true,
-                      effect: ShimmerEffect(
-                        baseColor: AppColors.primaryColor[1],
-                        highlightColor: AppColors.primaryColor[0],
-                      ),
-                      child: RefreshIndicator(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: AppColors.backgroundColor,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: BlocBuilder<CustomerCubit, CustomerState>(
+                  builder: (context, state) {
+                    if (state is CustomerLoading) {
+                      return Skeletonizer(
+                        enabled: true,
+                        effect: ShimmerEffect(
+                          baseColor: AppColors.primaryColor[1],
+                          highlightColor: AppColors.primaryColor[0],
+                        ),
+                        child: RefreshIndicator(
+                          onRefresh: _onRefresh,
+                          color: AppColors.secondaryColor,
+                          backgroundColor: AppColors.primaryColor[0],
+                          displacement: 40.h,
+                          child: CustomerGrid(
+                            customers: List.generate(
+                              6,
+                              (index) => CustomerEntity(
+                                id: index,
+                                name: 'Loading...',
+                                branch: 1
+                              ),
+                            ),
+                            averageRate: null,
+                          ),
+                        ),
+                      );
+                    } else if (state is CustomerLoaded) {
+                      return RefreshIndicator(
                         onRefresh: _onRefresh,
                         color: AppColors.secondaryColor,
                         backgroundColor: AppColors.primaryColor[0],
                         displacement: 40.h,
-                        child: CustomerGrid(
-                          customers: List.generate(
-                            6,
-                            (index) => CustomerEntity(
-                              id: index,
-                              name: 'Loading...',
-                              branch: 1
+                        child: state.customers.isNotEmpty
+                            ? CustomerGrid(
+                          customers: state.customers,
+                          averageRate: null,
+                        )
+                            : Center(
+                          child: Text(
+                            AppStrings.noCustomersFound.tr(),
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
                           ),
-                          averageRate: null,
                         ),
-                      ),
-                    );
-                  } else if (state is CustomerLoaded) {
-                    return RefreshIndicator(
-                      onRefresh: _onRefresh,
-                      color: AppColors.secondaryColor,
-                      backgroundColor: AppColors.primaryColor[0],
-                      displacement: 40.h,
-                      child: state.customers.isNotEmpty
-                          ? CustomerGrid(
-                        customers: state.customers,
-                        averageRate: null,
-                      )
-                          : Center(
+                      );
+                    } else if (state is CustomerError) {
+                      return Center(
+                        child: Text(
+                          state.message,
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.red,
+                          ),
+                          textDirection:
+                              AppLanguages.getCurrentTextDirection(context),
+                        ),
+                      );
+                    } else {
+                      return Center(
                         child: Text(
                           AppStrings.noCustomersFound.tr(),
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                          textDirection:
+                              AppLanguages.getCurrentTextDirection(context),
+      
                         ),
-                      ),
-                    );
-                  } else if (state is CustomerError) {
-                    return Center(
-                      child: Text(
-                        state.message,
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.red,
-                        ),
-                        textDirection:
-                            AppLanguages.getCurrentTextDirection(context),
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Text(
-                        AppStrings.noCustomersFound.tr(),
-                        textDirection:
-                            AppLanguages.getCurrentTextDirection(context),
-
-                      ),
-                    );
-                  }
-                },
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

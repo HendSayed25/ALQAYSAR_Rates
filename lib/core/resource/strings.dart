@@ -70,4 +70,5 @@ class AppStrings {
   static String firstBranch="first branch";
   static String secondBranch="second branch";
 
+  static String noDate = "noDate";
 }

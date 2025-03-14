@@ -8,7 +8,8 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../core/resource/assets_manager.dart';
 import '../../../../core/resource/colors_manager.dart';
 import '../../../../core/resource/strings.dart';
-import '../../common/comment_item_design.dart';
+import '../../../domain/entities/rate_entity.dart';
+import '../../common/common_item/comment_item_design.dart';
 import '../../cubit/customer_cubit.dart';
 import '../../states/customer_state.dart';
 
@@ -76,6 +77,7 @@ class CommentsScreen extends StatelessWidget {
                             screenType: "comment",
                             customerName: "ahmed sobhi",
                             rate: AppStrings.excellent.tr(),
+                            timestamp: DateTime.now(),
                           ),
                         ),
                       );
@@ -86,24 +88,10 @@ class CommentsScreen extends StatelessWidget {
                           itemCount: rates.length,
                           itemBuilder: (context, index) {
                             final rate = rates[index];
-                            String emojiPath;
-                            String rateTr;
-                            if (rate.rate == 'excellent') {
-                              emojiPath = ImageAssets.emojiExcellent;
-                              rateTr = AppStrings.excellent.tr();
-                            } else if (rate.rate == 'good') {
-                              emojiPath = ImageAssets.emojiGood;
-                              rateTr = AppStrings.good.tr();
-                            } else if (rate.rate == 'poor') {
-                              emojiPath = ImageAssets.emojiWeek;
-                              rateTr = AppStrings.weak.tr();
-                            } else if (rate.rate == 'veryGood') {
-                              emojiPath = ImageAssets.emojiVeryGood;
-                              rateTr = AppStrings.veryGood.tr();
-                            } else {
-                              emojiPath = ImageAssets.emojiBad;
-                              rateTr = AppStrings.bad.tr();
-                            }
+                            final x = rateSelect(rate);
+                            String emojiPath = x[0];
+                            String rateTr = x[1];
+
                             return CommentItemDesign(
                               phone: rate.phone ?? AppStrings.noPhone.tr(),
                               comment:
@@ -112,6 +100,7 @@ class CommentsScreen extends StatelessWidget {
                               screenType: "comment",
                               customerName: customerName,
                               rate: rateTr,
+                              timestamp: rate.timestamp,
                             );
                           },
                         );
@@ -130,4 +119,26 @@ class CommentsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+rateSelect(RateEntity rate){
+  String emojiPath;
+  String rateTr;
+  if (rate.rate == 'excellent') {
+    emojiPath = ImageAssets.emojiExcellent;
+    rateTr = AppStrings.excellent.tr();
+  } else if (rate.rate == 'good') {
+    emojiPath = ImageAssets.emojiGood;
+    rateTr = AppStrings.good.tr();
+  } else if (rate.rate == 'poor') {
+    emojiPath = ImageAssets.emojiWeek;
+    rateTr = AppStrings.weak.tr();
+  } else if (rate.rate == 'veryGood') {
+    emojiPath = ImageAssets.emojiVeryGood;
+    rateTr = AppStrings.veryGood.tr();
+  } else {
+    emojiPath = ImageAssets.emojiBad;
+    rateTr = AppStrings.bad.tr();
+  }
+  return [emojiPath,rateTr];
 }

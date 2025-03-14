@@ -15,7 +15,8 @@ abstract class CustomerRemoteDataSource {
 
   Future<Either<Failure, Unit>> addCustomer(CustomerEntity customer);
 
-  Future<Either<Failure, CustomerEntity>> updateCustomerName(CustomerEntity customer);
+  Future<Either<Failure, CustomerEntity>> updateCustomerName(
+      CustomerEntity customer);
 
   Future<Either<Failure, Unit>> addCustomerRate(RateEntity customerRate);
 
@@ -33,8 +34,14 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   Future<Either<Failure, List<CustomerEntity>>> getCustomers(int branch) async {
     try {
       final response;
-      if(branch==0)response = await SupabaseClientProvider.client.from('customers').select();
-      else response = await SupabaseClientProvider.client.from('customers').select().eq('branch', branch);
+      if (branch == 0)
+        response =
+            await SupabaseClientProvider.client.from('customers').select();
+      else
+        response = await SupabaseClientProvider.client
+            .from('customers')
+            .select()
+            .eq('branch', branch);
 
       final customers = (response as List<dynamic>)
           .map((json) => CustomerModel.fromJson(json).toEntity())
@@ -79,8 +86,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, CustomerEntity>> updateCustomerName(
-      CustomerEntity customer) async {
+  Future<Either<Failure, CustomerEntity>> updateCustomerName(CustomerEntity customer) async {
     logger.i("Updating customer with name: ${customer.name}");
     final newCustomer = CustomerModel.fromEntity(customer);
     try {
@@ -102,31 +108,34 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
           .from('rates')
           .insert(RateModel.fromEntity(customerRate).toJson());
 
-      var response = await SupabaseClientProvider.client
+      final response = await SupabaseClientProvider.client
           .from('customers')
           .select('name')
           .eq('id', customerRate.customerId!)
           .maybeSingle();
 
       String? customerName = response?['name'];
-      String branch=(response?['branch']==1)?"الفرع الاول":"الفرع التانى";
+      String branch = (response?['branch'] == 1) ? "الفرع الاول" : "الفرع التانى";
 
-     if (customerRate.rate == 'poor' || customerRate.rate == 'uncooperative') {
-        final adminTokenResult = await getAdminTokens();
+      // if (customerRate.rate == 'poor' || customerRate.rate == 'uncooperative') {
+      final adminTokenResult = await getAdminTokens();
 
-        adminTokenResult.fold(
-          (failure) =>
-              logger.e("Error fetching admin token: ${failure.message}"),
-          (adminToken) async {
-            if (adminToken != null) {
-              await sendNotificationToAdmin(adminToken: adminToken[0],id: customerRate.customerId!, name: customerName!,branch:branch );
-              print(adminToken);
-            } else {
-              logger.e("Admin token is null.");
-            }
-          },
-        );
-      }
+      adminTokenResult.fold(
+        (failure) => logger.e("Error fetching admin token: ${failure.message}"),
+        (adminToken) async {
+          if (adminToken != null) {
+            await sendNotificationToAdmin(
+                adminToken: adminToken[0],
+                id: customerRate.customerId!,
+                name: customerName!,
+                branch: branch);
+            print(adminToken);
+          } else {
+            logger.e("Admin token is null.");
+          }
+        },
+      );
+      // }
       return const Right(unit);
     } catch (e) {
       logger.e("Error adding customer rate: $e");
@@ -135,15 +144,14 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, List<RateEntity>>> getAllRateForCustomer(
-      int customerId) async {
+  Future<Either<Failure, List<RateEntity>>> getAllRateForCustomer(int customerId) async {
     try {
       final response = await SupabaseClientProvider.client
           .from('rates')
           .select()
           .eq('customer_id', customerId);
-      final rates =
-          response.map((json) => RateModel.fromJson(json).toEntity()).toList();
+      final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
+      Logger().t(rates.last.timestamp);
       return Right(rates);
     } catch (e) {
       logger.e("Error getting customer rate: $e");
@@ -155,17 +163,23 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
     try {
       final response = await SupabaseClientProvider.client
           .from('rates')
-          .select('rate, phone, comment, customer_id, customers!inner(name,branch)')
-          .or('rate.eq.poor,rate.eq.uncooperative').eq('customers.branch', branch);
+          .select(
+              'rate, phone, comment, customer_id, customers!inner(name,branch)')
+          .or('rate.eq.poor,rate.eq.uncooperative')
+          .eq('customers.branch', branch);
 
-          final List<RateEntity> rates = response.map((rate) {
-                  return RateEntity(
-                      customerId: rate['customer_id'],
-                      rate: rate['rate'],
-                      customerName: rate['customers']['name'],
-                      phone: rate['phone'],
-                      comment: rate['comment']);
-                }).toList();
+      // final List<RateEntity> rates = response.map((rate) {
+      //   return RateEntity(
+      //     customerId: rate['customer_id'],
+      //     rate: rate['rate'],
+      //     customerName: rate['customers']['name'],
+      //     phone: rate['phone'],
+      //     comment: rate['comment'],
+      //     timestamp: rate['timestamp'],
+      //   );
+      // }).toList();
+
+      final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
 
       return Right(rates);
     } catch (e) {
@@ -174,9 +188,12 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
     }
   }
 
-
-  Future<void> sendNotificationToAdmin(
-      {required String adminToken, required int id, required String name,required String branch}) async {
+  Future<void> sendNotificationToAdmin({
+    required String adminToken,
+    required int id,
+    required String name,
+    required String branch,
+  }) async {
     final response = await http.post(
       Uri.parse('https://onesignal.com/api/v1/notifications'),
       headers: <String, String>{
@@ -187,7 +204,10 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
       body: jsonEncode(<String, dynamic>{
         'app_id': '5e042f07-a3df-4c5b-b10d-9aee5845dd73',
         'include_player_ids': [adminToken],
-        'contents': {'en': 'تم استلام تقييم ضعيف من أحد المستخدمين للعامل  الموجود ف $branch: $name '},
+        'contents': {
+          'en':
+              'تم استلام تقييم ضعيف من أحد المستخدمين للعامل  الموجود ف $branch: $name '
+        },
         'headings': {'en': 'تنبيه: تقييم ضعيف'},
       }),
     );
