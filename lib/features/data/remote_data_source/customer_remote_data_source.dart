@@ -128,7 +128,9 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
                 adminToken: adminToken[0],
                 id: customerRate.customerId!,
                 name: customerName!,
-                branch: branch);
+                branch: branch,
+                rate: customerRate.rate
+            );
             print(adminToken);
           } else {
             logger.e("Admin token is null.");
@@ -193,6 +195,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
     required int id,
     required String name,
     required String branch,
+    required String rate
   }) async {
     final response = await http.post(
       Uri.parse('https://onesignal.com/api/v1/notifications'),
@@ -206,9 +209,9 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
         'include_player_ids': [adminToken],
         'contents': {
           'en':
-              'تم استلام تقييم ضعيف من أحد المستخدمين للعامل  الموجود ف $branch: $name '
+              'تم استلام تقييم $rate من أحد المستخدمين للعامل  الموجود ف $branch: $name '
         },
-        'headings': {'en': 'تنبيه: تقييم ضعيف'},
+        'headings': {'en': 'تنبيه: تقييم جديد'},
       }),
     );
 

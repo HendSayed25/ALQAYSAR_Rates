@@ -158,16 +158,4 @@ class CustomerCubit extends Cubit<CustomerState> {
     emit(RatingPhoneNumberUpdated(phoneNumber));
   }
 
-// Future<void> getCustomerById(int customerId) async {
-//   emit(CustomerLoading());
-//   try {
-//     final customer = _allCustomers.firstWhere(
-//       (customer) => customer.id == customerId,
-//       orElse: () => throw Exception("Customer not found"),
-//     );
-//     emit(CustomerLoaded([customer]));
-//   } catch (e) {
-//     emit(CustomerError("Customer with ID $customerId not found."));
-//   }
-// }
 }
