@@ -76,7 +76,7 @@ class CommentItemDesign extends StatelessWidget {
                 ),
                 Text(
                   timestamp != null
-                      ? DateFormat('hh:mm:ss a', 'ar_SA').format(timestamp!.add(Duration(hours: 3)))
+                      ? DateFormat('yyyy/MM/dd  hh:mm:ss a', 'ar_SA').format(timestamp!.add(Duration(hours: 3)))
                       : AppStrings.noDate.tr(),
                   style: TextStyle(fontSize: 20.sp),
                 ),
