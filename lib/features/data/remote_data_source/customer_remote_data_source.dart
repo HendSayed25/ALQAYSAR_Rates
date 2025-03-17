@@ -153,7 +153,7 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
           .select()
           .eq('customer_id', customerId);
       final rates = response.map((json) => RateModel.fromJson(json).toEntity()).toList();
-      Logger().t(rates.last.timestamp);
+      // Logger().i(rates.last.timestamp);
       return Right(rates);
     } catch (e) {
       logger.e("Error getting customer rate: $e");

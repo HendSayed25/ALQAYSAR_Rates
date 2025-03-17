@@ -161,7 +161,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 2500), () {
       int? selectedBranch = (sl<AppPrefs>().getInt("branch") ?? 0);
-      Logger().i("${sl<AppPrefs>().getBool("remember")} ${sl<AppPrefs>().getString("role")}");
+      // Logger().i("${sl<AppPrefs>().getBool("remember")} ${sl<AppPrefs>().getString("role")}");
       if (sl<AppPrefs>().getBool("remember") == true) {
         if (sl<AppPrefs>().getString("role") == "admin") {
           context.pushReplacementNamed(Routes.homeScreenAdminRoute);

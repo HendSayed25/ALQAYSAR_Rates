@@ -7,7 +7,7 @@ class RateModel extends RateEntity {
     super.phone,
     required super.rate,
     super.comment,
-    required super.timestamp,
+    super.timestamp,
   });
 
   factory RateModel.fromJson(Map<String, dynamic> json) {

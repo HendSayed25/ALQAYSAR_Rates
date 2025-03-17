@@ -22,84 +22,162 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splashScreenRoute:
-        return MaterialPageRoute(
-          builder: (context) => const SplashScreen(),
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const SplashScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.loginScreenRoute:
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<AuthCubit>(
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<AuthCubit>(
             create: (_) => AuthCubit(login: sl()),
             child: LoginScreen(),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.homeScreenAdminRoute:
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<CustomerCubit>(
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
             create: (_) => sl<CustomerCubit>(),
             child: const HomeAdminScreen(),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.showAllRoute:
-        final int args=settings.arguments as int;
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<CustomerCubit>(
+        final int args = settings.arguments as int;
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
             create: (_) => sl<CustomerCubit>()..fetchCustomers(args),
-            child: ShowAllScreen(branch: args,),
+            child: ShowAllScreen(
+              branch: args,
+            ),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.searchScreenRoute:
-        final int args=settings.arguments as int;
+        final int args = settings.arguments as int;
 
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<CustomerCubit>(
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
             create: (_) => sl<CustomerCubit>()..fetchCustomers(args),
-            child: SearchScreen(branch: args,),
+            child: SearchScreen(
+              branch: args
+            ),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.userOverviewScreenRoute:
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<CustomerCubit>(
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
             create: (_) => sl<CustomerCubit>(),
             child: const UserOverViewScreen(),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.rateScreenUserRoute:
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<CustomerCubit>(
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
             create: (_) => sl<CustomerCubit>(),
             child: RateScreenUser(),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.commentScreen:
         final args = settings.arguments as Map<String, dynamic>;
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<CustomerCubit>(
-            create: (_) =>
-                sl<CustomerCubit>()..fetchCustomerRates(args["customerId"]),
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
+            create: (_) => sl<CustomerCubit>()..fetchCustomerRates(args["customerId"]),
             child: CommentsScreen(data: args),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.selectionScreen:
-        final args = settings.arguments as Map<String,dynamic>;
-        return MaterialPageRoute(
-            builder:(context)=>SelectionScreen(screenType: args['screenType'],userType: args['userType'],),
+        final args = settings.arguments as Map<String, dynamic>;
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => SelectionScreen(
+            screenType: args['screenType'],
+            userType: args['userType'],
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
 
       case Routes.negativeScreen:
         final args = settings.arguments as int;
-        return MaterialPageRoute(
-            builder: (context) => BlocProvider<CustomerCubit>(
-                  create: (_) => sl<CustomerCubit>(),
-                  child: NegativeScreen(branch: args,),
-                ));
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BlocProvider<CustomerCubit>(
+            create: (_) => sl<CustomerCubit>(),
+            child: NegativeScreen(
+              branch: args,
+            ),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
 
       default:
         return unDefinedRoute();
